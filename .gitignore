@@ -1,0 +1,6 @@
+.idea/
+var/
+vendor/
+web/bundles/
+web/images/factorio/
+factorio_blueprint_reader.iml
