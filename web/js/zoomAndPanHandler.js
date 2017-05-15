@@ -1,7 +1,7 @@
 var FactorioBlueprintReader = FactorioBlueprintReader || {};
 
 FactorioBlueprintReader.zoomAndPanHandler = {
-    MAX_SCALE:             1.5,
+    MAX_SCALE:             3,
     minScale:              1,
     pixiContainer:         null,
     lastPosition:          null,
@@ -85,7 +85,7 @@ FactorioBlueprintReader.zoomAndPanHandler = {
 
         if (FactorioBlueprintReader.keyboardHandler.isPressed(FactorioBlueprintReader.keyboardHandler.dash)
             || FactorioBlueprintReader.keyboardHandler.isPressed(FactorioBlueprintReader.keyboardHandler.sub)) {
-           this.zoom(0.99, this.canvasWidth / 2, this.canvasHeight / 2);
+            this.zoom(0.99, this.canvasWidth / 2, this.canvasHeight / 2);
         }
 
         if (FactorioBlueprintReader.keyboardHandler.isPressed(FactorioBlueprintReader.keyboardHandler.equal)
@@ -122,10 +122,16 @@ FactorioBlueprintReader.zoomAndPanHandler = {
         this.clampPosition();
     },
     setContainer:          function (container) {
-        this.pixiContainer = container;
-        this.pixiContainerWidth = this.pixiContainer.width / this.pixiContainer.scale.x;
-        this.pixiContainerHeight = this.pixiContainer.height / this.pixiContainer.scale.y;
         this.minScale = container.scale.x;
+        this.pixiContainerWidth = container.width / container.scale.x;
+        this.pixiContainerHeight = container.height / container.scale.y;
+        if (this.pixiContainer) {
+            container.x = this.pixiContainer.x;
+            container.y = this.pixiContainer.y;
+            container.scale.x = this.pixiContainer.scale.x;
+            container.scale.y = this.pixiContainer.scale.y;
+        }
+        this.pixiContainer = container;
     },
     init:                  function (canvas) {
         $(canvas).mousewheel(this.onMouseWheel.bind(this));

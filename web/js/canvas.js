@@ -4,50 +4,27 @@ const PIXELS_PER_FIELD = 32;
 var WIDTH = 768;
 var HEIGHT = 768;
 
-function createSpriteFromTexture(TextureCache, imagePath, x, y, w, h) {
-    var texture = TextureCache[IMAGES_PREFIX + imagePath];
-    texture.frame = new PIXI.Rectangle(x, y, w, h);
-    return new PIXI.Sprite(texture);
-}
 
-var imagesToLoad = [];
-
-for (var key in FactorioBlueprintReader.icons.ICONS) {
-    if (FactorioBlueprintReader.icons.ICONS.hasOwnProperty(key)) {
-        imagesToLoad.push(IMAGES_PREFIX + FactorioBlueprintReader.icons.prefix + FactorioBlueprintReader.icons.ICONS[key]);
-    }
-}
-
-for (var entityKey in FactorioBlueprintReader.entities.ENTITIES) {
-    if (FactorioBlueprintReader.entities.ENTITIES.hasOwnProperty(entityKey)) {
-        var entityData = FactorioBlueprintReader.entities.ENTITIES[entityKey];
-        if (entityData.image.path) {
-            imagesToLoad.push(IMAGES_PREFIX + FactorioBlueprintReader.entities.PREFIX + entityData.image.path);
-        } else if (entityData.image.type == 'container') {
-            for (var imageKey in entityData.image.images) {
-                if (entityData.image.images.hasOwnProperty(imageKey)) {
-                    var imageData = entityData.image.images[imageKey];
-                    imagesToLoad.push(IMAGES_PREFIX + FactorioBlueprintReader.entities.PREFIX + imageData.path);
-                }
-            }
-        }
-    }
-}
-
-imagesToLoad.push(IMAGES_PREFIX + "terrain/concrete/concrete4.png");
-imagesToLoad.push(IMAGES_PREFIX + "core/entity-info-dark-background.png");
 
 function createEntitySprite(entityImageSpec) {
+    var sprite;
+
     if (entityImageSpec.type == 'sprite') {
-        return new PIXI.Sprite(PIXI.utils.TextureCache[IMAGES_PREFIX + FactorioBlueprintReader.entities.PREFIX + entityImageSpec.path]);
+        sprite = new PIXI.Sprite(PIXI.utils.TextureCache[IMAGES_PREFIX + FactorioBlueprintReader.entities.PREFIX + entityImageSpec.path]);
     } else if (entityImageSpec.type == 'trim') {
-        return new PIXI.Sprite(PIXI.utils.TextureCache[IMAGES_PREFIX + FactorioBlueprintReader.entities.PREFIX + entityImageSpec.path + "." + entityImageSpec.number]);
+        sprite = new PIXI.Sprite(PIXI.utils.TextureCache[IMAGES_PREFIX + FactorioBlueprintReader.entities.PREFIX + entityImageSpec.path + "." + entityImageSpec.number]);
     } else if (entityImageSpec.type == 'animated') {
         var frames = [];
         for (var i = entityImageSpec.from; i <= entityImageSpec.to; i++) {
             frames.push(PIXI.utils.TextureCache[IMAGES_PREFIX + FactorioBlueprintReader.entities.PREFIX + entityImageSpec.path + "." + i]);
         }
-        var sprite = new PIXI.extras.AnimatedSprite(frames);
+        if (entityImageSpec.reverse) {
+            for (var j = entityImageSpec.to; j >= entityImageSpec.from; j--) {
+                frames.push(PIXI.utils.TextureCache[IMAGES_PREFIX + FactorioBlueprintReader.entities.PREFIX + entityImageSpec.path + "." + j]);
+            }
+        }
+        sprite = new PIXI.extras.AnimatedSprite(frames);
+        sprite.animationSpeed = entityImageSpec.animationSpeed || 1;
         sprite.play();
 
         return sprite;
@@ -62,10 +39,22 @@ function createEntitySprite(entityImageSpec) {
             }
         }
 
-        return container;
+        sprite = container;
     } else {
         throw 'unknown type ' + entityImageSpec.type;
     }
+
+    if (entityImageSpec.scale) {
+        sprite.scale.x = entityImageSpec.scale.x;
+        sprite.scale.y = entityImageSpec.scale.y;
+    }
+
+    if (entityImageSpec.rotation) {
+        sprite.anchor.set(0.5, 0.5);
+        sprite.rotation = entityImageSpec.rotation * Math.PI;
+    }
+
+    return sprite;
 }
 
 function drawBlueprint(stage, blueprintData) {
@@ -124,101 +113,15 @@ function drawBlueprint(stage, blueprintData) {
                 yOffset = 0;
             } else {
                 var entityDrawingSpec = FactorioBlueprintReader.entities.ENTITIES[entity.name];
+                if (entity.direction && entityDrawingSpec.directions && entityDrawingSpec.directions[entity.direction]) {
+                    entityDrawingSpec = $.extend({}, entityDrawingSpec, entityDrawingSpec.directions[entity.direction]);
+                }
                 sprite = createEntitySprite(entityDrawingSpec.image);
                 sizeW = entityDrawingSpec.gridSize.w;
                 sizeH = entityDrawingSpec.gridSize.h;
                 xOffset = entityDrawingSpec.offset.x;
                 yOffset = entityDrawingSpec.offset.y;
-
-                console.log("Drawing ", entity.name, entityDrawingSpec, sprite);
             }
-
-            /*switch (entity.name) {
-                case 'chemical-plant':
-                    //sprite = createSpriteFromTexture(PIXI.TextureCache, "entity/chemical-plant/chemical-plant.png", 366, 0, 122, 134);
-
-                    sizeW = 3;
-                    sizeH = 3;
-                    xOffset = 0;
-                    yOffset = 0;
-                    break;
-                case 'assembling-machine-3':
-                    sprite = createSpriteFromTexture(PIXI.utils.TextureCache, "entity/assembling-machine-3/assembling-machine-3.png", 0, 0, 107, 113);
-                    sizeW = 3;
-                    sizeH = 3;
-                    xOffset = -5;
-                    yOffset = -12;
-                    break;
-                case 'pipe':
-                    sprite = new PIXI.Sprite(PIXI.loader.resources[IMAGES_PREFIX + "entity/pipe/pipe-straight-horizontal-single.png"].texture);
-                    sizeW = 1;
-                    sizeH = 1;
-                    xOffset = -25;
-                    yOffset = -22;
-                    break;
-                case 'transport-belt':
-                    var frames = [];
-                    for (var i = 0; i < 16; i++) {
-                        frames.push(PIXI.utils.TextureCache[IMAGES_PREFIX + "entity/transport-belt/transport-belt.png." + i]);
-                    }
-                    sprite = new PIXI.extras.AnimatedSprite(frames);
-                    sprite.play();
-                    sizeW = 1;
-                    sizeH = 1;
-                    xOffset = -5;
-                    yOffset = -5;
-                    break;
-                case 'lab':
-                    sprite = createSpriteFromTexture(PIXI.utils.TextureCache, "entity/lab/lab.png", 0, 0, 113, 91);
-                    sizeW = 3;
-                    sizeH = 3;
-                    xOffset = 0;
-                    yOffset = 5;
-                    break;
-                case 'centrifuge':
-                    sprite = new PIXI.Container();
-                    var centrifugeA = createSpriteFromTexture(PIXI.utils.TextureCache, "entity/centrifuge/centrifuge-A.png", 0, 0, 70, 123);
-                    var centrifugeB = createSpriteFromTexture(PIXI.utils.TextureCache, "entity/centrifuge/centrifuge-B.png", 0, 0, 78, 117);
-                    var centrifugeC = createSpriteFromTexture(PIXI.utils.TextureCache, "entity/centrifuge/centrifuge-C.png", 0, 0, 119, 107);
-                    centrifugeA.x = 0;
-                    centrifugeA.y = 22;
-                    centrifugeB.x = 44;
-                    centrifugeB.y = 28;
-                    centrifugeC.x = 0;
-                    centrifugeC.y = 0;
-                    sprite.addChild(centrifugeC);
-                    sprite.addChild(centrifugeA);
-                    sprite.addChild(centrifugeB);
-                    sizeW = 3;
-                    sizeH = 3;
-                    xOffset = -12;
-                    yOffset = 0;
-                    break;
-                case 'gate':
-                    sprite = new PIXI.Container();
-                    base = new PIXI.Sprite(PIXI.loader.resources[IMAGES_PREFIX + "entity/gate/gate-base-horizontal.png"].texture);
-                    gate = createSpriteFromTexture(PIXI.utils.TextureCache, "entity/gate/gate-horizontal.png", 0, 0, 32, 36);
-                    base.y = 15;
-                    gate.y = -4;
-                    sprite.addChild(base);
-                    sprite.addChild(gate);
-                    sizeW = 1;
-                    sizeH = 1;
-                    xOffset = 0;
-                    yOffset = -5;
-                    break;
-                default:
-                    console.log("Unknown entity name", entity.name);
-                    sprite = new PIXI.Graphics();
-                    sprite.beginFill(0xFFFFFF);
-                    sprite.lineStyle(1, 0x000000);
-                    sprite.drawRect(0, 0, PIXELS_PER_FIELD, PIXELS_PER_FIELD);
-                    sizeW = 1;
-                    sizeH = 1;
-                    xOffset = 0;
-                    yOffset = 0;
-                    break;
-            }*/
 
             if (sprite != null) {
                 var gridX = Math.floor(entity.position.x - minXY - sizeW / 2);
@@ -250,49 +153,7 @@ function drawBlueprint(stage, blueprintData) {
     return blueprintContainer;
 }
 
-function prepareTrimmedTexture(imagePath, w, h, number) {
-    if (PIXI.utils.TextureCache[imagePath + "." + number]) {
-        return;
-    }
-
-    var textureWidth = PIXI.utils.TextureCache[imagePath].frame.width;
-    var cols = textureWidth / w;
-    var row = Math.floor(number / cols);
-    var col = number % cols;
-
-    var rect = new PIXI.Rectangle(w * col, h * row, w, h);
-    console.log(imagePath + "." + number, rect);
-    PIXI.utils.TextureCache[imagePath + "." + number] = new PIXI.Texture(PIXI.utils.TextureCache[imagePath].baseTexture, rect, rect.clone(), null, null);
-}
-
-function prepareTrimmedTexturesForImageData(imageData) {
-    var imagePath = IMAGES_PREFIX + FactorioBlueprintReader.entities.PREFIX + imageData.path;
-    if (imageData.type == 'trim') {
-        prepareTrimmedTexture(imagePath, imageData.w, imageData.h, imageData.number);
-    } else if (imageData.type == 'animated') {
-        for (var k = imageData.from; k <= imageData.to; k++) {
-            prepareTrimmedTexture(imagePath, imageData.w, imageData.h, k);
-        }
-    }
-}
-
-function trimTextures() {
-    for (var entityKey in FactorioBlueprintReader.entities.ENTITIES) {
-        if (FactorioBlueprintReader.entities.ENTITIES.hasOwnProperty(entityKey)) {
-            var entityData = FactorioBlueprintReader.entities.ENTITIES[entityKey];
-            if (entityData.image.path) {
-                prepareTrimmedTexturesForImageData(entityData.image);
-            } else if (entityData.image.type == 'container') {
-                for (var imageKey in entityData.image.images) {
-                    if (entityData.image.images.hasOwnProperty(imageKey)) {
-                        prepareTrimmedTexturesForImageData(entityData.image.images[imageKey]);
-                    }
-                }
-            }
-        }
-    }
-}
-
+var redraw;
 
 $(function () {
 
@@ -312,7 +173,7 @@ $(function () {
     stage.addChild(graphics);
 
     PIXI.loader
-        .add(imagesToLoad)
+        .add(FactorioBlueprintReader.Loader.getImagesToLoad())
         .on("progress", function (loader, resource) {
 
             var url = resource.url;
@@ -330,7 +191,7 @@ $(function () {
             stage.removeChild(graphics);
             graphics = null;
 
-            trimTextures();
+            FactorioBlueprintReader.Loader.prepareTrimmedTextures();
 
             var blueprintContainer = null;
 
@@ -343,6 +204,15 @@ $(function () {
                     FactorioBlueprintReader.zoomAndPanHandler.setContainer(blueprintContainer);
 
                     stage.addChild(blueprintContainer);
+
+                    redraw = function () {
+                        stage.removeChild(blueprintContainer);
+                        redoEntities();
+                        blueprintContainer = drawBlueprint(stage, data);
+                        FactorioBlueprintReader.zoomAndPanHandler.setContainer(blueprintContainer);
+
+                        stage.addChild(blueprintContainer);
+                    }
                 }
             });
 
