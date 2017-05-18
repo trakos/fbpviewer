@@ -80,8 +80,8 @@ function drawBlueprint(stage, blueprintData) {
         }
     }
 
-    minXY -= 2;
-    maxXY += 2;
+    minXY -= 5;
+    maxXY += 5;
 
     var sizeXY = maxXY - minXY;
     var minScale = Math.min(1, WIDTH / (sizeXY * PIXELS_PER_FIELD), HEIGHT / (sizeXY * PIXELS_PER_FIELD));

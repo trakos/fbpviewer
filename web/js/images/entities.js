@@ -26,40 +26,7 @@ function prepareInserterData(inserterName) {
                         {
                             type:   'trim',
                             path:   inserterName + '/' + inserterName + '-platform.png',
-                            number: 1,
-                            cols:   4,
-                            rows:   1,
-                            x:      0,
-                            y:      0
-                        },
-                        {
-                            type:     'sprite',
-                            path:     inserterName + '/' + inserterName + '-hand-open.png',
-                            scale:    {x: 1, y: 0.5},
-                            rotation: 1.35,
-                            x:        -4,
-                            y:        14
-                        },
-                        {
-                            type:     'sprite',
-                            path:     inserterName + '/' + inserterName + '-hand-base.png',
-                            scale:    {x: 1, y: 0.8},
-                            rotation: 1.7,
-                            x:        13,
-                            y:        16
-                        }
-                    ]
-                }
-            },
-            4: {},
-            6: {
-                image: {
-                    type:   'container',
-                    images: [
-                        {
-                            type:   'trim',
-                            path:   inserterName + '/' + inserterName + '-platform.png',
-                            number: 1,
+                            number: 3,
                             cols:   4,
                             rows:   1,
                             x:      0,
@@ -80,11 +47,19 @@ function prepareInserterData(inserterName) {
                             rotation: 0.3,
                             x:        27,
                             y:        18
+                        },
+                        {
+                            type:     'sprite',
+                            path:     '../core/indication-arrow-gui-ascending.png',
+                            scale:    {x: 0.25, y: 0.25},
+                            rotation: 1.5,
+                            x:        8,
+                            y:        22
                         }
                     ]
                 }
             },
-            8: {
+            4: {
                 image: {
                     type:   'container',
                     images: [
@@ -112,6 +87,54 @@ function prepareInserterData(inserterName) {
                             rotation: 1,
                             x:        21,
                             y:        40
+                        },
+                        {
+                            type:     'sprite',
+                            path:     '../core/indication-arrow-gui-ascending.png',
+                            scale:    {x: 0.25, y: 0.25},
+                            rotation: 0,
+                            x:        15,
+                            y:        8
+                        }
+                    ]
+                }
+            },
+            6: {
+                image: {
+                    type:   'container',
+                    images: [
+                        {
+                            type:   'trim',
+                            path:   inserterName + '/' + inserterName + '-platform.png',
+                            number: 1,
+                            cols:   4,
+                            rows:   1,
+                            x:      0,
+                            y:      0
+                        },
+                        {
+                            type:     'sprite',
+                            path:     inserterName + '/' + inserterName + '-hand-open.png',
+                            scale:    {x: 1, y: 0.5},
+                            rotation: 1.35,
+                            x:        -4,
+                            y:        14
+                        },
+                        {
+                            type:     'sprite',
+                            path:     inserterName + '/' + inserterName + '-hand-base.png',
+                            scale:    {x: 1, y: 0.8},
+                            rotation: 1.7,
+                            x:        13,
+                            y:        16
+                        },
+                        {
+                            type:     'sprite',
+                            path:     '../core/indication-arrow-gui-ascending.png',
+                            scale:    {x: 0.25, y: 0.25},
+                            rotation: 0.5,
+                            x:        33,
+                            y:        22
                         }
                     ]
                 }
@@ -131,19 +154,27 @@ function prepareInserterData(inserterName) {
                 },
                 {
                     type:     'sprite',
-                    path:     inserterName + '/' + inserterName + '-hand-base.png',
+                    path:     inserterName + '/' + inserterName + '-hand-open.png',
                     scale:    {x: 1, y: 0.3},
                     rotation: 1,
-                    x:        21,
-                    y:        23
+                    x:        19,
+                    y:        0
                 },
                 {
                     type:     'sprite',
-                    path:     inserterName + '/' + inserterName + '-hand-open.png',
-                    scale:    {x: 1, y: 0.7},
+                    path:     inserterName + '/' + inserterName + '-hand-base.png',
+                    scale:    {x: 1, y: 1},
+                    rotation: 0,
+                    x:        15,
+                    y:        -5
+                },
+                {
+                    type:     'sprite',
+                    path:     '../core/indication-arrow-gui-ascending.png',
+                    scale:    {x: 0.25, y: 0.25},
                     rotation: 1,
-                    x:        21,
-                    y:        40
+                    x:        20,
+                    y:        35
                 }
             ]
         },
@@ -166,15 +197,139 @@ function redoEntities() {
                 offset:   {x: -6, y: 5}
             },
             'arithmetic-combinator':  {
-                image:    {
-                    type:   'trim',
-                    path:   'combinator/combinator-entities.png',
-                    number: 0,
-                    cols:   4,
-                    rows:   3
+                directions: {
+                    2: {
+                        image:    {
+                            type:   'container',
+                            images: [
+                                {
+                                    type:   'trim',
+                                    path:   'combinator/combinator-entities.png',
+                                    number: 0,
+                                    cols:   4,
+                                    rows:   3,
+                                    x:      -5,
+                                    y:      -10
+                                },
+                                {
+                                    type:     'sprite',
+                                    path:     '../core/indication-arrow-gui-ascending.png',
+                                    scale:    {x: 0.25, y: 0.25},
+                                    rotation: 0.5,
+                                    x:        10,
+                                    y:        15
+                                },
+                                {
+                                    type:     'sprite',
+                                    path:     '../core/indication-arrow-gui-ascending.png',
+                                    scale:    {x: 0.25, y: 0.25},
+                                    rotation: 0.5,
+                                    x:        55,
+                                    y:        15
+                                }
+                            ]
+                        },
+                        gridSize: {w: 2, h: 1}
+                    },
+                    4: {
+                        image:    {
+                            type:   'container',
+                            images: [
+                                {
+                                    type:   'trim',
+                                    path:   'combinator/combinator-entities.png',
+                                    number: 3,
+                                    cols:   4,
+                                    rows:   3,
+                                    x:      -20,
+                                    y:      0
+                                },
+                                {
+                                    type:     'sprite',
+                                    path:     '../core/indication-arrow-gui-ascending.png',
+                                    scale:    {x: 0.25, y: 0.25},
+                                    rotation: 1,
+                                    x:        15,
+                                    y:        5
+                                },
+                                {
+                                    type:     'sprite',
+                                    path:     '../core/indication-arrow-gui-ascending.png',
+                                    scale:    {x: 0.25, y: 0.25},
+                                    rotation: 1,
+                                    x:        15,
+                                    y:        55
+                                }
+                            ]
+                        },
+                        gridSize: {w: 1, h: 2}
+                    },
+                    6: {
+                        image:    {
+                            type:   'container',
+                            images: [
+                                {
+                                    type:   'trim',
+                                    path:   'combinator/combinator-entities.png',
+                                    number: 1,
+                                    cols:   4,
+                                    rows:   3,
+                                    x:      -5,
+                                    y:      -10
+                                },
+                                {
+                                    type:     'sprite',
+                                    path:     '../core/indication-arrow-gui-ascending.png',
+                                    scale:    {x: 0.25, y: 0.25},
+                                    rotation: 1.5,
+                                    x:        10,
+                                    y:        15
+                                },
+                                {
+                                    type:     'sprite',
+                                    path:     '../core/indication-arrow-gui-ascending.png',
+                                    scale:    {x: 0.25, y: 0.25},
+                                    rotation: 1.5,
+                                    x:        55,
+                                    y:        15
+                                }
+                            ]
+                        },
+                        gridSize: {w: 2, h: 1}
+                    }
                 },
-                gridSize: {w: 1, h: 1},
-                offset:   {x: 0, y: 0}
+                image:      {
+                    type:   'container',
+                    images: [
+                        {
+                            type:   'trim',
+                            path:   'combinator/combinator-entities.png',
+                            number: 2,
+                            cols:   4,
+                            rows:   3,
+                            x:      -20,
+                            y:      0
+                        },
+                        {
+                            type:     'sprite',
+                            path:     '../core/indication-arrow-gui-ascending.png',
+                            scale:    {x: 0.25, y: 0.25},
+                            rotation: 0,
+                            x:        10,
+                            y:        0
+                        },
+                        {
+                            type:     'sprite',
+                            path:     '../core/indication-arrow-gui-ascending.png',
+                            scale:    {x: 0.25, y: 0.25},
+                            rotation: 0,
+                            x:        10,
+                            y:        50
+                        }
+                    ]
+                },
+                gridSize:   {w: 1, h: 2},
+                offset:     {x: 0, y: 0}
             },
             'assembling-machine-1':   {
                 image:    {
@@ -188,26 +343,266 @@ function redoEntities() {
                 offset:   {x: -5, y: -12}
             },
             'assembling-machine-2':   {
-                image:    {
-                    type:   'trim',
-                    path:   'assembling-machine-2/assembling-machine-2.png',
-                    number: 0,
-                    cols:   8,
-                    rows:   4
+                directions: {
+                    2: {
+                        image: {
+                            type:   'container',
+                            images: [
+                                {
+                                    type:   'trim',
+                                    path:   'assembling-machine-2/assembling-machine-2.png',
+                                    number: 0,
+                                    cols:   8,
+                                    rows:   4,
+                                    x:      0,
+                                    y:      0
+                                },
+                                {
+                                    type:     'sprite',
+                                    path:     '../core/fluid-indication-arrow.png',
+                                    scale:    {x: 0.5, y: 0.5},
+                                    rotation: 1.5,
+                                    x:        95,
+                                    y:        55
+                                },
+                                {
+                                    type:     'sprite',
+                                    path:     '../core/fluid-indication-arrow.png',
+                                    scale:    {x: 0.5, y: 0.5},
+                                    rotation: 1.5,
+                                    x:        10,
+                                    y:        55
+                                }
+                            ]
+                        }
+                    },
+                    4: {
+                        image: {
+                            type:   'container',
+                            images: [
+                                {
+                                    type:   'trim',
+                                    path:   'assembling-machine-2/assembling-machine-2.png',
+                                    number: 0,
+                                    cols:   8,
+                                    rows:   4,
+                                    x:      0,
+                                    y:      0
+                                },
+                                {
+                                    type:  'sprite',
+                                    path:  '../core/fluid-indication-arrow.png',
+                                    scale: {x: 0.5, y: 0.5},
+                                    x:     40,
+                                    y:     -3
+                                },
+                                {
+                                    type:  'sprite',
+                                    path:  '../core/fluid-indication-arrow.png',
+                                    scale: {x: 0.5, y: 0.5},
+                                    x:     40,
+                                    y:     80
+                                }
+                            ]
+                        }
+                    },
+                    6: {
+                        image: {
+                            type:   'container',
+                            images: [
+                                {
+                                    type:   'trim',
+                                    path:   'assembling-machine-2/assembling-machine-2.png',
+                                    number: 0,
+                                    cols:   8,
+                                    rows:   4,
+                                    x:      0,
+                                    y:      0
+                                },
+                                {
+                                    type:     'sprite',
+                                    path:     '../core/fluid-indication-arrow.png',
+                                    scale:    {x: 0.5, y: 0.5},
+                                    rotation: 0.5,
+                                    x:        95,
+                                    y:        55
+                                },
+                                {
+                                    type:     'sprite',
+                                    path:     '../core/fluid-indication-arrow.png',
+                                    scale:    {x: 0.5, y: 0.5},
+                                    rotation: 0.5,
+                                    x:        15,
+                                    y:        55
+                                }
+                            ]
+                        }
+                    },
+                    8: {}
                 },
-                gridSize: {w: 3, h: 3},
-                offset:   {x: -5, y: -12}
+                image:      {
+                    type:   'container',
+                    images: [
+                        {
+                            type:   'trim',
+                            path:   'assembling-machine-2/assembling-machine-2.png',
+                            number: 0,
+                            cols:   8,
+                            rows:   4,
+                            x:      0,
+                            y:      0
+                        },
+                        {
+                            type:     'sprite',
+                            path:     '../core/fluid-indication-arrow.png',
+                            scale:    {x: 0.5, y: 0.5},
+                            rotation: 1,
+                            x:        52,
+                            y:        15
+                        },
+                        {
+                            type:     'sprite',
+                            path:     '../core/fluid-indication-arrow.png',
+                            scale:    {x: 0.5, y: 0.5},
+                            rotation: 1,
+                            x:        52,
+                            y:        100
+                        }
+                    ]
+                },
+                gridSize:   {w: 3, h: 3},
+                offset:     {x: -5, y: -8}
             },
             'assembling-machine-3':   {
-                image:    {
-                    type:   'trim',
-                    path:   'assembling-machine-3/assembling-machine-3.png',
-                    number: 0,
-                    cols:   8,
-                    rows:   4
+                directions: {
+                    2: {
+                        image: {
+                            type:   'container',
+                            images: [
+                                {
+                                    type:   'trim',
+                                    path:   'assembling-machine-3/assembling-machine-3.png',
+                                    number: 0,
+                                    cols:   8,
+                                    rows:   4,
+                                    x:      0,
+                                    y:      0
+                                },
+                                {
+                                    type:     'sprite',
+                                    path:     '../core/fluid-indication-arrow.png',
+                                    scale:    {x: 0.5, y: 0.5},
+                                    rotation: 1.5,
+                                    x:        95,
+                                    y:        55
+                                },
+                                {
+                                    type:     'sprite',
+                                    path:     '../core/fluid-indication-arrow.png',
+                                    scale:    {x: 0.5, y: 0.5},
+                                    rotation: 1.5,
+                                    x:        10,
+                                    y:        55
+                                }
+                            ]
+                        }
+                    },
+                    4: {
+                        image: {
+                            type:   'container',
+                            images: [
+                                {
+                                    type:   'trim',
+                                    path:   'assembling-machine-3/assembling-machine-3.png',
+                                    number: 0,
+                                    cols:   8,
+                                    rows:   4,
+                                    x:      0,
+                                    y:      0
+                                },
+                                {
+                                    type:  'sprite',
+                                    path:  '../core/fluid-indication-arrow.png',
+                                    scale: {x: 0.5, y: 0.5},
+                                    x:     40,
+                                    y:     -3
+                                },
+                                {
+                                    type:  'sprite',
+                                    path:  '../core/fluid-indication-arrow.png',
+                                    scale: {x: 0.5, y: 0.5},
+                                    x:     40,
+                                    y:     80
+                                }
+                            ]
+                        }
+                    },
+                    6: {
+                        image: {
+                            type:   'container',
+                            images: [
+                                {
+                                    type:   'trim',
+                                    path:   'assembling-machine-3/assembling-machine-3.png',
+                                    number: 0,
+                                    cols:   8,
+                                    rows:   4,
+                                    x:      0,
+                                    y:      0
+                                },
+                                {
+                                    type:     'sprite',
+                                    path:     '../core/fluid-indication-arrow.png',
+                                    scale:    {x: 0.5, y: 0.5},
+                                    rotation: 0.5,
+                                    x:        95,
+                                    y:        55
+                                },
+                                {
+                                    type:     'sprite',
+                                    path:     '../core/fluid-indication-arrow.png',
+                                    scale:    {x: 0.5, y: 0.5},
+                                    rotation: 0.5,
+                                    x:        15,
+                                    y:        55
+                                }
+                            ]
+                        }
+                    },
+                    8: {}
                 },
-                gridSize: {w: 3, h: 3},
-                offset:   {x: -5, y: -12}
+                image:      {
+                    type:   'container',
+                    images: [
+                        {
+                            type:   'trim',
+                            path:   'assembling-machine-3/assembling-machine-3.png',
+                            number: 0,
+                            cols:   8,
+                            rows:   4,
+                            x:      0,
+                            y:      0
+                        },
+                        {
+                            type:     'sprite',
+                            path:     '../core/fluid-indication-arrow.png',
+                            scale:    {x: 0.5, y: 0.5},
+                            rotation: 1,
+                            x:        52,
+                            y:        15
+                        },
+                        {
+                            type:     'sprite',
+                            path:     '../core/fluid-indication-arrow.png',
+                            scale:    {x: 0.5, y: 0.5},
+                            rotation: 1,
+                            x:        52,
+                            y:        100
+                        }
+                    ]
+                },
+                gridSize:   {w: 3, h: 3},
+                offset:     {x: -5, y: -8}
             },
             'beacon':                 {
                 image:    {
@@ -246,24 +641,136 @@ function redoEntities() {
                 offset:   {x: 0, y: 0}
             },
             'boiler':                 {
-                image:    {
-                    type: 'sprite',
-                    path: 'boiler/boiler-S-idle.png'
+                directions: {
+                    2: {
+                        image:    {
+                            type: 'sprite',
+                            path: 'boiler/boiler-E-idle.png'
+                        },
+                        gridSize: {w: 2, h: 3}
+                    },
+                    4: {
+                        image:    {
+                            type: 'sprite',
+                            path: 'boiler/boiler-S-idle.png'
+                        },
+                        gridSize: {w: 3, h: 2}
+                    },
+                    6: {
+                        image:    {
+                            type: 'sprite',
+                            path: 'boiler/boiler-W-idle.png'
+                        },
+                        gridSize: {w: 2, h: 3}
+                    }
                 },
-                gridSize: {w: 2, h: 1},
-                offset:   {x: 0, y: 0}
+                image:      {
+                    type: 'sprite',
+                    path: 'boiler/boiler-N-idle.png'
+                },
+                gridSize:   {w: 3, h: 2},
+                offset:     {x: 0, y: 0}
             },
             'burner-inserter':        prepareInserterData('burner-inserter'),
             'burner-mining-drill':    {
-                image:    {
-                    type:   'trim',
-                    path:   'burner-mining-drill/east.png',
-                    number: 0,
-                    cols:   4,
-                    rows:   8
+                directions: {
+                    2: {
+                        image: {
+                            type:   'container',
+                            images: [
+                                {
+                                    type:   'trim',
+                                    path:   'burner-mining-drill/east.png',
+                                    number: 0,
+                                    cols:   4,
+                                    rows:   8,
+                                    x:      0,
+                                    y:      0
+                                },
+                                {
+                                    type:     'sprite',
+                                    path:     '../core/indication-arrow-gui-ascending.png',
+                                    scale:    {x: 0.5, y: 0.5},
+                                    rotation: 0.5,
+                                    x:        65,
+                                    y:        25
+                                }
+                            ]
+                        }
+                    },
+                    4: {
+                        image: {
+                            type:   'container',
+                            images: [
+                                {
+                                    type:   'trim',
+                                    path:   'burner-mining-drill/south.png',
+                                    number: 0,
+                                    cols:   4,
+                                    rows:   8,
+                                    x:      0,
+                                    y:      0
+                                },
+                                {
+                                    type:     'sprite',
+                                    path:     '../core/indication-arrow-gui-ascending.png',
+                                    scale:    {x: 0.5, y: 0.5},
+                                    rotation: 1,
+                                    x:        50,
+                                    y:        70
+                                }
+                            ]
+                        }
+                    },
+                    6: {
+                        image: {
+                            type:   'container',
+                            images: [
+                                {
+                                    type:   'trim',
+                                    path:   'burner-mining-drill/west.png',
+                                    number: 0,
+                                    cols:   4,
+                                    rows:   8,
+                                    x:      0,
+                                    y:      0
+                                },
+                                {
+                                    type:     'sprite',
+                                    path:     '../core/indication-arrow-gui-ascending.png',
+                                    scale:    {x: 0.5, y: 0.5},
+                                    rotation: 1.5,
+                                    x:        8,
+                                    y:        63
+                                }
+                            ]
+                        }
+                    },
+                    8: {}
                 },
-                gridSize: {w: 2, h: 2},
-                offset:   {x: 0, y: 0}
+                image:      {
+                    type:   'container',
+                    images: [
+                        {
+                            type:   'trim',
+                            path:   'burner-mining-drill/north.png',
+                            number: 0,
+                            cols:   4,
+                            rows:   8,
+                            x:      0,
+                            y:      0
+                        },
+                        {
+                            type:  'sprite',
+                            path:  '../core/indication-arrow-gui-ascending.png',
+                            scale: {x: 0.5, y: 0.5},
+                            x:     5,
+                            y:     10
+                        }
+                    ]
+                },
+                gridSize:   {w: 2, h: 2},
+                offset:     {x: -2, y: -12}
             },
             'centrifuge':             {
                 image:    {
@@ -302,37 +809,376 @@ function redoEntities() {
                 offset:   {x: -12, y: 0}
             },
             'chemical-plant':         {
-                image:    {
-                    type:   'trim',
-                    path:   'chemical-plant/chemical-plant.png',
-                    number: 0,
-                    cols:   4,
-                    rows:   1
+                directions: {
+                    2: {
+                        image: {
+                            type:   'container',
+                            images: [
+                                {
+                                    type:   'trim',
+                                    path:   'chemical-plant/chemical-plant.png',
+                                    number: 1,
+                                    cols:   4,
+                                    rows:   1,
+                                    x:      -20,
+                                    y:      -25
+                                },
+                                {
+                                    type:     'sprite',
+                                    path:     '../core/fluid-indication-arrow.png',
+                                    scale:    {x: 0.5, y: 0.5},
+                                    rotation: 1.5,
+                                    x:        5,
+                                    y:        14
+                                },
+                                {
+                                    type:     'sprite',
+                                    path:     '../core/fluid-indication-arrow.png',
+                                    scale:    {x: 0.5, y: 0.5},
+                                    rotation: 1.5,
+                                    x:        79,
+                                    y:        14
+                                },
+                                {
+                                    type:     'sprite',
+                                    path:     '../core/fluid-indication-arrow.png',
+                                    scale:    {x: 0.5, y: 0.5},
+                                    rotation: 1.5,
+                                    x:        5,
+                                    y:        84
+                                },
+                                {
+                                    type:     'sprite',
+                                    path:     '../core/fluid-indication-arrow.png',
+                                    scale:    {x: 0.5, y: 0.5},
+                                    rotation: 1.5,
+                                    x:        79,
+                                    y:        84
+                                }
+                            ]
+                        }
+                    },
+                    4: {
+                        image: {
+                            type:   'container',
+                            images: [
+                                {
+                                    type:   'trim',
+                                    path:   'chemical-plant/chemical-plant.png',
+                                    number: 2,
+                                    cols:   4,
+                                    rows:   1,
+                                    x:      -20,
+                                    y:      -25
+                                },
+                                {
+                                    type:     'sprite',
+                                    path:     '../core/fluid-indication-arrow.png',
+                                    scale:    {x: 0.5, y: 0.5},
+                                    rotation: 0,
+                                    x:        5,
+                                    y:        -5
+                                },
+                                {
+                                    type:     'sprite',
+                                    path:     '../core/fluid-indication-arrow.png',
+                                    scale:    {x: 0.5, y: 0.5},
+                                    rotation: 0,
+                                    x:        66,
+                                    y:        -5
+                                },
+                                {
+                                    type:     'sprite',
+                                    path:     '../core/fluid-indication-arrow.png',
+                                    scale:    {x: 0.5, y: 0.5},
+                                    rotation: 0,
+                                    x:        5,
+                                    y:        75
+                                },
+                                {
+                                    type:     'sprite',
+                                    path:     '../core/fluid-indication-arrow.png',
+                                    scale:    {x: 0.5, y: 0.5},
+                                    rotation: 0,
+                                    x:        66,
+                                    y:        75
+                                }
+                            ]
+                        }
+                    },
+                    6: {
+                        image: {
+                            type:   'container',
+                            images: [
+                                {
+                                    type:   'trim',
+                                    path:   'chemical-plant/chemical-plant.png',
+                                    number: 3,
+                                    cols:   4,
+                                    rows:   1,
+                                    x:      -20,
+                                    y:      -25
+                                },
+                                {
+                                    type:     'sprite',
+                                    path:     '../core/fluid-indication-arrow.png',
+                                    scale:    {x: 0.5, y: 0.5},
+                                    rotation: 0.5,
+                                    x:        10,
+                                    y:        14
+                                },
+                                {
+                                    type:     'sprite',
+                                    path:     '../core/fluid-indication-arrow.png',
+                                    scale:    {x: 0.5, y: 0.5},
+                                    rotation: 0.5,
+                                    x:        89,
+                                    y:        14
+                                },
+                                {
+                                    type:     'sprite',
+                                    path:     '../core/fluid-indication-arrow.png',
+                                    scale:    {x: 0.5, y: 0.5},
+                                    rotation: 0.5,
+                                    x:        10,
+                                    y:        84
+                                },
+                                {
+                                    type:     'sprite',
+                                    path:     '../core/fluid-indication-arrow.png',
+                                    scale:    {x: 0.5, y: 0.5},
+                                    rotation: 0.5,
+                                    x:        89,
+                                    y:        84
+                                }
+                            ]
+                        }
+
+                    }
                 },
-                gridSize: {w: 3, h: 3},
-                offset:   {x: 0, y: 0}
+                image:      {
+                    type:   'container',
+                    images: [
+                        {
+                            type:   'trim',
+                            path:   'chemical-plant/chemical-plant.png',
+                            number: 0,
+                            cols:   4,
+                            rows:   1,
+                            x:      -20,
+                            y:      -25
+                        },
+                        {
+                            type:     'sprite',
+                            path:     '../core/fluid-indication-arrow.png',
+                            scale:    {x: 0.5, y: 0.5},
+                            rotation: 1,
+                            x:        15,
+                            y:        8
+                        },
+                        {
+                            type:     'sprite',
+                            path:     '../core/fluid-indication-arrow.png',
+                            scale:    {x: 0.5, y: 0.5},
+                            rotation: 1,
+                            x:        79,
+                            y:        8
+                        },
+                        {
+                            type:     'sprite',
+                            path:     '../core/fluid-indication-arrow.png',
+                            scale:    {x: 0.5, y: 0.5},
+                            rotation: 1,
+                            x:        15,
+                            y:        90
+                        },
+                        {
+                            type:     'sprite',
+                            path:     '../core/fluid-indication-arrow.png',
+                            scale:    {x: 0.5, y: 0.5},
+                            rotation: 1,
+                            x:        79,
+                            y:        90
+                        }
+                    ]
+                },
+                gridSize:   {w: 3, h: 3},
+                offset:     {x: 0, y: 0}
             },
             'constant-combinator':    {
-                image:    {
+                directions: {
+                    2: {
+                        image: {
+                            type:   'trim',
+                            path:   'combinator/combinator-entities.png',
+                            number: 8,
+                            cols:   4,
+                            rows:   3
+                        }
+                    },
+                    4: {
+                        image: {
+                            type:   'trim',
+                            path:   'combinator/combinator-entities.png',
+                            number: 11,
+                            cols:   4,
+                            rows:   3
+                        }
+                    },
+                    6: {
+                        image: {
+                            type:   'trim',
+                            path:   'combinator/combinator-entities.png',
+                            number: 9,
+                            cols:   4,
+                            rows:   3
+                        }
+                    }
+                },
+                image:      {
                     type:   'trim',
                     path:   'combinator/combinator-entities.png',
-                    number: 8,
+                    number: 10,
                     cols:   4,
                     rows:   3
                 },
-                gridSize: {w: 1, h: 1},
-                offset:   {x: 0, y: 0}
+                gridSize:   {w: 1, h: 1},
+                offset:     {x: -20, y: -10}
             },
             'decider-combinator':     {
-                image:    {
-                    type:   'trim',
-                    path:   'combinator/combinator-entities.png',
-                    number: 4,
-                    cols:   4,
-                    rows:   3
+                directions: {
+                    2: {
+                        image:    {
+                            type:   'container',
+                            images: [
+                                {
+                                    type:   'trim',
+                                    path:   'combinator/combinator-entities.png',
+                                    number: 4,
+                                    cols:   4,
+                                    rows:   3,
+                                    x:      -5,
+                                    y:      -10
+                                },
+                                {
+                                    type:     'sprite',
+                                    path:     '../core/indication-arrow-gui-ascending.png',
+                                    scale:    {x: 0.25, y: 0.25},
+                                    rotation: 0.5,
+                                    x:        10,
+                                    y:        15
+                                },
+                                {
+                                    type:     'sprite',
+                                    path:     '../core/indication-arrow-gui-ascending.png',
+                                    scale:    {x: 0.25, y: 0.25},
+                                    rotation: 0.5,
+                                    x:        55,
+                                    y:        15
+                                }
+                            ]
+                        },
+                        gridSize: {w: 2, h: 1}
+                    },
+                    4: {
+                        image:    {
+                            type:   'container',
+                            images: [
+                                {
+                                    type:   'trim',
+                                    path:   'combinator/combinator-entities.png',
+                                    number: 7,
+                                    cols:   4,
+                                    rows:   3,
+                                    x:      -20,
+                                    y:      0
+                                },
+                                {
+                                    type:     'sprite',
+                                    path:     '../core/indication-arrow-gui-ascending.png',
+                                    scale:    {x: 0.25, y: 0.25},
+                                    rotation: 1,
+                                    x:        15,
+                                    y:        5
+                                },
+                                {
+                                    type:     'sprite',
+                                    path:     '../core/indication-arrow-gui-ascending.png',
+                                    scale:    {x: 0.25, y: 0.25},
+                                    rotation: 1,
+                                    x:        15,
+                                    y:        55
+                                }
+                            ]
+                        },
+                        gridSize: {w: 1, h: 2}
+                    },
+                    6: {
+                        image:    {
+                            type:   'container',
+                            images: [
+                                {
+                                    type:   'trim',
+                                    path:   'combinator/combinator-entities.png',
+                                    number: 5,
+                                    cols:   4,
+                                    rows:   3,
+                                    x:      -5,
+                                    y:      -10
+                                },
+                                {
+                                    type:     'sprite',
+                                    path:     '../core/indication-arrow-gui-ascending.png',
+                                    scale:    {x: 0.25, y: 0.25},
+                                    rotation: 1.5,
+                                    x:        10,
+                                    y:        15
+                                },
+                                {
+                                    type:     'sprite',
+                                    path:     '../core/indication-arrow-gui-ascending.png',
+                                    scale:    {x: 0.25, y: 0.25},
+                                    rotation: 1.5,
+                                    x:        55,
+                                    y:        15
+                                }
+                            ]
+                        },
+                        gridSize: {w: 2, h: 1}
+                    }
                 },
-                gridSize: {w: 1, h: 1},
-                offset:   {x: 0, y: 0}
+                image:      {
+                    type:   'container',
+                    images: [
+                        {
+                            type:   'trim',
+                            path:   'combinator/combinator-entities.png',
+                            number: 6,
+                            cols:   4,
+                            rows:   3,
+                            x:      -20,
+                            y:      0
+                        },
+                        {
+                            type:     'sprite',
+                            path:     '../core/indication-arrow-gui-ascending.png',
+                            scale:    {x: 0.25, y: 0.25},
+                            rotation: 0,
+                            x:        10,
+                            y:        0
+                        },
+                        {
+                            type:     'sprite',
+                            path:     '../core/indication-arrow-gui-ascending.png',
+                            scale:    {x: 0.25, y: 0.25},
+                            rotation: 0,
+                            x:        10,
+                            y:        50
+                        }
+                    ]
+                },
+                gridSize:   {w: 1, h: 2},
+                offset:     {x: 0, y: 0}
             },
             'electric-furnace':       {
                 image:    {
