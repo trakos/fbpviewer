@@ -40,7 +40,14 @@ FactorioBlueprintReader.Loader = {
     prepareTrimmedTextures:                function () {
         var that = this;
 
-        $.each(FactorioBlueprintReader.entities, function (entityKey, entityData) {
+        var prepareTrimmedTexturesHelper = function (entityKey, entityData) {
+            if (entityData.types) {
+                $.each(entityData.types, function(type, typeSpecificEntityData) {
+                    prepareTrimmedTexturesHelper(entityKey, typeSpecificEntityData);
+                });
+
+                return;
+            }
             if (entityData.directions) {
                 $.each(entityData.directions, function (direction, directionSpecificEntityData) {
                     var combinedEntityData = $.extend({}, entityData, directionSpecificEntityData);
@@ -48,7 +55,9 @@ FactorioBlueprintReader.Loader = {
                 })
             }
             that._prepareTrimmedTexturesFromEntityData(entityKey, entityData);
-        });
+        };
+
+        $.each(FactorioBlueprintReader.entities, prepareTrimmedTexturesHelper);
 
         $.each(FactorioBlueprintReader.tiles, function (entityKey, entityData) {
             that._prepareTrimmedTexturesFromEntityData(entityKey, entityData);
@@ -78,14 +87,31 @@ FactorioBlueprintReader.Loader = {
         }
 
         $.each(FactorioBlueprintReader.entities, function (entityKey, entityData) {
-            if (entityData.directions) {
-                $.each(entityData.directions, function (direction, directionSpecificEntityData) {
-                    var combinedEntityData = $.extend({}, entityData, directionSpecificEntityData);
-                    addEntityImageToLoader(entityKey, combinedEntityData);
-                })
-            }
+            if (entityData.types) {
+                $.each(entityData.types, function(type, typeSpecificEntityData) {
+                    if (typeSpecificEntityData.directions) {
+                        $.each(typeSpecificEntityData.directions, function (direction, directionSpecificEntityData) {
+                            var combinedEntityData = $.extend({}, typeSpecificEntityData, directionSpecificEntityData);
+                            addEntityImageToLoader(entityKey, combinedEntityData);
+                        })
+                    }
 
-            addEntityImageToLoader(entityKey, entityData);
+                    if (typeSpecificEntityData.image) {
+                        addEntityImageToLoader(entityKey, typeSpecificEntityData);
+                    }
+                });
+            } else {
+                if (entityData.directions) {
+                    $.each(entityData.directions, function (direction, directionSpecificEntityData) {
+                        var combinedEntityData = $.extend({}, entityData, directionSpecificEntityData);
+                        addEntityImageToLoader(entityKey, combinedEntityData);
+                    })
+                }
+
+                if (entityData.image) {
+                    addEntityImageToLoader(entityKey, entityData);
+                }
+            }
         });
         $.each(FactorioBlueprintReader.tiles, function (entityKey, entityData) {
             addEntityImageToLoader(entityKey, entityData);

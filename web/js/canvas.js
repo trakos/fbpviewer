@@ -172,6 +172,9 @@ function drawBlueprint(stage, blueprintData) {
             yOffset = 0;
         } else {
             var entityDrawingSpec = FactorioBlueprintReader.entities[entity.name];
+            if (entity.type && entityDrawingSpec.types) {
+                entityDrawingSpec = $.extend({}, entityDrawingSpec, entityDrawingSpec.types[entity.type]);
+            }
             if (entity.direction && entityDrawingSpec.directions && entityDrawingSpec.directions[entity.direction]) {
                 entityDrawingSpec = $.extend({}, entityDrawingSpec, entityDrawingSpec.directions[entity.direction]);
             }
@@ -189,6 +192,43 @@ function drawBlueprint(stage, blueprintData) {
             sprite.y = gridY * PIXELS_PER_FIELD + yOffset;
             blueprintContainer.addChild(sprite);
         }
+    });
+
+
+    FactorioBlueprintReader.zoomAndPanHandler.setOnMouseDownListener(function (x, y) {
+        x = Math.floor(x / PIXELS_PER_FIELD);
+        y = Math.floor(y / PIXELS_PER_FIELD);
+        $.each(tiles, function (key, entity) {
+            var gridX = Math.floor(entity.position.x - minXY - 0.5);
+            var gridY = Math.floor(entity.position.y - minXY - 0.5);
+            if (gridX == x && gridY == y) {
+                console.log('tile', entity.name, '(' + x + ', ' + y + ')', entity);
+            }
+        });
+
+
+        $.each(entities, function (key, entity) {
+            var sizeW = 1;
+            var sizeH = 1;
+            if (FactorioBlueprintReader.entities[entity.name]) {
+                var entityDrawingSpec = FactorioBlueprintReader.entities[entity.name];
+                if (entity.type && entityDrawingSpec.types) {
+                    entityDrawingSpec = $.extend({}, entityDrawingSpec, entityDrawingSpec.types[entity.type]);
+                }
+                if (entity.direction && entityDrawingSpec.directions && entityDrawingSpec.directions[entity.direction]) {
+                    entityDrawingSpec = $.extend({}, entityDrawingSpec, entityDrawingSpec.directions[entity.direction]);
+                }
+                sizeW = entityDrawingSpec.gridSize.w;
+                sizeH = entityDrawingSpec.gridSize.h;
+            }
+            var gridX = Math.floor(entity.position.x - minXY - sizeW / 2);
+            var gridY = Math.floor(entity.position.y - minXY - sizeH / 2);
+            if (x >= gridX && x < gridX + sizeW && y >= gridY && y < gridY + sizeH) {
+                console.log('entity', entity.name, '(' + gridX + ', ' + gridY + ')', entity, entityDrawingSpec);
+            }
+        });
+
+        console.log(x, y);
     });
 
     return blueprintContainer;

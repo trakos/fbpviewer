@@ -11,6 +11,8 @@ FactorioBlueprintReader.zoomAndPanHandler = {
     pixiContainerHeight:       0,
     onMousePositionChanged:    function (x, y) {
     },
+    onMouseDownListener:       function (x, y) {
+    },
     zoom:                      function (zoomMultiplier, x, y) {
         var worldPosition = this.getWorldPosition(x, y);
         this.pixiContainer.scale.x *= zoomMultiplier;
@@ -110,6 +112,8 @@ FactorioBlueprintReader.zoomAndPanHandler = {
     },
     onMouseDown:               function (event) {
         this.lastPosition = {x: event.offsetX, y: event.offsetY};
+        var worldPosition = this.getWorldPosition(event.offsetX, event.offsetY);
+        this.onMouseDownListener(Math.round(worldPosition.x), Math.round(worldPosition.y));
     },
     onMouseUp:                 function (event) {
         this.lastPosition = null;
@@ -144,6 +148,9 @@ FactorioBlueprintReader.zoomAndPanHandler = {
     },
     setOnMousePositionChanged: function (listener) {
         this.onMousePositionChanged = listener;
+    },
+    setOnMouseDownListener:    function (listener) {
+        this.onMouseDownListener = listener;
     },
     init:                      function (canvas) {
         $(canvas).mousewheel(this.onMouseWheel.bind(this));

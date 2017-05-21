@@ -2,7 +2,8 @@ var FactorioBlueprintReader = FactorioBlueprintReader || {};
 
 FactorioBlueprintReader.createEntitiesFunctions = FactorioBlueprintReader.createEntitiesFunctions || [];
 
-(function () {
+
+FactorioBlueprintReader.createEntitiesFunctions.push(function () {
     function prepareInserterData(inserterName) {
         return {
             directions: {
@@ -170,18 +171,15 @@ FactorioBlueprintReader.createEntitiesFunctions = FactorioBlueprintReader.create
         };
     }
 
-    FactorioBlueprintReader.createEntitiesFunctions.push(function () {
-        return {
-            'burner-inserter':       prepareInserterData('burner-inserter'),
-            'fast-inserter':         prepareInserterData('fast-inserter'),
-            'filter-inserter':       prepareInserterData('filter-inserter'),
-            'inserter':              prepareInserterData('inserter'),
-            'stack-inserter':        prepareInserterData('stack-inserter'),
-            'stack-filter-inserter': prepareInserterData('stack-filter-inserter')
-        };
-    });
-
-})();
+    return {
+        'burner-inserter':       prepareInserterData('burner-inserter'),
+        'fast-inserter':         prepareInserterData('fast-inserter'),
+        'filter-inserter':       prepareInserterData('filter-inserter'),
+        'inserter':              prepareInserterData('inserter'),
+        'stack-inserter':        prepareInserterData('stack-inserter'),
+        'stack-filter-inserter': prepareInserterData('stack-filter-inserter')
+    };
+});
 
 
 
