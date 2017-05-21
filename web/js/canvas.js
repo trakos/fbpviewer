@@ -1,33 +1,66 @@
 const IMAGES_PREFIX = "images/factorio/";
 const PIXELS_PER_FIELD = 32;
 
+const STATUS_WIDTH = 100;
+const STATUS_HEIGHT = 20;
+
 var WIDTH = 768;
 var HEIGHT = 768;
 
+var BX = 0,
+    BY = 0,
+    BSX = 1,
+    BSY = 1,
+    BR = 0,
+    NX = 0,
+    NY = 0,
+    GX = 0,
+    GY = 0,
+    GSX = 1,
+    GSY = 1,
+    GR = 0,
+    SX = 0,
+    SY = 0;
 
+function redoEntities() {
+    FactorioBlueprintReader.entities = {};
+
+    $.each(FactorioBlueprintReader.createEntitiesFunctions, function (_, func) {
+        $.each(func(), function (entityKey, entitySpec) {
+            FactorioBlueprintReader.entities[entityKey] = entitySpec;
+        });
+    });
+}
+
+function getRandomInt(min, max) {
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
 
 function createEntitySprite(entityImageSpec) {
     var sprite;
 
     if (entityImageSpec.type == 'sprite') {
-        sprite = new PIXI.Sprite(PIXI.utils.TextureCache[IMAGES_PREFIX + FactorioBlueprintReader.entities.PREFIX + entityImageSpec.path]);
+        sprite = new PIXI.Sprite(PIXI.utils.TextureCache[IMAGES_PREFIX + entityImageSpec.path]);
     } else if (entityImageSpec.type == 'trim') {
-        sprite = new PIXI.Sprite(PIXI.utils.TextureCache[IMAGES_PREFIX + FactorioBlueprintReader.entities.PREFIX + entityImageSpec.path + "." + entityImageSpec.number]);
+        sprite = new PIXI.Sprite(PIXI.utils.TextureCache[IMAGES_PREFIX + entityImageSpec.path + "." + entityImageSpec.number]);
+    } else if (entityImageSpec.type == 'random_trim') {
+        var number = getRandomInt(entityImageSpec.from, entityImageSpec.to);
+        sprite = new PIXI.Sprite(PIXI.utils.TextureCache[IMAGES_PREFIX + entityImageSpec.path + "." + number]);
     } else if (entityImageSpec.type == 'animated') {
         var frames = [];
         for (var i = entityImageSpec.from; i <= entityImageSpec.to; i++) {
-            frames.push(PIXI.utils.TextureCache[IMAGES_PREFIX + FactorioBlueprintReader.entities.PREFIX + entityImageSpec.path + "." + i]);
+            frames.push(PIXI.utils.TextureCache[IMAGES_PREFIX + entityImageSpec.path + "." + i]);
         }
         if (entityImageSpec.reverse) {
             for (var j = entityImageSpec.to; j >= entityImageSpec.from; j--) {
-                frames.push(PIXI.utils.TextureCache[IMAGES_PREFIX + FactorioBlueprintReader.entities.PREFIX + entityImageSpec.path + "." + j]);
+                frames.push(PIXI.utils.TextureCache[IMAGES_PREFIX + entityImageSpec.path + "." + j]);
             }
         }
         sprite = new PIXI.extras.AnimatedSprite(frames);
         sprite.animationSpeed = entityImageSpec.animationSpeed || 1;
         sprite.play();
-
-        return sprite;
     } else if (entityImageSpec.type == 'container') {
         var container = new PIXI.Container();
         for (var imageKey in entityImageSpec.images) {
@@ -54,31 +87,39 @@ function createEntitySprite(entityImageSpec) {
         sprite.rotation = entityImageSpec.rotation * Math.PI;
     }
 
+    if (entityImageSpec.alpha) {
+        sprite.alpha = entityImageSpec.alpha;
+    }
+
     return sprite;
 }
 
 function drawBlueprint(stage, blueprintData) {
     var entities = blueprintData.blueprint.blueprint.entities;
+    var tiles = blueprintData.blueprint.blueprint.tiles;
 
     var minXY = 0;
     var maxXY = 0;
 
     var entitiesByXY = {};
-    for (var key in entities) {
-        if (entities.hasOwnProperty(key)) {
-            var entity = entities[key];
-            var x = entity.position.x;
-            var y = entity.position.y;
+    $.each(tiles, function (key, entity) {
+        var x = entity.position.x;
+        var y = entity.position.y;
+        minXY = Math.min(minXY, x, y);
+        maxXY = Math.max(maxXY, x, y);
+    });
+    $.each(entities, function (key, entity) {
+        var x = entity.position.x;
+        var y = entity.position.y;
 
-            if (!entitiesByXY[x]) {
-                entitiesByXY[x] = {};
-            }
-            entitiesByXY[x][y] = key;
-
-            minXY = Math.min(minXY, x, y);
-            maxXY = Math.max(maxXY, x, y);
+        if (!entitiesByXY[x]) {
+            entitiesByXY[x] = {};
         }
-    }
+        entitiesByXY[x][y] = key;
+
+        minXY = Math.min(minXY, x, y);
+        maxXY = Math.max(maxXY, x, y);
+    });
 
     minXY -= 5;
     maxXY += 5;
@@ -89,66 +130,66 @@ function drawBlueprint(stage, blueprintData) {
     var blueprintContainer = new PIXI.Container();
     blueprintContainer.scale.x = blueprintContainer.scale.y = minScale;
 
-    var background = new PIXI.extras.TilingSprite(PIXI.loader.resources[IMAGES_PREFIX + "terrain/concrete/concrete4.png"].texture, WIDTH / minScale, HEIGHT / minScale);
+    var background = new PIXI.extras.TilingSprite(PIXI.loader.resources[IMAGES_PREFIX + "background.png"].texture, WIDTH / minScale, HEIGHT / minScale);
     blueprintContainer.addChild(background);
 
-    for (var key in entities) {
-        if (entities.hasOwnProperty(key)) {
-            var entity = entities[key];
-
-            var sprite = null;
-            var sizeW = 0;
-            var sizeH = 0;
-            var xOffset = 0;
-            var yOffset = 0;
-            if (!FactorioBlueprintReader.entities.ENTITIES[entity.name]) {
-                console.log("Unknown entity name", entity.name);
-                sprite = new PIXI.Graphics();
-                sprite.beginFill(0xFFFFFF);
-                sprite.lineStyle(1, 0x000000);
-                sprite.drawRect(0, 0, PIXELS_PER_FIELD, PIXELS_PER_FIELD);
-                sizeW = 1;
-                sizeH = 1;
-                xOffset = 0;
-                yOffset = 0;
-            } else {
-                var entityDrawingSpec = FactorioBlueprintReader.entities.ENTITIES[entity.name];
-                if (entity.direction && entityDrawingSpec.directions && entityDrawingSpec.directions[entity.direction]) {
-                    entityDrawingSpec = $.extend({}, entityDrawingSpec, entityDrawingSpec.directions[entity.direction]);
-                }
-                sprite = createEntitySprite(entityDrawingSpec.image);
-                sizeW = entityDrawingSpec.gridSize.w;
-                sizeH = entityDrawingSpec.gridSize.h;
-                xOffset = entityDrawingSpec.offset.x;
-                yOffset = entityDrawingSpec.offset.y;
-            }
-
-            if (sprite != null) {
-                var gridX = Math.floor(entity.position.x - minXY - sizeW / 2);
-                var gridY = Math.floor(entity.position.y - minXY - sizeH / 2);
-                sprite.x = gridX * PIXELS_PER_FIELD + xOffset;
-                sprite.y = gridY * PIXELS_PER_FIELD + yOffset;
-                blueprintContainer.addChild(sprite);
-            }
+    $.each(tiles, function (key, entity) {
+        var sprite;
+        if (FactorioBlueprintReader.tiles[entity.name]) {
+            Math.seedrandom(entity.position.x + "," + entity.position.y);
+            sprite = createEntitySprite(FactorioBlueprintReader.tiles[entity.name].image);
+        } else {
+            console.log("Unknown tile name", entity.name);
+            sprite = new PIXI.Graphics();
+            sprite.beginFill(0xFFFFFF);
+            sprite.lineStyle(1, 0x333333);
+            sprite.drawRect(0, 0, PIXELS_PER_FIELD, PIXELS_PER_FIELD);
         }
-    }
-    /*var assemblingMachine1 = createSpriteFromTexture(PIXI.TextureCache, "entity/assembling-machine-1/assembling-machine-1.png", 0, 0, 107, 113);
+        var gridX = Math.floor(entity.position.x - minXY - 0.5);
+        var gridY = Math.floor(entity.position.y - minXY - 0.5);
+        sprite.x = gridX * PIXELS_PER_FIELD;
+        sprite.y = gridY * PIXELS_PER_FIELD;
+        blueprintContainer.addChild(sprite);
+    });
 
+    Math.seedrandom();
 
-     var iconBg = new PIXI.Sprite(PIXI.loader.resources[IMAGES_PREFIX + "core/entity-info-dark-background.png"].texture);
-     var sciencePack1Icon = new PIXI.Sprite(PIXI.loader.resources[IMAGES_PREFIX + FactorioBlueprintReader.ICONS_PREFIX + "science-pack-1.png"].texture);
-     var sciencePack2Icon = new PIXI.Sprite(PIXI.loader.resources[IMAGES_PREFIX + FactorioBlueprintReader.ICONS_PREFIX + "science-pack-2.png"].texture);
-     var sciencePack3Icon = new PIXI.Sprite(PIXI.loader.resources[IMAGES_PREFIX + FactorioBlueprintReader.ICONS_PREFIX + "science-pack-3.png"].texture);
-     sciencePack1Icon.x = 10;
-     sciencePack1Icon.y = 8;
+    $.each(entities, function (key, entity) {
+        var sprite = null;
+        var sizeW = 0;
+        var sizeH = 0;
+        var xOffset = 0;
+        var yOffset = 0;
+        if (!FactorioBlueprintReader.entities[entity.name]) {
+            console.log("Unknown entity name", entity.name);
+            sprite = new PIXI.Graphics();
+            sprite.beginFill(0xFFFFFF);
+            sprite.lineStyle(1, 0x000000);
+            sprite.drawRect(0, 0, PIXELS_PER_FIELD, PIXELS_PER_FIELD);
+            sizeW = 1;
+            sizeH = 1;
+            xOffset = 0;
+            yOffset = 0;
+        } else {
+            var entityDrawingSpec = FactorioBlueprintReader.entities[entity.name];
+            if (entity.direction && entityDrawingSpec.directions && entityDrawingSpec.directions[entity.direction]) {
+                entityDrawingSpec = $.extend({}, entityDrawingSpec, entityDrawingSpec.directions[entity.direction]);
+            }
+            sprite = createEntitySprite(entityDrawingSpec.image);
+            sizeW = entityDrawingSpec.gridSize.w;
+            sizeH = entityDrawingSpec.gridSize.h;
+            xOffset = entityDrawingSpec.offset.x;
+            yOffset = entityDrawingSpec.offset.y;
+        }
 
-     var iconWithBg = new PIXI.Container();
-     iconWithBg.addChild(iconBg);
-     iconWithBg.addChild(sciencePack1Icon);
-     iconWithBg.x = 25;
-     iconWithBg.y = 20;
-     blueprintContainer.addChild(assemblingMachine1);
-     blueprintContainer.addChild(iconWithBg);*/
+        if (sprite != null) {
+            var gridX = Math.floor(entity.position.x - minXY - sizeW / 2);
+            var gridY = Math.floor(entity.position.y - minXY - sizeH / 2);
+            sprite.x = gridX * PIXELS_PER_FIELD + xOffset;
+            sprite.y = gridY * PIXELS_PER_FIELD + yOffset;
+            blueprintContainer.addChild(sprite);
+        }
+    });
 
     return blueprintContainer;
 }
@@ -156,6 +197,8 @@ function drawBlueprint(stage, blueprintData) {
 var redraw;
 
 $(function () {
+
+    redoEntities();
 
     WIDTH = $(".container-fluid .starter-template").width();
     HEIGHT = $(window).height() - 250;
@@ -171,6 +214,31 @@ $(function () {
     var stage = new PIXI.Container();
     var graphics = new PIXI.Graphics();
     stage.addChild(graphics);
+
+    var bottomStatus = new PIXI.Container();
+    bottomStatus.x = WIDTH - 100;
+    bottomStatus.y = HEIGHT - 20;
+
+    var positionBackground = new PIXI.Graphics();
+    positionBackground.beginFill(0xCCCCCC);
+    positionBackground.lineStyle(0, 0x000000);
+    positionBackground.drawRect(0, 0, STATUS_WIDTH, STATUS_HEIGHT);
+    bottomStatus.addChild(positionBackground);
+    var statusText = new PIXI.Text("(0, 0)", new PIXI.TextStyle({
+        align:      'right',
+        fontFamily: 'Arial',
+        fontSize:   10
+    }));
+    statusText.anchor.set(1, 0);
+    statusText.x = STATUS_WIDTH - 10;
+    statusText.y = 2;
+    bottomStatus.addChild(statusText);
+
+    FactorioBlueprintReader.zoomAndPanHandler.setOnMousePositionChanged(function (x, y) {
+        statusText.text = '(' + Math.floor(x / PIXELS_PER_FIELD) + ', ' + Math.floor(y / PIXELS_PER_FIELD) + ')';
+    });
+
+    var gameContainer = new PIXI.Container();
 
     PIXI.loader
         .add(FactorioBlueprintReader.Loader.getImagesToLoad())
@@ -189,6 +257,8 @@ $(function () {
         })
         .load(function () {
             stage.removeChild(graphics);
+            stage.addChild(gameContainer);
+            stage.addChild(bottomStatus);
             graphics = null;
 
             FactorioBlueprintReader.Loader.prepareTrimmedTextures();
@@ -202,16 +272,21 @@ $(function () {
                 success:  function (data) {
                     blueprintContainer = drawBlueprint(stage, data);
                     FactorioBlueprintReader.zoomAndPanHandler.setContainer(blueprintContainer);
-
-                    stage.addChild(blueprintContainer);
+                    gameContainer.addChild(blueprintContainer);
 
                     redraw = function () {
-                        stage.removeChild(blueprintContainer);
+                        gameContainer.removeChild(blueprintContainer);
+                        var containerToDestroy = blueprintContainer;
+                        setTimeout(function () {
+                            containerToDestroy.destroy({children: true});
+                            containerToDestroy = null;
+                        }, 0);
+
                         redoEntities();
                         blueprintContainer = drawBlueprint(stage, data);
                         FactorioBlueprintReader.zoomAndPanHandler.setContainer(blueprintContainer);
 
-                        stage.addChild(blueprintContainer);
+                        gameContainer.addChild(blueprintContainer);
                     }
                 }
             });

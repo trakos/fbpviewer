@@ -1,19 +1,18 @@
 var FactorioBlueprintReader = FactorioBlueprintReader || {};
 
 FactorioBlueprintReader.zoomAndPanHandler = {
-    MAX_SCALE:             3,
-    minScale:              1,
-    pixiContainer:         null,
-    lastPosition:          null,
-    canvasWidth:           0,
-    canvasHeight:          0,
-    pixiContainerWidth:    0,
-    pixiContainerHeight:   0,
-    zoom:                  function (zoomMultiplier, x, y) {
-        var worldPosition = {
-            x: (x - this.pixiContainer.x) / this.pixiContainer.scale.x,
-            y: (y - this.pixiContainer.y) / this.pixiContainer.scale.y
-        };
+    MAX_SCALE:                 3,
+    minScale:                  1,
+    pixiContainer:             null,
+    lastPosition:              null,
+    canvasWidth:               0,
+    canvasHeight:              0,
+    pixiContainerWidth:        0,
+    pixiContainerHeight:       0,
+    onMousePositionChanged:    function (x, y) {
+    },
+    zoom:                      function (zoomMultiplier, x, y) {
+        var worldPosition = this.getWorldPosition(x, y);
         this.pixiContainer.scale.x *= zoomMultiplier;
         this.pixiContainer.scale.y *= zoomMultiplier;
         this.clampZoom();
@@ -25,7 +24,7 @@ FactorioBlueprintReader.zoomAndPanHandler = {
         this.pixiContainer.y -= newScreenPosition.y - y;
         this.clampPosition();
     },
-    clampZoom:             function () {
+    clampZoom:                 function () {
         if (this.pixiContainer.scale.x > this.MAX_SCALE) {
             this.pixiContainer.scale.x = this.MAX_SCALE;
         }
@@ -39,7 +38,7 @@ FactorioBlueprintReader.zoomAndPanHandler = {
             this.pixiContainer.scale.y = this.minScale;
         }
     },
-    clampPosition:         function () {
+    clampPosition:             function () {
         if (this.pixiContainer.x > 0) {
             this.pixiContainer.x = 0;
         }
@@ -59,7 +58,13 @@ FactorioBlueprintReader.zoomAndPanHandler = {
             y: this.pixiContainer.y
         };
     },
-    handleKeyboardPanning: function () {
+    getWorldPosition:          function (mouseX, mouseY) {
+        return {
+            x: (mouseX - this.pixiContainer.x) / this.pixiContainer.scale.x,
+            y: (mouseY - this.pixiContainer.y) / this.pixiContainer.scale.y
+        };
+    },
+    handleKeyboardPanning:     function () {
         if (!this.pixiContainer) {
             return;
         }
@@ -96,32 +101,36 @@ FactorioBlueprintReader.zoomAndPanHandler = {
         this.clampZoom();
         this.clampPosition();
     },
-    onMouseWheel:          function (event) {
+    onMouseWheel:              function (event) {
         if (!this.pixiContainer) {
             return;
         }
         var zoomMultiplier = event.deltaY > 0 ? 1.1 : 0.9;
         this.zoom(zoomMultiplier, event.offsetX, event.offsetY);
     },
-    onMouseDown:           function (event) {
+    onMouseDown:               function (event) {
         this.lastPosition = {x: event.offsetX, y: event.offsetY};
     },
-    onMouseUp:             function (event) {
+    onMouseUp:                 function (event) {
         this.lastPosition = null;
     },
-    onMouseOut:            function (event) {
+    onMouseOut:                function (event) {
         this.lastPosition = null;
     },
-    onMouseMove:           function (event) {
-        if (!this.lastPosition || !this.pixiContainer) {
+    onMouseMove:               function (event) {
+        if (!this.pixiContainer) {
             return;
         }
-        this.pixiContainer.x += (event.offsetX - this.lastPosition.x);
-        this.pixiContainer.y += (event.offsetY - this.lastPosition.y);
-        this.lastPosition = {x: event.offsetX, y: event.offsetY};
-        this.clampPosition();
+        if (this.lastPosition) {
+            this.pixiContainer.x += (event.offsetX - this.lastPosition.x);
+            this.pixiContainer.y += (event.offsetY - this.lastPosition.y);
+            this.lastPosition = {x: event.offsetX, y: event.offsetY};
+            this.clampPosition();
+        }
+        var worldPosition = this.getWorldPosition(event.offsetX, event.offsetY);
+        this.onMousePositionChanged(Math.round(worldPosition.x), Math.round(worldPosition.y));
     },
-    setContainer:          function (container) {
+    setContainer:              function (container) {
         this.minScale = container.scale.x;
         this.pixiContainerWidth = container.width / container.scale.x;
         this.pixiContainerHeight = container.height / container.scale.y;
@@ -133,7 +142,10 @@ FactorioBlueprintReader.zoomAndPanHandler = {
         }
         this.pixiContainer = container;
     },
-    init:                  function (canvas) {
+    setOnMousePositionChanged: function (listener) {
+        this.onMousePositionChanged = listener;
+    },
+    init:                      function (canvas) {
         $(canvas).mousewheel(this.onMouseWheel.bind(this));
         $(canvas).mousedown(this.onMouseDown.bind(this));
         $(canvas).mouseup(this.onMouseUp.bind(this));

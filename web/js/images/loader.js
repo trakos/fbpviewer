@@ -17,10 +17,10 @@ FactorioBlueprintReader.Loader = {
         PIXI.utils.TextureCache[imagePath + "." + number] = new PIXI.Texture(PIXI.utils.TextureCache[imagePath].baseTexture, rect, rect.clone(), null, null);
     },
     _prepareTrimmedTexturesFromImageData:  function (imageData) {
-        var imagePath = IMAGES_PREFIX + FactorioBlueprintReader.entities.PREFIX + imageData.path;
+        var imagePath = IMAGES_PREFIX + imageData.path;
         if (imageData.type == 'trim') {
             this._prepareTrimmedTexture(imagePath, imageData.rows, imageData.cols, imageData.number);
-        } else if (imageData.type == 'animated') {
+        } else if (imageData.type == 'animated' || imageData.type == 'random_trim') {
             for (var k = imageData.from; k <= imageData.to; k++) {
                 this._prepareTrimmedTexture(imagePath, imageData.rows, imageData.cols, k);
             }
@@ -40,13 +40,17 @@ FactorioBlueprintReader.Loader = {
     prepareTrimmedTextures:                function () {
         var that = this;
 
-        $.each(FactorioBlueprintReader.entities.ENTITIES, function (entityKey, entityData) {
+        $.each(FactorioBlueprintReader.entities, function (entityKey, entityData) {
             if (entityData.directions) {
                 $.each(entityData.directions, function (direction, directionSpecificEntityData) {
                     var combinedEntityData = $.extend({}, entityData, directionSpecificEntityData);
                     that._prepareTrimmedTexturesFromEntityData(entityKey, combinedEntityData);
                 })
             }
+            that._prepareTrimmedTexturesFromEntityData(entityKey, entityData);
+        });
+
+        $.each(FactorioBlueprintReader.tiles, function (entityKey, entityData) {
             that._prepareTrimmedTexturesFromEntityData(entityKey, entityData);
         });
     },
@@ -59,13 +63,13 @@ FactorioBlueprintReader.Loader = {
 
         function addEntityImageToLoader(entityKey, entityData) {
             if (entityData.image.path) {
-                var fullPath = IMAGES_PREFIX + FactorioBlueprintReader.entities.PREFIX + entityData.image.path;
+                var fullPath = IMAGES_PREFIX + entityData.image.path;
                 if ($.inArray(fullPath, imagesToLoad) < 0) {
                     imagesToLoad.push(fullPath);
                 }
             } else if (entityData.image.type == 'container') {
                 $.each(entityData.image.images, function (imageKey, imageData) {
-                    var imageFullPath = IMAGES_PREFIX + FactorioBlueprintReader.entities.PREFIX + imageData.path;
+                    var imageFullPath = IMAGES_PREFIX + imageData.path;
                     if ($.inArray(imageFullPath, imagesToLoad) < 0) {
                         imagesToLoad.push(imageFullPath);
                     }
@@ -73,7 +77,7 @@ FactorioBlueprintReader.Loader = {
             }
         }
 
-        $.each(FactorioBlueprintReader.entities.ENTITIES, function (entityKey, entityData) {
+        $.each(FactorioBlueprintReader.entities, function (entityKey, entityData) {
             if (entityData.directions) {
                 $.each(entityData.directions, function (direction, directionSpecificEntityData) {
                     var combinedEntityData = $.extend({}, entityData, directionSpecificEntityData);
@@ -83,9 +87,12 @@ FactorioBlueprintReader.Loader = {
 
             addEntityImageToLoader(entityKey, entityData);
         });
+        $.each(FactorioBlueprintReader.tiles, function (entityKey, entityData) {
+            addEntityImageToLoader(entityKey, entityData);
+        });
 
-        imagesToLoad.push(IMAGES_PREFIX + "terrain/concrete/concrete4.png");
         imagesToLoad.push(IMAGES_PREFIX + "core/entity-info-dark-background.png");
+        imagesToLoad.push(IMAGES_PREFIX + "background.png");
 
         return imagesToLoad;
     }
