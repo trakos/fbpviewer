@@ -26,7 +26,8 @@ FactorioBlueprintReader.createEntitiesFunctions.push(function () {
                                 scale:    {x: 1, y: 0.5},
                                 rotation: 0.65,
                                 x:        45,
-                                y:        18
+                                y:        18,
+                                layer:    110
                             },
                             {
                                 type:     'sprite',
@@ -34,7 +35,8 @@ FactorioBlueprintReader.createEntitiesFunctions.push(function () {
                                 scale:    {x: 1, y: 0.8},
                                 rotation: 0.3,
                                 x:        27,
-                                y:        18
+                                y:        18,
+                                layer:    110
                             },
                             {
                                 type:     'sprite',
@@ -42,7 +44,8 @@ FactorioBlueprintReader.createEntitiesFunctions.push(function () {
                                 scale:    {x: 0.25, y: 0.25},
                                 rotation: 1.5,
                                 x:        8,
-                                y:        22
+                                y:        22,
+                                layer:    110
                             }
                         ]
                     }
@@ -66,7 +69,8 @@ FactorioBlueprintReader.createEntitiesFunctions.push(function () {
                                 scale:    {x: 1, y: 0.3},
                                 rotation: 1,
                                 x:        21,
-                                y:        23
+                                y:        23,
+                                layer:    110
                             },
                             {
                                 type:     'sprite',
@@ -74,7 +78,8 @@ FactorioBlueprintReader.createEntitiesFunctions.push(function () {
                                 scale:    {x: 1, y: 0.7},
                                 rotation: 1,
                                 x:        21,
-                                y:        40
+                                y:        40,
+                                layer:    110
                             },
                             {
                                 type:     'sprite',
@@ -82,7 +87,8 @@ FactorioBlueprintReader.createEntitiesFunctions.push(function () {
                                 scale:    {x: 0.25, y: 0.25},
                                 rotation: 0,
                                 x:        15,
-                                y:        8
+                                y:        8,
+                                layer:    110
                             }
                         ]
                     }
@@ -106,7 +112,8 @@ FactorioBlueprintReader.createEntitiesFunctions.push(function () {
                                 scale:    {x: 1, y: 0.5},
                                 rotation: 1.35,
                                 x:        -4,
-                                y:        14
+                                y:        14,
+                                layer:    110
                             },
                             {
                                 type:     'sprite',
@@ -114,7 +121,8 @@ FactorioBlueprintReader.createEntitiesFunctions.push(function () {
                                 scale:    {x: 1, y: 0.8},
                                 rotation: 1.7,
                                 x:        13,
-                                y:        16
+                                y:        16,
+                                layer:    110
                             },
                             {
                                 type:     'sprite',
@@ -122,7 +130,8 @@ FactorioBlueprintReader.createEntitiesFunctions.push(function () {
                                 scale:    {x: 0.25, y: 0.25},
                                 rotation: 0.5,
                                 x:        33,
-                                y:        22
+                                y:        22,
+                                layer:    110
                             }
                         ]
                     }
@@ -146,7 +155,8 @@ FactorioBlueprintReader.createEntitiesFunctions.push(function () {
                         scale:    {x: 1, y: 0.3},
                         rotation: 1,
                         x:        19,
-                        y:        0
+                        y:        0,
+                        layer:    110
                     },
                     {
                         type:     'sprite',
@@ -154,7 +164,8 @@ FactorioBlueprintReader.createEntitiesFunctions.push(function () {
                         scale:    {x: 1, y: 1},
                         rotation: 0,
                         x:        15,
-                        y:        -5
+                        y:        -5,
+                        layer:    110
                     },
                     {
                         type:     'sprite',
@@ -162,7 +173,8 @@ FactorioBlueprintReader.createEntitiesFunctions.push(function () {
                         scale:    {x: 0.25, y: 0.25},
                         rotation: 1,
                         x:        20,
-                        y:        35
+                        y:        35,
+                        layer:    110
                     }
                 ]
             },
@@ -177,7 +189,8 @@ FactorioBlueprintReader.createEntitiesFunctions.push(function () {
         'filter-inserter':       prepareInserterData('filter-inserter'),
         'inserter':              prepareInserterData('inserter'),
         'stack-inserter':        prepareInserterData('stack-inserter'),
-        'stack-filter-inserter': prepareInserterData('stack-filter-inserter')
+        'stack-filter-inserter': prepareInserterData('stack-filter-inserter'),
+        'long-handed-inserter':  prepareInserterData('long-handed-inserter')
     };
 });
 

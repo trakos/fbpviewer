@@ -68,7 +68,7 @@ function createEntityLayers(entityImageSpec, entitySpec) {
         for (var imageKey in entityImageSpec.images) {
             if (entityImageSpec.images.hasOwnProperty(imageKey)) {
                 var entityLayers = createEntityLayers(entityImageSpec.images[imageKey], entitySpec);
-                $.each(entityLayers, function(layer, entityLayer) {
+                $.each(entityLayers, function (layer, entityLayer) {
                     entityLayer.x = entityImageSpec.images[imageKey].x;
                     entityLayer.y = entityImageSpec.images[imageKey].y;
                     layerSprites[layer] = layerSprites[layer] || new PIXI.Container();
@@ -117,24 +117,32 @@ function drawBlueprint(stage, blueprintData) {
     var minXY = 0;
     var maxXY = 0;
 
-    var entitiesByXY = {};
     $.each(tiles, function (key, entity) {
         var x = entity.position.x;
         var y = entity.position.y;
         minXY = Math.min(minXY, x, y);
         maxXY = Math.max(maxXY, x, y);
     });
-    $.each(entities, function (key, entity) {
-        var x = entity.position.x;
-        var y = entity.position.y;
 
-        if (!entitiesByXY[x]) {
-            entitiesByXY[x] = {};
+    var entitiesByYX = {};
+    var allYCoordinates = [];
+    $.each(entities, function (key, entity) {
+        var x = parseInt(entity.position.x);
+        var y = parseInt(entity.position.y);
+
+        entitiesByYX[y] = entitiesByYX[y] || {};
+        entitiesByYX[y][x] = entitiesByYX[y][x] || [];
+        entitiesByYX[y][x].push(key);
+
+        if (allYCoordinates.indexOf(y) === -1) {
+            allYCoordinates.push(y);
         }
-        entitiesByXY[x][y] = key;
 
         minXY = Math.min(minXY, x, y);
         maxXY = Math.max(maxXY, x, y);
+    });
+    allYCoordinates.sort(function (a, b) {
+        return a - b;
     });
 
     minXY -= 5;
@@ -163,7 +171,7 @@ function drawBlueprint(stage, blueprintData) {
         }
         var gridX = Math.floor(entity.position.x - minXY - 0.5);
         var gridY = Math.floor(entity.position.y - minXY - 0.5);
-        $.each(spriteLayers, function(layerNumber, sprite) {
+        $.each(spriteLayers, function (layerNumber, sprite) {
             sprite.x = gridX * PIXELS_PER_FIELD;
             sprite.y = gridY * PIXELS_PER_FIELD;
             blueprintContainer.addChild(sprite);
@@ -174,8 +182,8 @@ function drawBlueprint(stage, blueprintData) {
 
     Math.seedrandom();
 
-    var spriteLayers = null;
-    $.each(entities, function (key, entity) {
+    function renderEntityToLayers(entity) {
+        var spriteLayers = {};
         var sizeW = 0;
         var sizeH = 0;
         var xOffset = 0;
@@ -186,9 +194,7 @@ function drawBlueprint(stage, blueprintData) {
             sprite.beginFill(0xFFFFFF);
             sprite.lineStyle(1, 0x000000);
             sprite.drawRect(0, 0, PIXELS_PER_FIELD, PIXELS_PER_FIELD);
-            spriteLayers = {
-                DEFAULT_LAYER: sprite
-            };
+            spriteLayers[DEFAULT_LAYER] = sprite;
             sizeW = 1;
             sizeH = 1;
             xOffset = 0;
@@ -210,14 +216,23 @@ function drawBlueprint(stage, blueprintData) {
 
         var gridX = Math.floor(entity.position.x - minXY - sizeW / 2);
         var gridY = Math.floor(entity.position.y - minXY - sizeH / 2);
-        $.each(spriteLayers, function(layerNumber, spriteLayer) {
+        $.each(spriteLayers, function (layerNumber, spriteLayer) {
             spriteLayer.x = gridX * PIXELS_PER_FIELD + xOffset;
             spriteLayer.y = gridY * PIXELS_PER_FIELD + yOffset;
             layers[layerNumber] = layers[layerNumber] || new PIXI.Container();
             layers[layerNumber].addChild(spriteLayer);
         });
+    }
+
+    $.each(allYCoordinates, function (_, y) {
+        $.each(entitiesByYX[y], function (x, entitiesForYX) {
+            $.each(entitiesForYX, function (_, entityKey) {
+                renderEntityToLayers(entities[entityKey]);
+            })
+        })
     });
-    $.each(layers, function(layerNumber, layer) {
+
+    $.each(layers, function (layerNumber, layer) {
         if (layer) {
             console.log('Adding layer', layerNumber);
             blueprintContainer.addChild(layer);
@@ -225,7 +240,7 @@ function drawBlueprint(stage, blueprintData) {
     });
 
 
-    FactorioBlueprintReader.zoomAndPanHandler.setOnMouseDownListener(function (x, y) {
+    FactorioBlueprintReader.zoomAndPanHandler.setOnMouseClickListener(function (x, y) {
         x = Math.floor(x / PIXELS_PER_FIELD);
         y = Math.floor(y / PIXELS_PER_FIELD);
         $.each(tiles, function (key, entity) {
@@ -255,6 +270,16 @@ function drawBlueprint(stage, blueprintData) {
             var gridY = Math.floor(entity.position.y - minXY - sizeH / 2);
             if (x >= gridX && x < gridX + sizeW && y >= gridY && y < gridY + sizeH) {
                 console.log('entity', entity.name, '(' + gridX + ', ' + gridY + ')', entity, entityDrawingSpec);
+                BootstrapDialog.show({
+                    title: entity.name,
+                    message: '<pre>' + JSON.stringify(entity, null, '    ') + '</pre>',
+                    buttons: [{
+                        label: 'OK',
+                        action: function() {
+
+                        }
+                    }]
+                });
             }
         });
 

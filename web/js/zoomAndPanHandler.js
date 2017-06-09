@@ -11,7 +11,7 @@ FactorioBlueprintReader.zoomAndPanHandler = {
     pixiContainerHeight:       0,
     onMousePositionChanged:    function (x, y) {
     },
-    onMouseDownListener:       function (x, y) {
+    onMouseClickListener:      function (x, y) {
     },
     zoom:                      function (zoomMultiplier, x, y) {
         var worldPosition = this.getWorldPosition(x, y);
@@ -112,14 +112,18 @@ FactorioBlueprintReader.zoomAndPanHandler = {
     },
     onMouseDown:               function (event) {
         this.lastPosition = {x: event.offsetX, y: event.offsetY};
-        var worldPosition = this.getWorldPosition(event.offsetX, event.offsetY);
-        this.onMouseDownListener(Math.round(worldPosition.x), Math.round(worldPosition.y));
+        this.moved = false;
     },
     onMouseUp:                 function (event) {
+        if (this.lastPosition && !this.moved) {
+            var worldPosition = this.getWorldPosition(event.offsetX, event.offsetY);
+            this.onMouseClickListener(Math.round(worldPosition.x), Math.round(worldPosition.y));
+        }
         this.lastPosition = null;
     },
     onMouseOut:                function (event) {
         this.lastPosition = null;
+        this.moved = true;
     },
     onMouseMove:               function (event) {
         if (!this.pixiContainer) {
@@ -132,6 +136,7 @@ FactorioBlueprintReader.zoomAndPanHandler = {
             this.clampPosition();
         }
         var worldPosition = this.getWorldPosition(event.offsetX, event.offsetY);
+        this.moved = true;
         this.onMousePositionChanged(Math.round(worldPosition.x), Math.round(worldPosition.y));
     },
     setContainer:              function (container) {
@@ -149,8 +154,8 @@ FactorioBlueprintReader.zoomAndPanHandler = {
     setOnMousePositionChanged: function (listener) {
         this.onMousePositionChanged = listener;
     },
-    setOnMouseDownListener:    function (listener) {
-        this.onMouseDownListener = listener;
+    setOnMouseClickListener:   function (listener) {
+        this.onMouseClickListener = listener;
     },
     init:                      function (canvas) {
         $(canvas).mousewheel(this.onMouseWheel.bind(this));

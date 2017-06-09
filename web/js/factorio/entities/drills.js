@@ -4,7 +4,7 @@ FactorioBlueprintReader.createEntitiesFunctions = FactorioBlueprintReader.create
 
 FactorioBlueprintReader.createEntitiesFunctions.push(function () {
     return {
-        'burner-mining-drill':    {
+        'burner-mining-drill':   {
             directions: {
                 2: {
                     image: {
@@ -104,31 +104,107 @@ FactorioBlueprintReader.createEntitiesFunctions.push(function () {
             gridSize:   {w: 2, h: 2},
             offset:     {x: -2, y: -12}
         },
-        'electric-mining-drill':  {
+        'electric-mining-drill': {
+            directions: {
+                2: {
+                    image:    {
+                        type:   'container',
+                        images: [
+                            {
+                                type:   'trim',
+                                path:   'entity/electric-mining-drill/electric-mining-drill-E-drill-shadow.png',
+                                number: 0,
+                                cols:   8,
+                                rows:   8,
+                                x:      0,
+                                y:      0
+                            },
+                            {
+                                type:   'trim',
+                                path:   'entity/electric-mining-drill/electric-mining-drill-E.png',
+                                number: 0,
+                                cols:   8,
+                                rows:   8,
+                                x:      0,
+                                y:      0
+                            }
+                        ]
+                    },
+                    offset:   {x: 0, y: 0}
+                },
+                4: {
+                    image:    {
+                        type:   'container',
+                        images: [
+                            {
+                                type:   'trim',
+                                path:   'entity/electric-mining-drill/electric-mining-drill-S-drill-shadow.png',
+                                number: 0,
+                                cols:   8,
+                                rows:   8,
+                                x:      0,
+                                y:      0
+                            },
+                            {
+                                type:   'trim',
+                                path:   'entity/electric-mining-drill/electric-mining-drill-S.png',
+                                number: 0,
+                                cols:   8,
+                                rows:   8,
+                                x:      0,
+                                y:      -6
+                            }
+                        ]
+                    },
+                    offset:   {x: 0, y: 0}
+                },
+                6: {
+                    image:    {
+                        type:   'container',
+                        images: [
+                            {
+                                type:   'trim',
+                                path:   'entity/electric-mining-drill/electric-mining-drill-W-drill-shadow.png',
+                                number: 0,
+                                cols:   8,
+                                rows:   8,
+                                x:      -8,
+                                y:      0
+                            },
+                            {
+                                type:   'trim',
+                                path:   'entity/electric-mining-drill/electric-mining-drill-W.png',
+                                number: 0,
+                                cols:   8,
+                                rows:   8,
+                                x:      -8,
+                                y:      0
+                            }
+                        ]
+                    },
+                    offset:   {x: 0, y: 0}
+                }
+            },
             image:    {
                 type:   'container',
                 images: [
                     {
-                        type:    'animated',
-                        path:    'entity/electric-mining-drill/electric-mining-drill-E-drill-shadow.png',
-                        from:    0,
-                        to:      63,
-                        reverse: true,
-                        cols:    8,
-                        rows:    8,
-                        x:       0,
-                        y:       0
+                        type:   'trim',
+                        path:   'entity/electric-mining-drill/electric-mining-drill-N-drill-shadow.png',
+                        number: 0,
+                        cols:   8,
+                        rows:   8,
+                        x:      0,
+                        y:      -16
                     },
                     {
-                        type:    'animated',
-                        path:    'entity/electric-mining-drill/electric-mining-drill-E.png',
-                        from:    0,
-                        to:      63,
-                        reverse: true,
-                        cols:    8,
-                        rows:    8,
-                        x:       0,
-                        y:       0
+                        type:   'trim',
+                        path:   'entity/electric-mining-drill/electric-mining-drill-N.png',
+                        number: 0,
+                        cols:   8,
+                        rows:   8,
+                        x:      0,
+                        y:      -16
                     }
                 ]
             },

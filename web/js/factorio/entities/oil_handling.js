@@ -3,9 +3,69 @@ var FactorioBlueprintReader = FactorioBlueprintReader || {};
 FactorioBlueprintReader.createEntitiesFunctions = FactorioBlueprintReader.createEntitiesFunctions || [];
 
 FactorioBlueprintReader.createEntitiesFunctions.push(function () {
+
+    const TILE_SIZE = 32;
+
+    function createRefineryImage(number, rotation, arrows) {
+        return {
+            type:   'container',
+            images: [
+                {
+                    type:   'trim',
+                    path:   'entity/oil-refinery/oil-refinery.png',
+                    number: number,
+                    cols:   4,
+                    rows:   1,
+                    x:      0,
+                    y:      -32
+                },
+                {
+                    type:     'sprite',
+                    path:     'core/fluid-indication-arrow.png',
+                    scale:    {x: 0.5, y: 0.5},
+                    rotation: rotation,
+                    x:        arrows[0].x,
+                    y:        arrows[0].y
+                },
+                {
+                    type:     'sprite',
+                    path:     'core/fluid-indication-arrow.png',
+                    scale:    {x: 0.5, y: 0.5},
+                    rotation: rotation,
+                    x:        arrows[1].x,
+                    y:        arrows[1].y
+                },
+                {
+                    type:     'sprite',
+                    path:     'core/fluid-indication-arrow.png',
+                    scale:    {x: 0.5, y: 0.5},
+                    rotation: rotation,
+                    x:        arrows[2].x,
+                    y:        arrows[2].y
+                },
+                {
+                    type:     'sprite',
+                    path:     'core/fluid-indication-arrow.png',
+                    scale:    {x: 0.5, y: 0.5},
+                    rotation: rotation,
+                    x:        arrows[3].x,
+                    y:        arrows[3].y
+                },
+                {
+                    type:     'sprite',
+                    path:     'core/fluid-indication-arrow.png',
+                    scale:    {x: 0.5, y: 0.5},
+                    rotation: rotation,
+                    x:        arrows[4].x,
+                    y:        arrows[4].y
+                }
+            ]
+        };
+    }
+
     return {
 
-        'chemical-plant':         {
+        'chemical-plant': {
             directions: {
                 2: {
                     image: {
@@ -202,16 +262,45 @@ FactorioBlueprintReader.createEntitiesFunctions.push(function () {
             gridSize:   {w: 3, h: 3},
             offset:     {x: 0, y: 0}
         },
-        'oil-refinery':           {
-            image:    {
-                type:   'trim',
-                path:   'entity/oil-refinery/oil-refinery.png',
-                number: 0,
-                cols:   4,
-                rows:   1
+        'oil-refinery':   {
+            directions: {
+                2: {
+                    image: createRefineryImage(1, 0.5, [
+                        {x: 10, y: TILE_SIZE + 17},
+                        {x: 10, y: TILE_SIZE * 3 + 17},
+                        {x: -5 + TILE_SIZE * 5, y: -17 + TILE_SIZE},
+                        {x: -5 + TILE_SIZE * 5, y: -17 + TILE_SIZE * 3},
+                        {x: -5 + TILE_SIZE * 5, y: -17 + TILE_SIZE * 5}
+                    ])
+                },
+                4: {
+                    image: createRefineryImage(2, 1, [
+                        {x: 15 + TILE_SIZE * 0, y: -5 + TILE_SIZE * 5},
+                        {x: 15 + TILE_SIZE * 2, y: -5 + TILE_SIZE * 5},
+                        {x: 15 + TILE_SIZE * 4, y: -5 + TILE_SIZE * 5},
+                        {x: 15 + TILE_SIZE * 1, y: 5},
+                        {x: 15 + TILE_SIZE * 3, y: 5},
+                    ])
+                },
+                6: {
+                    image: createRefineryImage(3, 1.5, [
+                        {x: 15, y: -15 + TILE_SIZE * 2},
+                        {x: 15, y: -15 + TILE_SIZE * 4},
+                        {x: 20 + TILE_SIZE * 4, y: -15 + TILE_SIZE * 1},
+                        {x: 20 + TILE_SIZE * 4,y: -15 + TILE_SIZE * 3},
+                        {x: 20 + TILE_SIZE * 4,y: -15 + TILE_SIZE * 5}
+                    ])
+                }
             },
-            gridSize: {w: 5, h: 5},
-            offset:   {x: 0, y: 0}
-        },
+            image:      createRefineryImage(0, 0, [
+                {x: 5, y: -15},
+                {x: 5 + TILE_SIZE * 2, y: -15},
+                {x: 5 + TILE_SIZE * 4, y: -15},
+                {x: 5 + TILE_SIZE, y: -15 + TILE_SIZE * 5},
+                {x: 5 + TILE_SIZE * 3, y: -15 + TILE_SIZE * 5}
+            ]),
+            gridSize:   {w: 5, h: 5},
+            offset:     {x: 0, y: 0}
+        }
     };
 });
