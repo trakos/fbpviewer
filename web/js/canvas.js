@@ -38,16 +38,18 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function createEntitySprite(entityImageSpec) {
-    var sprite;
+const DEFAULT_LAYER = 100;
+
+function createEntityLayers(entityImageSpec, entitySpec) {
+    var layerSprites = {};
 
     if (entityImageSpec.type == 'sprite') {
-        sprite = new PIXI.Sprite(PIXI.utils.TextureCache[IMAGES_PREFIX + entityImageSpec.path]);
+        layerSprites[entityImageSpec.layer || DEFAULT_LAYER] = new PIXI.Sprite(PIXI.utils.TextureCache[IMAGES_PREFIX + entityImageSpec.path]);
     } else if (entityImageSpec.type == 'trim') {
-        sprite = new PIXI.Sprite(PIXI.utils.TextureCache[IMAGES_PREFIX + entityImageSpec.path + "." + entityImageSpec.number]);
+        layerSprites[entityImageSpec.layer || DEFAULT_LAYER] = new PIXI.Sprite(PIXI.utils.TextureCache[IMAGES_PREFIX + entityImageSpec.path + "." + entityImageSpec.number]);
     } else if (entityImageSpec.type == 'random_trim') {
         var number = getRandomInt(entityImageSpec.from, entityImageSpec.to);
-        sprite = new PIXI.Sprite(PIXI.utils.TextureCache[IMAGES_PREFIX + entityImageSpec.path + "." + number]);
+        layerSprites[entityImageSpec.layer || DEFAULT_LAYER] = new PIXI.Sprite(PIXI.utils.TextureCache[IMAGES_PREFIX + entityImageSpec.path + "." + number]);
     } else if (entityImageSpec.type == 'animated') {
         var frames = [];
         for (var i = entityImageSpec.from; i <= entityImageSpec.to; i++) {
@@ -61,37 +63,51 @@ function createEntitySprite(entityImageSpec) {
         sprite = new PIXI.extras.AnimatedSprite(frames);
         sprite.animationSpeed = entityImageSpec.animationSpeed || 1;
         sprite.play();
+        layerSprites[entityImageSpec.layer || DEFAULT_LAYER] = sprite;
     } else if (entityImageSpec.type == 'container') {
-        var container = new PIXI.Container();
         for (var imageKey in entityImageSpec.images) {
             if (entityImageSpec.images.hasOwnProperty(imageKey)) {
-                var entity = createEntitySprite(entityImageSpec.images[imageKey]);
-                entity.x = entityImageSpec.images[imageKey].x;
-                entity.y = entityImageSpec.images[imageKey].y;
-                container.addChild(entity);
+                var entityLayers = createEntityLayers(entityImageSpec.images[imageKey], entitySpec);
+                $.each(entityLayers, function(layer, entityLayer) {
+                    entityLayer.x = entityImageSpec.images[imageKey].x;
+                    entityLayer.y = entityImageSpec.images[imageKey].y;
+                    layerSprites[layer] = layerSprites[layer] || new PIXI.Container();
+                    layerSprites[layer].addChild(entityLayer);
+                });
             }
         }
-
-        sprite = container;
     } else {
         throw 'unknown type ' + entityImageSpec.type;
     }
 
-    if (entityImageSpec.scale) {
-        sprite.scale.x = entityImageSpec.scale.x;
-        sprite.scale.y = entityImageSpec.scale.y;
-    }
+    $.each(layerSprites, function (layerNumber, layerSprite) {
+        if (entityImageSpec.scale) {
+            layerSprite.scale.x = entityImageSpec.scale.x;
+            layerSprite.scale.y = entityImageSpec.scale.y;
+        }
 
-    if (entityImageSpec.rotation) {
-        sprite.anchor.set(0.5, 0.5);
-        sprite.rotation = entityImageSpec.rotation * Math.PI;
-    }
+        if (entityImageSpec.rotation) {
+            layerSprite.anchor.set(0.5, 0.5);
+            layerSprite.rotation = entityImageSpec.rotation * Math.PI;
+        }
 
-    if (entityImageSpec.alpha) {
-        sprite.alpha = entityImageSpec.alpha;
-    }
+        if (entityImageSpec.alpha) {
+            layerSprite.alpha = entityImageSpec.alpha;
+        }
 
-    return sprite;
+        if (entityImageSpec.mask) {
+            var color = 0xFF0000;
+            var alpha = 0.5;
+            if (entitySpec.color) {
+                color = ((entitySpec.color.r * 255) << 16) + ((entitySpec.color.g * 255) << 8) + (entitySpec.color.b * 255);
+                alpha = entitySpec.color.a;
+            }
+            layerSprite.filters = [new ColorFillShader(color)];
+            layerSprite.alpha = alpha;
+        }
+    });
+
+    return layerSprites;
 }
 
 function drawBlueprint(stage, blueprintData) {
@@ -134,38 +150,45 @@ function drawBlueprint(stage, blueprintData) {
     blueprintContainer.addChild(background);
 
     $.each(tiles, function (key, entity) {
-        var sprite;
+        var spriteLayers;
         if (FactorioBlueprintReader.tiles[entity.name]) {
             Math.seedrandom(entity.position.x + "," + entity.position.y);
-            sprite = createEntitySprite(FactorioBlueprintReader.tiles[entity.name].image);
+            spriteLayers = createEntityLayers(FactorioBlueprintReader.tiles[entity.name].image);
         } else {
             console.log("Unknown tile name", entity.name);
-            sprite = new PIXI.Graphics();
-            sprite.beginFill(0xFFFFFF);
-            sprite.lineStyle(1, 0x333333);
-            sprite.drawRect(0, 0, PIXELS_PER_FIELD, PIXELS_PER_FIELD);
+            spriteLayers = new PIXI.Graphics();
+            spriteLayers.beginFill(0xFFFFFF);
+            spriteLayers.lineStyle(1, 0x333333);
+            spriteLayers.drawRect(0, 0, PIXELS_PER_FIELD, PIXELS_PER_FIELD);
         }
         var gridX = Math.floor(entity.position.x - minXY - 0.5);
         var gridY = Math.floor(entity.position.y - minXY - 0.5);
-        sprite.x = gridX * PIXELS_PER_FIELD;
-        sprite.y = gridY * PIXELS_PER_FIELD;
-        blueprintContainer.addChild(sprite);
+        $.each(spriteLayers, function(layerNumber, sprite) {
+            sprite.x = gridX * PIXELS_PER_FIELD;
+            sprite.y = gridY * PIXELS_PER_FIELD;
+            blueprintContainer.addChild(sprite);
+        });
     });
+
+    var layers = [];
 
     Math.seedrandom();
 
+    var spriteLayers = null;
     $.each(entities, function (key, entity) {
-        var sprite = null;
         var sizeW = 0;
         var sizeH = 0;
         var xOffset = 0;
         var yOffset = 0;
         if (!FactorioBlueprintReader.entities[entity.name]) {
             console.log("Unknown entity name", entity.name);
-            sprite = new PIXI.Graphics();
+            var sprite = new PIXI.Graphics();
             sprite.beginFill(0xFFFFFF);
             sprite.lineStyle(1, 0x000000);
             sprite.drawRect(0, 0, PIXELS_PER_FIELD, PIXELS_PER_FIELD);
+            spriteLayers = {
+                DEFAULT_LAYER: sprite
+            };
             sizeW = 1;
             sizeH = 1;
             xOffset = 0;
@@ -178,19 +201,26 @@ function drawBlueprint(stage, blueprintData) {
             if (entity.direction && entityDrawingSpec.directions && entityDrawingSpec.directions[entity.direction]) {
                 entityDrawingSpec = $.extend({}, entityDrawingSpec, entityDrawingSpec.directions[entity.direction]);
             }
-            sprite = createEntitySprite(entityDrawingSpec.image);
+            spriteLayers = createEntityLayers(entityDrawingSpec.image, entity);
             sizeW = entityDrawingSpec.gridSize.w;
             sizeH = entityDrawingSpec.gridSize.h;
             xOffset = entityDrawingSpec.offset.x;
             yOffset = entityDrawingSpec.offset.y;
         }
 
-        if (sprite != null) {
-            var gridX = Math.floor(entity.position.x - minXY - sizeW / 2);
-            var gridY = Math.floor(entity.position.y - minXY - sizeH / 2);
-            sprite.x = gridX * PIXELS_PER_FIELD + xOffset;
-            sprite.y = gridY * PIXELS_PER_FIELD + yOffset;
-            blueprintContainer.addChild(sprite);
+        var gridX = Math.floor(entity.position.x - minXY - sizeW / 2);
+        var gridY = Math.floor(entity.position.y - minXY - sizeH / 2);
+        $.each(spriteLayers, function(layerNumber, spriteLayer) {
+            spriteLayer.x = gridX * PIXELS_PER_FIELD + xOffset;
+            spriteLayer.y = gridY * PIXELS_PER_FIELD + yOffset;
+            layers[layerNumber] = layers[layerNumber] || new PIXI.Container();
+            layers[layerNumber].addChild(spriteLayer);
+        });
+    });
+    $.each(layers, function(layerNumber, layer) {
+        if (layer) {
+            console.log('Adding layer', layerNumber);
+            blueprintContainer.addChild(layer);
         }
     });
 
