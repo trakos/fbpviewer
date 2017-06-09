@@ -14,7 +14,7 @@ FactorioBlueprintReader.createEntitiesFunctions.push(function () {
                 rows: 8
             },
             gridSize: {w: 3, h: 3},
-            offset:   {x: 0, y: 0}
+            offset:   {x: 0, y: -32}
         },
     };
 });
