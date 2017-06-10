@@ -12,22 +12,17 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Project name</a>
+                <a class="navbar-brand" href="#">BPRender</a>
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#" id="load-blueprint-button">Load blueprint...</a></li>
                 </ul>
             </div><!--/.nav-collapse -->
         </div>
     </nav>
 
-    <div class="container-fluid">
-
-        <div class="starter-template">
-            <h1>Bootstrap starter template</h1>
-        </div>
-
+    <div class="container-fluid" id="main-site-container" style="padding:0;margin:0;">
     </div>
 {% endblock %}
 
@@ -45,9 +40,9 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script type="text/javascript" src="js/config.js"></script>
     <script type="text/javascript" src="js/images/loader.js"></script>
 
+    <script type="text/javascript" src="js/factorio/blueprints.js"></script>
     <script type="text/javascript" src="js/factorio/icons.js"></script>
     <script type="text/javascript" src="js/factorio/tiles.js"></script>
 
@@ -77,5 +72,6 @@
 
     <script type="text/javascript" src="js/keyboardHandler.js"></script>
     <script type="text/javascript" src="js/zoomAndPanHandler.js"></script>
-    <script type="text/javascript" src="js/canvas.js"></script>
+    <script type="text/javascript" src="js/renderBlueprint.js"></script>
+    <script type="text/javascript" src="js/init.js"></script>
 {% endblock %}

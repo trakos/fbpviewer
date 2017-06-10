@@ -26,7 +26,7 @@ class DefaultController extends Controller
      */
     public function blueprintAction(Request $request)
     {
-        $blueprintString = TestCases::COMPLETE_EXAMPLE;
+        $blueprintString = TestCases::UNLOADER;
         $version = $blueprintString[0];
         $blueprintString = substr($blueprintString, 1);
         $blueprintString = base64_decode($blueprintString);

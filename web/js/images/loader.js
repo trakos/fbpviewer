@@ -17,7 +17,7 @@ FactorioBlueprintReader.Loader = {
         PIXI.utils.TextureCache[imagePath + "." + number] = new PIXI.Texture(PIXI.utils.TextureCache[imagePath].baseTexture, rect, rect.clone(), null, null);
     },
     _prepareTrimmedTexturesFromImageData:  function (imageData) {
-        var imagePath = IMAGES_PREFIX + imageData.path;
+        var imagePath = FBR_IMAGES_PREFIX + imageData.path;
         if (imageData.type == 'trim') {
             this._prepareTrimmedTexture(imagePath, imageData.rows, imageData.cols, imageData.number);
         } else if (imageData.type == 'animated' || imageData.type == 'random_trim') {
@@ -67,18 +67,18 @@ FactorioBlueprintReader.Loader = {
         var imagesToLoad = [];
 
         $.each(FactorioBlueprintReader.icons.ICONS, function (key, iconPath) {
-            imagesToLoad.push(IMAGES_PREFIX + FactorioBlueprintReader.icons.prefix + iconPath);
+            imagesToLoad.push(FBR_IMAGES_PREFIX + FactorioBlueprintReader.icons.prefix + iconPath);
         });
 
         function addEntityImageToLoader(entityKey, entityData) {
             if (entityData.image.path) {
-                var fullPath = IMAGES_PREFIX + entityData.image.path;
+                var fullPath = FBR_IMAGES_PREFIX + entityData.image.path;
                 if ($.inArray(fullPath, imagesToLoad) < 0) {
                     imagesToLoad.push(fullPath);
                 }
             } else if (entityData.image.type == 'container') {
                 $.each(entityData.image.images, function (imageKey, imageData) {
-                    var imageFullPath = IMAGES_PREFIX + imageData.path;
+                    var imageFullPath = FBR_IMAGES_PREFIX + imageData.path;
                     if ($.inArray(imageFullPath, imagesToLoad) < 0) {
                         imagesToLoad.push(imageFullPath);
                     }
@@ -117,8 +117,8 @@ FactorioBlueprintReader.Loader = {
             addEntityImageToLoader(entityKey, entityData);
         });
 
-        imagesToLoad.push(IMAGES_PREFIX + "core/entity-info-dark-background.png");
-        imagesToLoad.push(IMAGES_PREFIX + "background.png");
+        imagesToLoad.push(FBR_IMAGES_PREFIX + "core/entity-info-dark-background.png");
+        imagesToLoad.push(FBR_IMAGES_PREFIX + "background.png");
 
         return imagesToLoad;
     }

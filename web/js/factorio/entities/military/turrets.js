@@ -132,7 +132,7 @@ FactorioBlueprintReader.createEntitiesFunctions.push(function () {
                                 cols:   5,
                                 rows:   12,
                                 number: 15,
-                                x:      BX,
+                                x:      0,
                                 y:      -20
                             },
                             {
@@ -145,7 +145,7 @@ FactorioBlueprintReader.createEntitiesFunctions.push(function () {
                                 animationSpeed: 0.9,
                                 alpha:          0.8,
                                 scale:          {x: 0.5, y: 0.5},
-                                x:              GX,
+                                x:              0,
                                 y:              -5
                             }
                         ]

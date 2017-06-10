@@ -5,9 +5,9 @@ FactorioBlueprintReader.createEntitiesFunctions = FactorioBlueprintReader.create
 FactorioBlueprintReader.createEntitiesFunctions.push(function () {
     return {
         'arithmetic-combinator': {
-            directions: {
+            directions:       {
                 2: {
-                    image:    {
+                    image:            {
                         type:   'container',
                         images: [
                             {
@@ -37,10 +37,14 @@ FactorioBlueprintReader.createEntitiesFunctions.push(function () {
                             }
                         ]
                     },
-                    gridSize: {w: 2, h: 1}
+                    gridSize:         {w: 2, h: 1},
+                    circuitEndpoints: {
+                        2: {x: 56, y: 16},
+                        1: {x: 8, y: 16}
+                    }
                 },
                 4: {
-                    image:    {
+                    image:            {
                         type:   'container',
                         images: [
                             {
@@ -70,10 +74,14 @@ FactorioBlueprintReader.createEntitiesFunctions.push(function () {
                             }
                         ]
                     },
-                    gridSize: {w: 1, h: 2}
+                    gridSize:         {w: 1, h: 2},
+                    circuitEndpoints: {
+                        1: {x: 16, y: 0},
+                        2: {x: 16, y: 48}
+                    }
                 },
                 6: {
-                    image:    {
+                    image:            {
                         type:   'container',
                         images: [
                             {
@@ -103,10 +111,14 @@ FactorioBlueprintReader.createEntitiesFunctions.push(function () {
                             }
                         ]
                     },
-                    gridSize: {w: 2, h: 1}
+                    gridSize:         {w: 2, h: 1},
+                    circuitEndpoints: {
+                        2: {x: 8, y: 16},
+                        1: {x: 56, y: 16}
+                    }
                 }
             },
-            image:      {
+            image:            {
                 type:   'container',
                 images: [
                     {
@@ -136,13 +148,17 @@ FactorioBlueprintReader.createEntitiesFunctions.push(function () {
                     }
                 ]
             },
-            gridSize:   {w: 1, h: 2},
-            offset:     {x: 0, y: 0}
+            circuitEndpoints: {
+                1: {x: 16, y: 48},
+                2: {x: 16, y: 0}
+            },
+            gridSize:         {w: 1, h: 2},
+            offset:           {x: 0, y: 0}
         },
         'constant-combinator':   {
             directions: {
                 2: {
-                    image: {
+                    image:            {
                         type:   'trim',
                         path:   'entity/combinator/combinator-entities.png',
                         number: 8,
@@ -180,7 +196,7 @@ FactorioBlueprintReader.createEntitiesFunctions.push(function () {
             offset:     {x: -20, y: -10}
         },
         'decider-combinator':    {
-            directions: {
+            directions:       {
                 2: {
                     image:    {
                         type:   'container',
@@ -212,10 +228,14 @@ FactorioBlueprintReader.createEntitiesFunctions.push(function () {
                             }
                         ]
                     },
-                    gridSize: {w: 2, h: 1}
+                    gridSize: {w: 2, h: 1},
+                    circuitEndpoints: {
+                        2: {x: 56, y: 16},
+                        1: {x: 8, y: 16}
+                    }
                 },
                 4: {
-                    image:    {
+                    image:            {
                         type:   'container',
                         images: [
                             {
@@ -245,10 +265,14 @@ FactorioBlueprintReader.createEntitiesFunctions.push(function () {
                             }
                         ]
                     },
-                    gridSize: {w: 1, h: 2}
+                    gridSize:         {w: 1, h: 2},
+                    circuitEndpoints: {
+                        1: {x: 16, y: 0},
+                        2: {x: 16, y: 48}
+                    }
                 },
                 6: {
-                    image:    {
+                    image:            {
                         type:   'container',
                         images: [
                             {
@@ -278,10 +302,14 @@ FactorioBlueprintReader.createEntitiesFunctions.push(function () {
                             }
                         ]
                     },
-                    gridSize: {w: 2, h: 1}
+                    gridSize:         {w: 2, h: 1},
+                    circuitEndpoints: {
+                        2: {x: 8, y: 16},
+                        1: {x: 56, y: 16}
+                    }
                 }
             },
-            image:      {
+            image:            {
                 type:   'container',
                 images: [
                     {
@@ -311,8 +339,12 @@ FactorioBlueprintReader.createEntitiesFunctions.push(function () {
                     }
                 ]
             },
-            gridSize:   {w: 1, h: 2},
-            offset:     {x: 0, y: 0}
+            gridSize:         {w: 1, h: 2},
+            offset:           {x: 0, y: 0},
+            circuitEndpoints: {
+                1: {x: 16, y: 48},
+                2: {x: 16, y: 0}
+            },
         }
     };
 });
