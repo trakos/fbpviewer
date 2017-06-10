@@ -6,6 +6,40 @@ FactorioBlueprintReader.createEntitiesFunctions.push(function () {
 
     const TILE_SIZE = 32;
 
+    function createPumpjackImage(number, arrowRotation, arrowX, arrowY) {
+        return {
+            type:   'container',
+            images: [
+                {
+                    type:   'trim',
+                    path:   'entity/pumpjack/pumpjack-base.png',
+                    number: number,
+                    cols:   4,
+                    rows:   1,
+                    x:      -12,
+                    y:      -12
+                },
+                {
+                    type:   'trim',
+                    path:   'entity/pumpjack/pumpjack-animation.png',
+                    number: 0,
+                    cols:   10,
+                    rows:   4,
+                    x:      -12,
+                    y:      -32
+                },
+                {
+                    type:     'sprite',
+                    path:     'core/fluid-indication-arrow.png',
+                    scale:    {x: 0.5, y: 0.5},
+                    rotation: arrowRotation,
+                    x:        arrowX,
+                    y:        arrowY
+                }
+            ]
+        };
+    }
+
     function createRefineryImage(number, rotation, arrows) {
         return {
             type:   'container',
@@ -287,8 +321,8 @@ FactorioBlueprintReader.createEntitiesFunctions.push(function () {
                         {x: 15, y: -15 + TILE_SIZE * 2},
                         {x: 15, y: -15 + TILE_SIZE * 4},
                         {x: 20 + TILE_SIZE * 4, y: -15 + TILE_SIZE * 1},
-                        {x: 20 + TILE_SIZE * 4,y: -15 + TILE_SIZE * 3},
-                        {x: 20 + TILE_SIZE * 4,y: -15 + TILE_SIZE * 5}
+                        {x: 20 + TILE_SIZE * 4, y: -15 + TILE_SIZE * 3},
+                        {x: 20 + TILE_SIZE * 4, y: -15 + TILE_SIZE * 5}
                     ])
                 }
             },
@@ -300,6 +334,22 @@ FactorioBlueprintReader.createEntitiesFunctions.push(function () {
                 {x: 5 + TILE_SIZE * 3, y: -15 + TILE_SIZE * 5}
             ]),
             gridSize:   {w: 5, h: 5},
+            offset:     {x: 0, y: 0}
+        },
+        'pumpjack':       {
+            directions: {
+                2: {
+                    image: createPumpjackImage(1, 0.5, 96, 20)
+                },
+                4: {
+                    image: createPumpjackImage(2, 1, 16, 96)
+                },
+                6: {
+                    image: createPumpjackImage(3, 1.5, 0, 64)
+                }
+            },
+            image:      createPumpjackImage(0, 0, 66, -16),
+            gridSize:   {w: 3, h: 3},
             offset:     {x: 0, y: 0}
         }
     };
