@@ -112,10 +112,10 @@ FactorioBlueprintReader.zoomAndPanHandler = {
     },
     onMouseDown:               function (event) {
         this.lastPosition = {x: event.offsetX, y: event.offsetY};
-        this.moved = false;
+        this.movedBy = 0;
     },
     onMouseUp:                 function (event) {
-        if (this.lastPosition && !this.moved) {
+        if (this.lastPosition && this.movedBy < 40) {
             var worldPosition = this.getWorldPosition(event.offsetX, event.offsetY);
             this.onMouseClickListener(Math.round(worldPosition.x), Math.round(worldPosition.y));
         }
@@ -130,13 +130,13 @@ FactorioBlueprintReader.zoomAndPanHandler = {
             return;
         }
         if (this.lastPosition) {
+            this.movedBy += Math.pow(event.offsetX - this.lastPosition.x, 2) + Math.pow(event.offsetY - this.lastPosition.y, 2);
             this.pixiContainer.x += (event.offsetX - this.lastPosition.x);
             this.pixiContainer.y += (event.offsetY - this.lastPosition.y);
             this.lastPosition = {x: event.offsetX, y: event.offsetY};
             this.clampPosition();
         }
         var worldPosition = this.getWorldPosition(event.offsetX, event.offsetY);
-        this.moved = true;
         this.onMousePositionChanged(Math.round(worldPosition.x), Math.round(worldPosition.y));
     },
     setContainer:              function (container, keepPosition) {

@@ -255,6 +255,9 @@ FactorioBlueprintReader.renderBlueprint = (function () {
             if (entityDrawingSpec && entityDrawingSpec.circuitEndpoints && entityDrawingSpec.circuitEndpoints[circuitId]) {
                 xOffset = entityDrawingSpec.circuitEndpoints[circuitId].x;
                 yOffset = entityDrawingSpec.circuitEndpoints[circuitId].y;
+            } else if (entityDrawingSpec) {
+                xOffset = FBR_PIXELS_PER_TILE * entityDrawingSpec.gridSize.w / 2;
+                yOffset = FBR_PIXELS_PER_TILE * entityDrawingSpec.gridSize.h / 2;
             }
 
             return {x: x + xOffset, y: y + yOffset};
