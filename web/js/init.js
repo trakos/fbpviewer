@@ -87,40 +87,90 @@ $(function () {
             function gameLoop() {
                 requestAnimationFrame(gameLoop);
                 FactorioBlueprintReader.zoomAndPanHandler.handleKeyboardPanning();
+                FactorioBlueprintReader.animationHandler.tick();
                 renderer.render(stage);
             }
 
             gameLoop();
 
             var blueprintContainer = null;
+            var currentBlueprintString = FactorioBlueprintReader.TEST_CASES.book;
+            var currentBlueprintIndex = 0;
 
-            var blueprintData = FactorioBlueprintReader.parse(FactorioBlueprintReader.TEST_CASES.connected_combinators);
-            blueprintContainer = FactorioBlueprintReader.renderBlueprint(stage, blueprintData.data);
+            var blueprintData = FactorioBlueprintReader.parse(currentBlueprintString);
+            blueprintContainer = new PIXI.Container();
             FactorioBlueprintReader.zoomAndPanHandler.setContainer(blueprintContainer);
             gameContainer.addChild(blueprintContainer);
 
             function redraw() {
-                gameContainer.removeChild(blueprintContainer);
                 var containerToDestroy = blueprintContainer;
                 setTimeout(function () {
+                    gameContainer.removeChild(containerToDestroy);
                     containerToDestroy.destroy({children: true});
                     containerToDestroy = null;
                 }, 0);
 
                 loadEntities();
-                blueprintContainer = FactorioBlueprintReader.renderBlueprint(stage, blueprintData.data);
+                if (blueprintData.data.blueprint) {
+                    $("#blueprint-recipe-selector").hide();
+                    blueprintContainer = FactorioBlueprintReader.renderBlueprint(stage, blueprintData.data);
+                } else if (blueprintData.data.blueprint_book) {
+                    $("#blueprint-recipe-selector").show();
+                    blueprintContainer = FactorioBlueprintReader.renderBlueprint(stage, blueprintData.data.blueprint_book.blueprints[currentBlueprintIndex]);
+                    $('#blueprint-recipe-selector ul').find('li').remove();
+                    $.each(blueprintData.data.blueprint_book.blueprints, function (key, value) {
+                        var icons = '';
+                        for (var k = 0; k < 4; k++) {
+                            var icon = value.blueprint.icons[k];
+                            if (icon) {
+                                var signalName = icon.signal.name;
+                                if (FactorioBlueprintReader.icons[signalName]) {
+                                    var imageSpec = FactorioBlueprintReader.icons[signalName].image;
+                                    if (imageSpec.type == 'sprite') {
+                                        icons += '<img src="/' + FBR_IMAGES_PREFIX + imageSpec.path + '" />';
+                                        continue;
+                                    }
+                                }
+                            } else {
+                                icons += '<span style="margin-right: 32px;"></span>';
+                            }
+                        }
+                        var option = $('<li><a href="#">' + icons + ' ' + value.blueprint.label + '</a></li>');
+                        option.click(function () {
+                            currentBlueprintIndex = key;
+                            redraw();
+                        });
+                        if (key == currentBlueprintIndex) {
+                            option.addClass('active');
+                        }
+                        $('#blueprint-recipe-selector ul').append(option);
+                    });
+                }
                 FactorioBlueprintReader.zoomAndPanHandler.setContainer(blueprintContainer);
 
                 gameContainer.addChild(blueprintContainer);
             }
 
             FBR_REDRAW_FUNC = redraw;
+            setTimeout(function () {
+                redraw();
+            }, 0);
+            $("#show-blueprint-string-button").click(function () {
+                BootstrapDialog.show({
+                    title:   "Blueprint string",
+                    message: '<div class="form-group"><textarea id="factorio-blueprint-output" class="form-control" onClick="this.setSelectionRange(0, this.value.length)" rows="5">' + currentBlueprintString + '</textarea></div>',
+                    onshown: function (dialogRef) {
+                        $('#factorio-blueprint-output').focus();
+                        $('#factorio-blueprint-output').select();
+                    }
+                });
+            });
             $("#load-blueprint-button").click(function () {
                 BootstrapDialog.show({
                     title:   "Paste blueprint",
                     message: '<div class="input-group">' +
                              '<span class="input-group-addon">BP</span>' +
-                             '<input id="factorio-blueprint-input" type="text" class="form-control" placeholder="Paste your blueprint here">' +
+                             '<input id="factorio-blueprint-input" type="text" class="form-control" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="Paste your blueprint here">' +
                              '</div>',
                     buttons: [{
                         label:  'Render',
@@ -136,8 +186,14 @@ $(function () {
                                 alert("Failed parsing the blueprint!");
                                 return;
                             }
+                            if (blueprintData.data.blueprint_book && blueprintData.data.blueprint_book.length == 0) {
+                                alert("You can't import an empty book!");
+                                return;
+                            }
                             dialogRef.close();
                             blueprintData = parsed;
+                            currentBlueprintIndex = 0;
+                            currentBlueprintString = blueprintString;
                             redraw();
                         }
                     }, {
@@ -145,7 +201,44 @@ $(function () {
                         action: function (dialogRef) {
                             dialogRef.close();
                         }
+                    }],
+                    onshown: function (dialogRef) {
+                        $('#factorio-blueprint-input').focus();
+                        $('#factorio-blueprint-input').select();
+                    }
+                });
+            });
+            $("#share-blueprint-button").click(function () {
+                var dialogRef = BootstrapDialog.show({
+                    message: '<p>Generating, please wait...</p>',
+                    buttons: [{
+                        label:  'Close',
+                        action: function (dialogRef) {
+                            dialogRef.close();
+                        }
                     }]
+                });
+
+                dialogRef.enableButtons(false);
+                dialogRef.setClosable(false);
+
+                $.ajax('/share', {
+                    type:    'POST',
+                    data:    currentBlueprintString,
+                    success: function (data, status, xhr) {
+                        dialogRef.getModalBody().html('<div class="input-group">' +
+                            '<span class="input-group-addon">URL</span>' +
+                            '<input readonly="readonly" id="factorio-blueprint-url" onClick="this.setSelectionRange(0, this.value.length)" type="text" class="form-control" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" placeholder="" value="' + data.url + '">' +
+                            '</div>');
+                        dialogRef.enableButtons(true);
+                        dialogRef.setClosable(true);
+                        $('#factorio-blueprint-url').focus();
+                        $('#factorio-blueprint-url').select();
+                    },
+                    error:   function (jqXhr, textStatus, errorMessage) {
+                        alert('Failed to create URL');
+                        dialogRef.close();
+                    }
                 });
             });
         });

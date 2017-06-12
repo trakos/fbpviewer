@@ -2,12 +2,22 @@ var FactorioBlueprintReader = FactorioBlueprintReader || {};
 
 FactorioBlueprintReader.renderBlueprint = (function () {
 
+    FactorioBlueprintReader.animationHandler.clear();
+
     const DEFAULT_LAYER = 100;
+    const OVERLAY_LAYER = 200;
 
     function getRandomInt(min, max) {
         min = Math.ceil(min);
         max = Math.floor(max);
         return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function hashTwoIntegers(a, b) {
+        var A = a >= 0 ? 2 * a : -2 * a - 1;
+        var B = b >= 0 ? 2 * b : -2 * b - 1;
+        var C = (A >= B ? A * A + A + B : A + B * B) / 2;
+        return a < 0 && b < 0 || a >= 0 && b >= 0 ? C : -C - 1;
     }
 
     function getEntityDrawingSpecForEntity(entity) {
@@ -71,6 +81,11 @@ FactorioBlueprintReader.renderBlueprint = (function () {
                 layerSprite.scale.y = entityImageSpec.scale.y;
             }
 
+            if (entityImageSpec.anchor) {
+                layerSprite.anchor.x = entityImageSpec.anchor.x;
+                layerSprite.anchor.y = entityImageSpec.anchor.y;
+            }
+
             if (entityImageSpec.rotation) {
                 layerSprite.anchor.set(0.5, 0.5);
                 layerSprite.rotation = entityImageSpec.rotation * Math.PI;
@@ -83,7 +98,7 @@ FactorioBlueprintReader.renderBlueprint = (function () {
             if (entityImageSpec.mask) {
                 var color = 0xFF0000;
                 var alpha = 0.5;
-                if (entitySpec.color) {
+                if (entitySpec && entitySpec.color) {
                     color = ((entitySpec.color.r * 255) << 16) + ((entitySpec.color.g * 255) << 8) + (entitySpec.color.b * 255);
                     alpha = entitySpec.color.a;
                 }
@@ -93,6 +108,25 @@ FactorioBlueprintReader.renderBlueprint = (function () {
         });
 
         return layerSprites;
+    }
+
+    function drawLayers(destinationLayers, sourceLayers, gridX, gridY, xOffset, yOffset) {
+        $.each(sourceLayers, function (layerNumber, spriteLayer) {
+            spriteLayer.x = gridX * FBR_PIXELS_PER_TILE + xOffset;
+            spriteLayer.y = gridY * FBR_PIXELS_PER_TILE + yOffset;
+            destinationLayers[layerNumber] = destinationLayers[layerNumber] || new PIXI.Container();
+            destinationLayers[layerNumber].addChild(spriteLayer);
+        });
+    }
+
+    function createIconSprite(imageSpec) {
+        var iconLayers = createEntityLayers(imageSpec);
+        var darkBackground = new PIXI.Sprite(PIXI.utils.TextureCache[FBR_IMAGES_PREFIX + FactorioBlueprintReader.ImagesUI.INFO_DARK_BACKGROUND]);
+        darkBackground.anchor.x = 0.5;
+        darkBackground.anchor.y = 0.5;
+        iconLayers[OVERLAY_LAYER - 10] = darkBackground;
+
+        return iconLayers;
     }
 
     function renderEntityToLayers(layers, minXY, entity) {
@@ -123,12 +157,87 @@ FactorioBlueprintReader.renderBlueprint = (function () {
 
         var gridX = Math.floor(entity.position.x - minXY - sizeW / 2);
         var gridY = Math.floor(entity.position.y - minXY - sizeH / 2);
-        $.each(spriteLayers, function (layerNumber, spriteLayer) {
-            spriteLayer.x = gridX * FBR_PIXELS_PER_TILE + xOffset;
-            spriteLayer.y = gridY * FBR_PIXELS_PER_TILE + yOffset;
-            layers[layerNumber] = layers[layerNumber] || new PIXI.Container();
-            layers[layerNumber].addChild(spriteLayer);
+        drawLayers(layers, spriteLayers, gridX, gridY, xOffset, yOffset);
+
+
+        if (entity.recipe) {
+            if (!FactorioBlueprintReader.icons[entity.recipe]) {
+                console.log('Can\'t find icon for recipe', entity.recipe);
+            } else {
+                var iconLayers = createIconSprite(FactorioBlueprintReader.icons[entity.recipe].image);
+                xOffset = (sizeW * FBR_PIXELS_PER_TILE) / 2;
+                yOffset = (sizeH * FBR_PIXELS_PER_TILE) / 2;
+                drawLayers(layers, iconLayers, gridX, gridY, xOffset, yOffset);
+            }
+        }
+
+        if (entity.items) {
+            var itemCount = 0;
+            $.each(entity.items, function (_, entityItem) {
+                // apparently items can be an array or an object
+                // i.e. either [{name: 'blabla', count:5}] or just {blabla:5}
+                itemCount += entityItem.count ? entityItem.count : entityItem;
+            });
+            var startX = (sizeW * FBR_PIXELS_PER_TILE - itemCount * FactorioBlueprintReader.iconSize / 2) / 2;
+            // add another half of icon size (which is uses scale 0.5, so a quarter of size) due to anchor being 0.5
+            startX += FactorioBlueprintReader.iconSize / 4;
+            var itemNumber = 0;
+            $.each(entity.items, function (itemName, entityItem) {
+                // apparently items can be an array or an object
+                // i.e. either [{name: 'blabla', count:5}] or just {blabla:5}
+                var count = entityItem;
+                if (entityItem.item) {
+                    itemName = entityItem.item;
+                    count = entityItem.count;
+                }
+                for (var k = 0; k < count; k++) {
+                    if (!FactorioBlueprintReader.icons[itemName]) {
+                        console.log('Can\'t find icon for item', itemName);
+                    } else {
+                        var iconLayers = createIconSprite(FactorioBlueprintReader.icons[itemName].image);
+                        $.each(iconLayers, function (layerNumber, layerContainer) {
+                            layerContainer.scale.x = layerContainer.scale.y = 0.5;
+                        });
+                        xOffset = startX + FactorioBlueprintReader.iconSize / 2 * itemNumber;
+                        yOffset = (sizeH * FBR_PIXELS_PER_TILE) / 2 + FactorioBlueprintReader.iconSize;
+                        drawLayers(layers, iconLayers, gridX, gridY, xOffset, yOffset);
+                    }
+                    itemNumber++;
+                }
+            });
+        }
+
+        var filters = [];
+        if (entity.filters) {
+            filters = entity.filters;
+        } else if (entity.request_filters) {
+            filters = entity.request_filters;
+        }
+        var filterItemNumber = 0;
+        $.each(filters, function (_, filterItem) {
+            if (!FactorioBlueprintReader.icons[filterItem.name]) {
+                console.log('Can\'t find icon for item', filterItem.name);
+            } else {
+                var iconLayers = createIconSprite(FactorioBlueprintReader.icons[filterItem.name].image);
+                $.each(iconLayers, function (layerNumber, layerContainer) {
+                    layerContainer.scale.x = layerContainer.scale.y = 0.4;
+                });
+                xOffset = (filterItemNumber % 2 == 0 ? 0 : 16) + (FactorioBlueprintReader.iconSize * 0.2);
+                yOffset = (Math.floor(filterItemNumber % 4 / 2) * 16) + (FactorioBlueprintReader.iconSize * 0.2);
+                drawLayers(layers, iconLayers, gridX, gridY, xOffset, yOffset);
+                // if there's more than 4, cycle between them every 2 seconds; also hide if alt is pressed
+                var everyNSeconds = 5;
+                var currentFilterItemNumber = filterItemNumber;
+                FactorioBlueprintReader.animationHandler.addOnSecondTickListener(function (second) {
+                    $.each(iconLayers, function (layerNumber, layerContainer) {
+                        var altPressed = FactorioBlueprintReader.keyboardHandler.isPressed(FactorioBlueprintReader.keyboardHandler.alt);
+                        layerContainer.visible = (!altPressed) && Math.floor(second / everyNSeconds) % (Math.ceil(filters.length / 4)) == Math.floor(currentFilterItemNumber / 4);
+                    });
+                });
+            }
+            filterItemNumber++;
         });
+
     }
 
 
@@ -176,7 +285,7 @@ FactorioBlueprintReader.renderBlueprint = (function () {
         var blueprintContainer = new PIXI.Container();
         blueprintContainer.scale.x = blueprintContainer.scale.y = minScale;
 
-        var background = new PIXI.extras.TilingSprite(PIXI.loader.resources[FBR_IMAGES_PREFIX + "background.png"].texture, FBR_CANVAS_WIDTH / minScale, FBR_CANVAS_HEIGHT / minScale);
+        var background = new PIXI.extras.TilingSprite(PIXI.loader.resources[FBR_IMAGES_PREFIX + FactorioBlueprintReader.ImagesUI.BACKGROUND].texture, FBR_CANVAS_WIDTH / minScale, FBR_CANVAS_HEIGHT / minScale);
         blueprintContainer.addChild(background);
 
         var isX0InHalfGrid = false;
@@ -197,8 +306,15 @@ FactorioBlueprintReader.renderBlueprint = (function () {
         $.each(tiles, function (key, entity) {
             var spriteLayers;
             if (FactorioBlueprintReader.tiles[entity.name]) {
-                Math.seedrandom(entity.position.x + "," + entity.position.y);
+                // overwrite getRandomInt for a moment to make sure tiling stays the same every time
+                var prevRandomInt = getRandomInt;
+                getRandomInt = function (min, max) {
+                    var number = Math.floor(Math.abs(hashTwoIntegers(Math.floor(entity.position.x), Math.floor(entity.position.y))));
+                    number = number % (1 + max - min);
+                    return number + min;
+                };
                 spriteLayers = createEntityLayers(FactorioBlueprintReader.tiles[entity.name].image);
+                getRandomInt = prevRandomInt;
             } else {
                 console.log("Unknown tile name", entity.name);
                 spriteLayers = new PIXI.Graphics();
@@ -216,8 +332,6 @@ FactorioBlueprintReader.renderBlueprint = (function () {
         });
 
         var layers = [];
-
-        Math.seedrandom();
 
         $.each(allYCoordinates, function (_, y) {
             $.each(entitiesByYX[y], function (x, entitiesForYX) {

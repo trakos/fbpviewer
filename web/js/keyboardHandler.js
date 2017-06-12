@@ -1,6 +1,7 @@
 var FactorioBlueprintReader = FactorioBlueprintReader || {};
 
 FactorioBlueprintReader.keyboardHandler = {
+    alt:         18,
     W:           87,
     A:           65,
     S:           83,

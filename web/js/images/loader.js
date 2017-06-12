@@ -64,11 +64,8 @@ FactorioBlueprintReader.Loader = {
         });
     },
     getImagesToLoad: function() {
-        var imagesToLoad = [];
 
-        $.each(FactorioBlueprintReader.icons.ICONS, function (key, iconPath) {
-            imagesToLoad.push(FBR_IMAGES_PREFIX + FactorioBlueprintReader.icons.prefix + iconPath);
-        });
+        var imagesToLoad = [];
 
         function addEntityImageToLoader(entityKey, entityData) {
             if (entityData.image.path) {
@@ -85,6 +82,13 @@ FactorioBlueprintReader.Loader = {
                 });
             }
         }
+
+        $.each(FactorioBlueprintReader.icons, function (iconKey, iconData) {
+
+            if (iconData.image) {
+                addEntityImageToLoader(iconKey, iconData);
+            }
+        });
 
         $.each(FactorioBlueprintReader.entities, function (entityKey, entityData) {
             if (entityData.types) {
@@ -117,8 +121,9 @@ FactorioBlueprintReader.Loader = {
             addEntityImageToLoader(entityKey, entityData);
         });
 
-        imagesToLoad.push(FBR_IMAGES_PREFIX + "core/entity-info-dark-background.png");
-        imagesToLoad.push(FBR_IMAGES_PREFIX + "background.png");
+        $.each(FactorioBlueprintReader.ImagesUI, function(imageUiName, imageUiPath) {
+           imagesToLoad.push(FBR_IMAGES_PREFIX + imageUiPath);
+        });
 
         return imagesToLoad;
     }

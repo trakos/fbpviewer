@@ -16,23 +16,35 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     {% block stylesheets %}{% endblock %}
-    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
 </head>
 <body>
-    {% block body %}{% endblock %}
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="bootstrap/js/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="bootstrap/js/bootstrap.min.js"></script>
-    <script src="bootstrap/js/bootstrap-dialog.js"></script>
-    <script src="js/lib/pixi.min.js"></script>
-    <script src="js/lib/pixi.colorfill.js"></script>
-    <script src="js/lib/pixi.filters.js"></script>
-    <script src="js/lib/seedrandom.js"></script>
-    <script src="js/lib/jquery.mousewheel.js"></script>
-    <script src="js/lib/pako_deflate.min.js"></script>
-    <script src="js/lib/pako_inflate.min.js"></script>
-    <script src="js/lib/highlight.pack.js"></script>
-    {% block javascripts %}{% endblock %}
+{% block body %}{% endblock %}
+<script src="bootstrap/js/jquery.min.js"></script>
+<script type="text/javascript">
+    $(document).on("mobileinit", function () {
+        $.mobile.ajaxEnabled = false;
+        $.mobile.loadingMessage = false;
+    });
+</script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="bootstrap/js/bootstrap-dialog.js"></script>
+<script src="js/lib/pixi.min.js"></script>
+<script src="js/lib/pixi.colorfill.js"></script>
+<script src="js/lib/pixi.filters.js"></script>
+<script src="js/lib/seedrandom.js"></script>
+<script src="js/lib/jquery.mousewheel.js"></script>
+<script src="js/lib/jquery.mobile.custom.js"></script>
+<script src="js/lib/hammer.min.js"></script>
+<script src="js/lib/pako_deflate.min.js"></script>
+<script src="js/lib/pako_inflate.min.js"></script>
+<script src="js/lib/highlight.pack.js"></script>
+<script type="text/javascript">
+    $(document).on("mobileinit", function () {
+        $.mobile.ajaxEnabled = false;
+        $.mobile.loadingMessage = false;
+    });
+</script>
+{% block javascripts %}{% endblock %}
 </body>
 </html>
