@@ -22,3 +22,9 @@ php:
     working_dir: /var/www/web
     links:
         - mysql
+
+node:
+    build: docker/node
+    volumes:
+        - .:/var/www
+    working_dir: /var/www/bin

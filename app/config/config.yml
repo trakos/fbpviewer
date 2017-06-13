@@ -33,6 +33,12 @@ framework:
     php_errors:
         log: true
 
+assetic:
+    debug:          '%kernel.debug%'
+    use_controller: '%kernel.debug%'
+    filters:
+        cssrewrite: ~
+
 # Twig Configuration
 twig:
     debug: '%kernel.debug%'

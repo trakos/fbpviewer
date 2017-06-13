@@ -1,6 +1,6 @@
 var FactorioBlueprintReader = FactorioBlueprintReader || {};
 
-FactorioBlueprintReader.renderBlueprint = (function () {
+FactorioBlueprintReader.blueprintRenderer = (function () {
 
     FactorioBlueprintReader.animationHandler.clear();
 
@@ -39,20 +39,22 @@ FactorioBlueprintReader.renderBlueprint = (function () {
         var layerSprites = {};
 
         if (entityImageSpec.type == 'sprite') {
-            layerSprites[entityImageSpec.layer || DEFAULT_LAYER] = new PIXI.Sprite(PIXI.utils.TextureCache[FBR_IMAGES_PREFIX + entityImageSpec.path]);
+            layerSprites[entityImageSpec.layer || DEFAULT_LAYER] = new PIXI.Sprite(PIXI.Texture.fromFrame(FBR_IMAGES_PREFIX + entityImageSpec.path));
         } else if (entityImageSpec.type == 'trim') {
-            layerSprites[entityImageSpec.layer || DEFAULT_LAYER] = new PIXI.Sprite(PIXI.utils.TextureCache[FBR_IMAGES_PREFIX + entityImageSpec.path + "." + entityImageSpec.number]);
+            layerSprites[entityImageSpec.layer || DEFAULT_LAYER] = new PIXI.Sprite(PIXI.Texture.fromFrame(FBR_IMAGES_PREFIX + entityImageSpec.path + "." + entityImageSpec.number));
         } else if (entityImageSpec.type == 'random_trim') {
             var number = getRandomInt(entityImageSpec.from, entityImageSpec.to);
-            layerSprites[entityImageSpec.layer || DEFAULT_LAYER] = new PIXI.Sprite(PIXI.utils.TextureCache[FBR_IMAGES_PREFIX + entityImageSpec.path + "." + number]);
+            layerSprites[entityImageSpec.layer || DEFAULT_LAYER] = new PIXI.Sprite(PIXI.Texture.fromFrame(FBR_IMAGES_PREFIX + entityImageSpec.path + "." + number));
         } else if (entityImageSpec.type == 'animated') {
             var frames = [];
             for (var i = entityImageSpec.from; i <= entityImageSpec.to; i++) {
-                frames.push(PIXI.utils.TextureCache[FBR_IMAGES_PREFIX + entityImageSpec.path + "." + i]);
+                frames.push(PIXI.Texture.fromFrame(FBR_IMAGES_PREFIX + entityImageSpec.path + "." + i));
+                //frames.push(PIXI.utils.TextureCache[FBR_IMAGES_PREFIX + entityImageSpec.path + "." + i]);
             }
             if (entityImageSpec.reverse) {
                 for (var j = entityImageSpec.to; j >= entityImageSpec.from; j--) {
-                    frames.push(PIXI.utils.TextureCache[FBR_IMAGES_PREFIX + entityImageSpec.path + "." + j]);
+                    frames.push(PIXI.Texture.fromFrame(FBR_IMAGES_PREFIX + entityImageSpec.path + "." + j));
+                    //frames.push(PIXI.utils.TextureCache[FBR_IMAGES_PREFIX + entityImageSpec.path + "." + j]);
                 }
             }
             var sprite = new PIXI.extras.AnimatedSprite(frames);
@@ -121,7 +123,7 @@ FactorioBlueprintReader.renderBlueprint = (function () {
 
     function createIconSprite(imageSpec) {
         var iconLayers = createEntityLayers(imageSpec);
-        var darkBackground = new PIXI.Sprite(PIXI.utils.TextureCache[FBR_IMAGES_PREFIX + FactorioBlueprintReader.ImagesUI.INFO_DARK_BACKGROUND]);
+        var darkBackground = new PIXI.Sprite(PIXI.Texture.fromFrame(FBR_IMAGES_PREFIX + FactorioBlueprintReader.ImagesUI.INFO_DARK_BACKGROUND));
         darkBackground.anchor.x = 0.5;
         darkBackground.anchor.y = 0.5;
         iconLayers[OVERLAY_LAYER - 10] = darkBackground;
@@ -241,7 +243,7 @@ FactorioBlueprintReader.renderBlueprint = (function () {
     }
 
 
-    return function (stage, blueprintData) {
+    function renderBlueprint(pixiRenderer, stage, blueprintData) {
         var entities = blueprintData.blueprint.entities || [];
         var tiles = blueprintData.blueprint.tiles || [];
 
@@ -285,7 +287,7 @@ FactorioBlueprintReader.renderBlueprint = (function () {
         var blueprintContainer = new PIXI.Container();
         blueprintContainer.scale.x = blueprintContainer.scale.y = minScale;
 
-        var background = new PIXI.extras.TilingSprite(PIXI.loader.resources[FBR_IMAGES_PREFIX + FactorioBlueprintReader.ImagesUI.BACKGROUND].texture, FBR_CANVAS_WIDTH / minScale, FBR_CANVAS_HEIGHT / minScale);
+        var background = new PIXI.extras.TilingSprite(PIXI.Texture.fromFrame(FBR_IMAGES_PREFIX + FactorioBlueprintReader.ImagesUI.BACKGROUND), FBR_CANVAS_WIDTH / minScale, FBR_CANVAS_HEIGHT / minScale);
         blueprintContainer.addChild(background);
 
         var isX0InHalfGrid = false;
@@ -462,4 +464,9 @@ FactorioBlueprintReader.renderBlueprint = (function () {
 
         return blueprintContainer;
     }
+
+    return {
+        renderBlueprint:    renderBlueprint,
+        createEntityLayers: createEntityLayers
+    };
 })();

@@ -1,11 +1,16 @@
-const FBR_IMAGES_PREFIX = "/images/factorio/";
+const FBR_DEV = 0;
+const FBR_IMAGES_PREFIX = FBR_DEV ? "/images/factorio/" : "images/factorio/";
 const FBR_PIXELS_PER_TILE = 32;
 
 var FBR_CANVAS_WIDTH;
 var FBR_CANVAS_HEIGHT;
 var FBR_REDRAW_FUNC;
+var ColorFillShader;
 
 $(function () {
+    ColorFillShader = createColorFillShader();
+    createDropShadowFilter();
+
     function loadEntities() {
         FactorioBlueprintReader.entities = {};
 
@@ -31,6 +36,7 @@ $(function () {
 
     FactorioBlueprintReader.keyboardHandler.init();
     FactorioBlueprintReader.zoomAndPanHandler.init(renderer.view);
+    FactorioBlueprintReader.iconCropper.init();
 
     var stage = new PIXI.Container();
     var graphics = new PIXI.Graphics();
@@ -62,7 +68,7 @@ $(function () {
     var gameContainer = new PIXI.Container();
 
     PIXI.loader
-        .add(FactorioBlueprintReader.Loader.getImagesToLoad())
+        .add(FBR_DEV ? FactorioBlueprintReader.Loader.getImagesToLoad() : '/images/spritesheet.json')
         .on("progress", function (loader, resource) {
 
             var url = resource.url;
@@ -82,7 +88,9 @@ $(function () {
             stage.addChild(bottomStatus);
             graphics = null;
 
-            FactorioBlueprintReader.Loader.prepareTrimmedTextures();
+            if (FBR_DEV) {
+                FactorioBlueprintReader.Loader.prepareTrimmedTextures();
+            }
 
             function gameLoop() {
                 requestAnimationFrame(gameLoop);
@@ -113,10 +121,10 @@ $(function () {
                 loadEntities();
                 if (blueprintData.data.blueprint) {
                     $("#blueprint-recipe-selector").hide();
-                    blueprintContainer = FactorioBlueprintReader.renderBlueprint(stage, blueprintData.data);
+                    blueprintContainer = FactorioBlueprintReader.blueprintRenderer.renderBlueprint(renderer, stage, blueprintData.data);
                 } else if (blueprintData.data.blueprint_book) {
                     $("#blueprint-recipe-selector").show();
-                    blueprintContainer = FactorioBlueprintReader.renderBlueprint(stage, blueprintData.data.blueprint_book.blueprints[currentBlueprintIndex]);
+                    blueprintContainer = FactorioBlueprintReader.blueprintRenderer.renderBlueprint(renderer, stage, blueprintData.data.blueprint_book.blueprints[currentBlueprintIndex]);
                     $('#blueprint-recipe-selector ul').find('li').remove();
                     $.each(blueprintData.data.blueprint_book.blueprints, function (key, value) {
                         var icons = '';
@@ -126,12 +134,17 @@ $(function () {
                                 var signalName = icon.signal.name;
                                 if (FactorioBlueprintReader.icons[signalName]) {
                                     var imageSpec = FactorioBlueprintReader.icons[signalName].image;
-                                    if (imageSpec.type == 'sprite') {
-                                        icons += '<img src="' + FBR_IMAGES_PREFIX + imageSpec.path + '" />';
-                                        continue;
-                                    } else {
-                                        console.log('Icon complex', signalName);
-                                    }
+                                    var iconSprites = FactorioBlueprintReader.blueprintRenderer.createEntityLayers(imageSpec, {});
+                                    var iconSrc = FactorioBlueprintReader.iconCropper.createIconURL(iconSprites);
+                                    icons += '<img src="' + iconSrc + '" />';
+                                    continue;
+
+                                    /*if (imageSpec.type == 'sprite') {
+                                     icons += '<img src="' + FBR_IMAGES_PREFIX + imageSpec.path + '" />';
+                                     continue;
+                                     } else {
+                                     console.log('Icon complex', signalName);
+                                     }*/
                                 } else {
                                     console.log('Icon not found', signalName);
                                 }

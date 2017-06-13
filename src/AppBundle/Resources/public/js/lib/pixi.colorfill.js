@@ -1,4 +1,4 @@
-var ColorFillShader = (function() {
+createColorFillShader = function() {
     var DefaultVert = (function() {
         var str = "";
 
@@ -66,5 +66,4 @@ var ColorFillShader = (function() {
     });
 
     return ColorFill;
-
-}());
+};

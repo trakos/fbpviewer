@@ -5,3 +5,6 @@ web/bundles/
 web/images/factorio/
 factorio_blueprint_reader.iml
 app/config/parameters.yml
+bin/fbpvatlasgen/node_modules/
+web/css/
+web/js/

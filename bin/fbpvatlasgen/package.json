@@ -1,0 +1,13 @@
+{
+  "name": "fbpvatlasgen",
+  "version": "1.0.0",
+  "dependencies": {
+    "gm": "^1.23.0",
+    "jquery": "^3.2.1",
+    "jsdom": "^11.0.0",
+    "mkdirp": "^0.5.1",
+    "rimraf": "^2.6.1",
+    "spritesheet-js": "^1.2.6",
+    "underscore": "^1.8.3"
+  }
+}
