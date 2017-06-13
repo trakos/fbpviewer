@@ -57,14 +57,11 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/debug", name="debug_blueprint")
+     * @Route("/debug/akinfkanfklasnfzzz@$klasnfklnagf_lkLLL+---------ngs-klngdsgsdgs", name="debug")
      */
     public function debugAction(Request $request)
     {
-        $blueprintString = TestCases::REDDIT_BOOK;
-        $version = $blueprintString[0];
-
-        return new JsonResponse(['version' => $version, 'blueprint' => $this->parseBlueprint($blueprintString)]);
+        return new JsonResponse(['ip' => $request->getClientIp()]);
     }
 
     protected function getUrl($blueprintString)

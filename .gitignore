@@ -8,3 +8,5 @@ app/config/parameters.yml
 bin/fbpvatlasgen/node_modules/
 web/css/
 web/js/
+web/images/spritesheet.json
+web/images/spritesheet.png
