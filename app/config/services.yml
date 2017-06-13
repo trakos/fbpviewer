@@ -4,6 +4,12 @@ parameters:
     #parameter_name: value
 
 services:
-    #service_name:
-    #    class: AppBundle\Directory\ClassName
-    #    arguments: ['@another_service_name', 'plain_value', '%parameter_name%']
+    app.shared_blueprint_repository:
+        class: Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - AppBundle\Entity\SharedBlueprint
+
+    app.shared_blueprint_manager:
+        class: AppBundle\Manager\SharedBlueprintManager
+        arguments: ['@app.shared_blueprint_repository', '@request_stack']

@@ -242,8 +242,8 @@ FactorioBlueprintReader.renderBlueprint = (function () {
 
 
     return function (stage, blueprintData) {
-        var entities = blueprintData.blueprint.entities;
-        var tiles = blueprintData.blueprint.tiles;
+        var entities = blueprintData.blueprint.entities || [];
+        var tiles = blueprintData.blueprint.tiles || [];
 
         var minXY = 0;
         var maxXY = 0;

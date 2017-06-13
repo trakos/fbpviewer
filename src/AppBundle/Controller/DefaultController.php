@@ -2,12 +2,15 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Manager\SharedBlueprintManager;
 use FactorioBlueprintLib\TestCases;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class DefaultController extends Controller
 {
@@ -18,11 +21,29 @@ class DefaultController extends Controller
     {
         return $this->render('default/index.html.twig', [
             'base_dir' => realpath($this->getParameter('kernel.root_dir')) . DIRECTORY_SEPARATOR,
+            'blueprint_string' => TestCases::REDDIT_BOOK
         ]);
     }
 
     /**
-     * @Route("/share", name="share_blueprint", )
+     * @Route("/b/{blueprintHash}", requirements={"blueprintHash" = "[a-zA-Z0-9_-]+"})
+     */
+    public function blueprintAction(string $blueprintHash, Request $request)
+    {
+        $blueprint = $this->getSharedBlueprintManager()->getSharedBlueprint($blueprintHash);
+        if (!$blueprint) {
+            throw new NotFoundHttpException();
+        }
+
+        return $this->render('default/index.html.twig', [
+            'base_dir' => realpath($this->getParameter('kernel.root_dir')) . DIRECTORY_SEPARATOR,
+            'blueprint_string' => $blueprint->getBlueprintString()
+        ]);
+    }
+
+    /**
+     * @Route("/share", name="share_blueprint")
+     * @Method({"POST"})
      */
     public function shareAction(Request $request)
     {
@@ -32,7 +53,32 @@ class DefaultController extends Controller
             return new JsonResponse(['error' => 'Blueprint string isn\'t valid'], Response::HTTP_BAD_REQUEST);
         }
 
-        return new JsonResponse(['url' => 'just testing'], Response::HTTP_ACCEPTED);
+        return new JsonResponse(['url' => $this->getUrl($blueprintString)], Response::HTTP_ACCEPTED);
+    }
+
+    /**
+     * @Route("/debug", name="debug_blueprint")
+     */
+    public function debugAction(Request $request)
+    {
+        $blueprintString = TestCases::REDDIT_BOOK;
+        $version = $blueprintString[0];
+
+        return new JsonResponse(['version' => $version, 'blueprint' => $this->parseBlueprint($blueprintString)]);
+    }
+
+    protected function getUrl($blueprintString)
+    {
+        $sharedBlueprint = $this->getSharedBlueprintManager()->shareBlueprint($blueprintString);
+
+        $host = $this->getParameter('shared_blueprint_host');
+
+        return $host . '/b/' . $sharedBlueprint->getBlueprintHash();
+    }
+
+    protected function getSharedBlueprintManager(): SharedBlueprintManager
+    {
+        return $this->get('app.shared_blueprint_manager');
     }
 
     protected function isBlueprintValid($blueprintString)
@@ -42,10 +88,7 @@ class DefaultController extends Controller
         });
 
         try {
-            $blueprintString = substr($blueprintString, 1);
-            $blueprintString = base64_decode($blueprintString);
-            $blueprintString = zlib_decode($blueprintString);
-            $blueprintString = json_decode($blueprintString, JSON_OBJECT_AS_ARRAY);
+            $this->parseBlueprint($blueprintString);
         } catch (\Exception $e) {
             return false;
         } finally {
@@ -55,14 +98,11 @@ class DefaultController extends Controller
         return true;
     }
 
-    /**
-     * @Route("/blueprint", name="blueprint")
-     */
-    public function blueprintAction(Request $request)
+    protected function parseBlueprint(string $blueprintString)
     {
-        $blueprintString = TestCases::ROBO_MALL;
-        $version = $blueprintString[0];
-
-        return new JsonResponse(['version' => $version, 'blueprint' => $blueprintString]);
+        $blueprintString = substr($blueprintString, 1);
+        $blueprintString = base64_decode($blueprintString);
+        $blueprintString = zlib_decode($blueprintString);
+        return json_decode($blueprintString, JSON_OBJECT_AS_ARRAY);
     }
 }

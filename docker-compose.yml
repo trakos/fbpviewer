@@ -20,3 +20,5 @@ php:
     volumes:
         - .:/var/www
     working_dir: /var/www/web
+    links:
+        - mysql

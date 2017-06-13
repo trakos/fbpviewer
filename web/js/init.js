@@ -1,4 +1,4 @@
-const FBR_IMAGES_PREFIX = "images/factorio/";
+const FBR_IMAGES_PREFIX = "/images/factorio/";
 const FBR_PIXELS_PER_TILE = 32;
 
 var FBR_CANVAS_WIDTH;
@@ -94,7 +94,7 @@ $(function () {
             gameLoop();
 
             var blueprintContainer = null;
-            var currentBlueprintString = FactorioBlueprintReader.TEST_CASES.book;
+            var currentBlueprintString = FBR_INITIAL_BLUEPRINT;
             var currentBlueprintIndex = 0;
 
             var blueprintData = FactorioBlueprintReader.parse(currentBlueprintString);
@@ -127,9 +127,13 @@ $(function () {
                                 if (FactorioBlueprintReader.icons[signalName]) {
                                     var imageSpec = FactorioBlueprintReader.icons[signalName].image;
                                     if (imageSpec.type == 'sprite') {
-                                        icons += '<img src="/' + FBR_IMAGES_PREFIX + imageSpec.path + '" />';
+                                        icons += '<img src="' + FBR_IMAGES_PREFIX + imageSpec.path + '" />';
                                         continue;
+                                    } else {
+                                        console.log('Icon complex', signalName);
                                     }
+                                } else {
+                                    console.log('Icon not found', signalName);
                                 }
                             } else {
                                 icons += '<span style="margin-right: 32px;"></span>';

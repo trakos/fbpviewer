@@ -20,8 +20,9 @@
                     <li><a href="#" id="load-blueprint-button">Load new blueprint...</a></li>
                     <li><a href="#" id="share-blueprint-button">Share</a></li>
                     <li class="dropdown" id="blueprint-recipe-selector">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Select blueprint from a book <span class="caret"></span></a>
-                        <ul class="dropdown-menu" style="overflow-y: auto;">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">Select blueprint from a book <span class="caret"></span></a>
+                        <ul class="dropdown-menu" style="overflow-y: auto; max-height: 400px;">
                         </ul>
                     </li>
                 </ul>
@@ -47,40 +48,43 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script type="text/javascript" src="js/images/loader.js"></script>
-    <script type="text/javascript" src="js/images/ui.js"></script>
+    <script type="text/javascript" src="/js/images/loader.js"></script>
+    <script type="text/javascript" src="/js/images/ui.js"></script>
 
-    <script type="text/javascript" src="js/factorio/blueprints.js"></script>
-    <script type="text/javascript" src="js/factorio/icons.js"></script>
-    <script type="text/javascript" src="js/factorio/tiles.js"></script>
+    <script type="text/javascript" src="/js/factorio/blueprints.js"></script>
+    <script type="text/javascript" src="/js/factorio/icons.js"></script>
+    <script type="text/javascript" src="/js/factorio/tiles.js"></script>
 
-    <script type="text/javascript" src="js/factorio/entities/circuit_network/circuit_network.js"></script>
-    <script type="text/javascript" src="js/factorio/entities/circuit_network/combinators.js"></script>
-    <script type="text/javascript" src="js/factorio/entities/military/land-mine.js"></script>
-    <script type="text/javascript" src="js/factorio/entities/military/radar.js"></script>
-    <script type="text/javascript" src="js/factorio/entities/military/rocket_silo.js"></script>
-    <script type="text/javascript" src="js/factorio/entities/military/turrets.js"></script>
-    <script type="text/javascript" src="js/factorio/entities/military/walls.js"></script>
-    <script type="text/javascript" src="js/factorio/entities/power/nuclear.js"></script>
-    <script type="text/javascript" src="js/factorio/entities/power/poles.js"></script>
-    <script type="text/javascript" src="js/factorio/entities/power/solar.js"></script>
-    <script type="text/javascript" src="js/factorio/entities/power/steam.js"></script>
-    <script type="text/javascript" src="js/factorio/entities/assemblers.js"></script>
-    <script type="text/javascript" src="js/factorio/entities/logistics/belts.js"></script>
-    <script type="text/javascript" src="js/factorio/entities/logistics/underneathies.js"></script>
-    <script type="text/javascript" src="js/factorio/entities/logistics/splitters.js"></script>
-    <script type="text/javascript" src="js/factorio/entities/chests.js"></script>
-    <script type="text/javascript" src="js/factorio/entities/drills.js"></script>
-    <script type="text/javascript" src="js/factorio/entities/furnaces.js"></script>
-    <script type="text/javascript" src="js/factorio/entities/inserters.js"></script>
-    <script type="text/javascript" src="js/factorio/entities/liquid_handling.js"></script>
-    <script type="text/javascript" src="js/factorio/entities/oil_handling.js"></script>
-    <script type="text/javascript" src="js/factorio/entities/tracks.js"></script>
-    <script type="text/javascript" src="js/factorio/entities/other_entities.js"></script>
+    <script type="text/javascript" src="/js/factorio/entities/circuit_network/circuit_network.js"></script>
+    <script type="text/javascript" src="/js/factorio/entities/circuit_network/combinators.js"></script>
+    <script type="text/javascript" src="/js/factorio/entities/military/land-mine.js"></script>
+    <script type="text/javascript" src="/js/factorio/entities/military/radar.js"></script>
+    <script type="text/javascript" src="/js/factorio/entities/military/rocket_silo.js"></script>
+    <script type="text/javascript" src="/js/factorio/entities/military/turrets.js"></script>
+    <script type="text/javascript" src="/js/factorio/entities/military/walls.js"></script>
+    <script type="text/javascript" src="/js/factorio/entities/power/nuclear.js"></script>
+    <script type="text/javascript" src="/js/factorio/entities/power/poles.js"></script>
+    <script type="text/javascript" src="/js/factorio/entities/power/solar.js"></script>
+    <script type="text/javascript" src="/js/factorio/entities/power/steam.js"></script>
+    <script type="text/javascript" src="/js/factorio/entities/assemblers.js"></script>
+    <script type="text/javascript" src="/js/factorio/entities/logistics/belts.js"></script>
+    <script type="text/javascript" src="/js/factorio/entities/logistics/underneathies.js"></script>
+    <script type="text/javascript" src="/js/factorio/entities/logistics/splitters.js"></script>
+    <script type="text/javascript" src="/js/factorio/entities/chests.js"></script>
+    <script type="text/javascript" src="/js/factorio/entities/drills.js"></script>
+    <script type="text/javascript" src="/js/factorio/entities/furnaces.js"></script>
+    <script type="text/javascript" src="/js/factorio/entities/inserters.js"></script>
+    <script type="text/javascript" src="/js/factorio/entities/liquid_handling.js"></script>
+    <script type="text/javascript" src="/js/factorio/entities/oil_handling.js"></script>
+    <script type="text/javascript" src="/js/factorio/entities/tracks.js"></script>
+    <script type="text/javascript" src="/js/factorio/entities/other_entities.js"></script>
 
-    <script type="text/javascript" src="js/keyboardHandler.js"></script>
-    <script type="text/javascript" src="js/zoomAndPanHandler.js"></script>
-    <script type="text/javascript" src="js/animationHandler.js"></script>
-    <script type="text/javascript" src="js/renderBlueprint.js"></script>
-    <script type="text/javascript" src="js/init.js"></script>
+    <script type="text/javascript" src="/js/keyboardHandler.js"></script>
+    <script type="text/javascript" src="/js/zoomAndPanHandler.js"></script>
+    <script type="text/javascript" src="/js/animationHandler.js"></script>
+    <script type="text/javascript" src="/js/renderBlueprint.js"></script>
+    <script type="text/javascript" src="/js/init.js"></script>
+    <script type="text/javascript">
+        const FBR_INITIAL_BLUEPRINT = {{ blueprint_string|json_encode|raw }};
+    </script>
 {% endblock %}

@@ -74,6 +74,7 @@ FactorioBlueprintReader.icons = (function () {
         "gate",
         "grenade",
         "gun-turret",
+        "heat-pipe",
         "high-tech-science-pack",
         "inserter",
         "iron-axe",
@@ -135,7 +136,7 @@ FactorioBlueprintReader.icons = (function () {
         "rocket-launcher",
         "rocket-part",
         "rocket-silo",
-        "rocket-structure",
+        "satellite",
         "science-pack-1",
         "science-pack-2",
         "science-pack-3",
@@ -187,9 +188,11 @@ FactorioBlueprintReader.icons = (function () {
     var itemsWithSpecialNames = {
         "coal":                     "icons/coal-dark-background.png",
         "empty-barrel":             "icons/fluid/barreling/empty-barrel.png",
+        "heat-exchanger":           "icons/heat-boiler.png",
         "raw-fish":                 "icons/fish.png",
         "discharge-defense-remote": "equipment/discharge-defense-equipment-ability.png",
-        "locomotive":               "icons/diesel-locomotive.png"
+        "locomotive":               "icons/diesel-locomotive.png",
+        "low-density-structure":    "icons/rocket-structure.png"
     };
 
     var recipes = {
@@ -347,11 +350,12 @@ FactorioBlueprintReader.icons = (function () {
                 }
             };
         }
-        for (var letter = 'A'; k <= 'Z'; k++) {
-            allIcons['signal-' + k] = {
+        for (var letterCode = 'A'.charCodeAt(0); letterCode <= 'Z'.charCodeAt(0); letterCode++) {
+            var letter = String.fromCharCode(letterCode);
+            allIcons['signal-' + letter] = {
                 image: {
                     type:   'sprite',
-                    path:   'icons/signal/signal_' + k + '.png',
+                    path:   'icons/signal/signal_' + letter + '.png',
                     anchor: {x: 0.5, y: 0.5},
                     layer:  OVERLAY_LAYER,
                     x:      0,
@@ -359,7 +363,7 @@ FactorioBlueprintReader.icons = (function () {
                 }
             };
         }
-        $.each(signalColors, function(_, color) {
+        $.each(signalColors, function (_, color) {
             allIcons['signal-' + color] = {
                 image: {
                     type:   'sprite',
