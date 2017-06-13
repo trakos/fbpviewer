@@ -32,11 +32,19 @@ class SharedBlueprint
      */
     private $ip;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     *
+     * @var \DateTime
+     */
+    private $dateCreated;
+
     public function __construct(string $blueprintHash, string $blueprintString, string $ip)
     {
         $this->blueprintHash = $blueprintHash;
         $this->blueprintString = $blueprintString;
         $this->ip = $ip;
+        $this->dateCreated = new \DateTime();
     }
 
     public function getBlueprintHash(): string
@@ -52,5 +60,10 @@ class SharedBlueprint
     public function getIp(): string
     {
         return $this->ip;
+    }
+
+    public function getDateCreated(): \DateTime
+    {
+        return $this->dateCreated;
     }
 }

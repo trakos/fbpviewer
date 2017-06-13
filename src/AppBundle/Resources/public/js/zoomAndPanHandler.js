@@ -167,7 +167,7 @@ FactorioBlueprintReader.zoomAndPanHandler = {
         this.onMousePositionChanged(Math.round(worldPosition.x), Math.round(worldPosition.y));
     },
     onHammerPinch:             function (event) {
-        this.zoom(Math.pow(event.scale, 0.25), event.center.x, event.center.y);
+        this.zoom(Math.pow(event.scale, 0.05), event.center.x, event.center.y);
     },
     setContainer:              function (container, keepPosition) {
         this.minScale = container.scale.x;

@@ -22,7 +22,7 @@ const {window} = new JSDOM(`...`);
 var $ = require("jquery")(window);
 
 
-walk("../web/js/factorio/", function (err, results) {
+walk("../../src/AppBundle/Resources/public/js/factorio", function (err, results) {
     if (err) throw err;
     for (var k = 0; k < results.length; k++) {
         eval(fs.readFileSync(results[k]) + '');

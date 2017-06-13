@@ -4,7 +4,7 @@ var fs = require('fs'),
     gm = require('gm'),
     mkdirp = require('mkdirp');
 
-const FBR_IMAGES_PREFIX = "../web/images/factorio/";
+const FBR_IMAGES_PREFIX = "../../web/images/factorio/";
 
 module.exports = {
     _alreadyLoaded:                        {},

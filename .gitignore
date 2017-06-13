@@ -10,3 +10,4 @@ web/css/
 web/js/
 web/images/spritesheet.json
 web/images/spritesheet.png
+bin/fbpvatlasgen/atlasgen_output/

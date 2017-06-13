@@ -17,6 +17,10 @@ if (PHP_VERSION_ID < 70000) {
 //$kernel = new AppCache($kernel);
 
 // When using the HttpCache, you need to call the method in your front controller instead of relying on the configuration parameter
+Request::setTrustedHeaderName(Request::HEADER_CLIENT_IP, 'X-PROXY-ORIGINAL-IP');
+Request::setTrustedHeaderName(Request::HEADER_FORWARDED, null);
+Request::setTrustedProxies(['10.0.0.0/8']);
+
 //Request::enableHttpMethodParameterOverride();
 $request = Request::createFromGlobals();
 $response = $kernel->handle($request);
