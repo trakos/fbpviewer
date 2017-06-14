@@ -14,7 +14,7 @@ docker-compose up -d
 bash bin/dev_init.sh
 ```
 
-You'd also have to add `php-docker.local` to your hosts file (to make it point to docker machine, if you're using docker-machine you can find it's ip by calling `docker-machine ip`, otherwise it's propbably localhost).
+You'd also have to add `php-docker.local` to your hosts file (to make it point to docker machine, if you're using docker-machine you can find it's ip by calling `docker-machine ip`, otherwise it's probably localhost).
 
 You also have to have spritesheet generated. The best way is to simply download it from my website (both `spritesheet.json` and `spritesheet.png`) and put it in `/web/images`.
 
