@@ -6,5 +6,6 @@ RUN export DEBIAN_FRONTEND=noninteractive \
     && apt-get clean \
     && ln -s /usr/bin/nodejs /usr/bin/node \
     && docker-php-ext-install -j$(nproc) pdo_mysql \
+    && docker-php-ext-install -j$(nproc) zip \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/* \
     && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
