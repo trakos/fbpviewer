@@ -38,6 +38,10 @@ assetic:
     use_controller: '%kernel.debug%'
     filters:
         cssrewrite: ~
+        uglifyjs:
+            bin: '%kernel.root_dir%/Resources/node_tools/node_modules/.bin/uglifyjs'
+        uglifycss:
+            bin: '%kernel.root_dir%/Resources/node_tools/node_modules/.bin/uglifycss'
 
 # Twig Configuration
 twig:

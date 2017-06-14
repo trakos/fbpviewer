@@ -19,6 +19,7 @@ php:
     build: docker/php
     volumes:
         - .:/var/www
+        - /var/www/app/Resources/node_tools/node_modules
     working_dir: /var/www/web
     links:
         - mysql

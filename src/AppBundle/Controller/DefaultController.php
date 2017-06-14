@@ -20,7 +20,6 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
         return $this->render('default/index.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.root_dir')) . DIRECTORY_SEPARATOR,
             'blueprint_string' => TestCases::REDDIT_BOOK
         ]);
     }
@@ -36,7 +35,6 @@ class DefaultController extends Controller
         }
 
         return $this->render('default/index.html.twig', [
-            'base_dir' => realpath($this->getParameter('kernel.root_dir')) . DIRECTORY_SEPARATOR,
             'blueprint_string' => $blueprint->getBlueprintString()
         ]);
     }
@@ -57,7 +55,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/debug/akinfkanfklasnfzzz@$klasnfklnagf_lkLLL+---------ngs-klngdsgsdgs", name="debug")
+     * @Route("/debug", name="debug")
      */
     public function debugAction(Request $request)
     {

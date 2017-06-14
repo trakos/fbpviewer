@@ -8,5 +8,6 @@ rm -rf web/bundles
 rm -rf web/css
 rm -rf web/js
 composer install
+(cd app/Resources/node_tools && npm install)
 php bin/console cache:warmup
 php bin/console assetic:dump

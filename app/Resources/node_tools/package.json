@@ -1,0 +1,8 @@
+{
+  "name": "fbpviewer_tools",
+  "version": "1.0.0",
+  "dependencies": {
+    "uglify-es": "^3.0.15",
+    "uglifycss": "0.0.27"
+  }
+}
