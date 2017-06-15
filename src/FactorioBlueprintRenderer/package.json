@@ -6,14 +6,15 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack",
-    "build:prod": "webpack -p"
+    "build:prod": "webpack -p",
+    "watch": "webpack --watch"
   },
   "author": "",
   "license": "MIT",
   "dependencies": {
     "bootstrap": "^3.3.7",
     "bootstrap3-dialog": "^1.35.4",
-    "hammer": "0.0.5",
+    "hammerjs": "^2.0.8",
     "highlight.js": "^9.12.0",
     "jquery": "^3.2.1",
     "jquery-mobile": "^1.5.0-alpha.1",
