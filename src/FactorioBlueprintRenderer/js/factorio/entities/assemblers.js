@@ -1,6 +1,4 @@
-const { createEntitiesFunctions } = require("./index");
-
-createEntitiesFunctions.push(function () {
+module.exports = function () {
     return {
         'assembling-machine-1':   {
             image:    {
@@ -276,4 +274,4 @@ createEntitiesFunctions.push(function () {
             offset:     {x: -5, y: -8}
         }
     };
-});
+}

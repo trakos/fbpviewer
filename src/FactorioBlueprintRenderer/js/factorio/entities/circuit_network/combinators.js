@@ -1,6 +1,4 @@
-const { createEntitiesFunctions } = require("../index");
-
-createEntitiesFunctions.push(function () {
+module.exports = function () {
     return {
         'arithmetic-combinator': {
             directions:       {
@@ -345,4 +343,4 @@ createEntitiesFunctions.push(function () {
             },
         }
     };
-});
+}

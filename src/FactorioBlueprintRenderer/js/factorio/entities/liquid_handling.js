@@ -1,6 +1,4 @@
-const { createEntitiesFunctions } = require("./index");
-
-createEntitiesFunctions.push(function () {
+module.exports = function () {
     return {
         'pipe':           {
             image:    {
@@ -217,4 +215,4 @@ createEntitiesFunctions.push(function () {
 
         }
     };
-});
+}

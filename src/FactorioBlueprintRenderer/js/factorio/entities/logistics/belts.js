@@ -1,6 +1,4 @@
-const { createEntitiesFunctions } = require("../index");
-
-createEntitiesFunctions.push(function () {
+module.exports = function () {
 
     function prepareTransportBeltData(beltName, imageColumns, animationSpeed) {
         return {
@@ -64,4 +62,4 @@ createEntitiesFunctions.push(function () {
         'fast-transport-belt':    prepareTransportBeltData('fast-transport-belt', 32, 1.5),
         'express-transport-belt': prepareTransportBeltData('express-transport-belt', 32, 2)
     };
-});
+}

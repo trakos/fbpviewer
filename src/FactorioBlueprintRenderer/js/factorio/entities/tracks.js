@@ -1,6 +1,4 @@
-const { createEntitiesFunctions } = require("./index");
-
-createEntitiesFunctions.push(function () {
+module.exports = function () {
 
     const LAYER_BG = 10;
     const LAYER_PATH = 20;
@@ -303,4 +301,4 @@ createEntitiesFunctions.push(function () {
             gridSize:   {w: 1, h: 1}
         }
     };
-});
+}

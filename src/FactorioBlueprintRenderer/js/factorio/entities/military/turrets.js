@@ -1,6 +1,4 @@
-const { createEntitiesFunctions } = require("../index");
-
-createEntitiesFunctions.push(function () {
+module.exports = function () {
     return {
         'flamethrower-turret': {
             directions: {
@@ -385,4 +383,4 @@ createEntitiesFunctions.push(function () {
             offset:     {x: -17, y: 0}
         }
     };
-});
+}

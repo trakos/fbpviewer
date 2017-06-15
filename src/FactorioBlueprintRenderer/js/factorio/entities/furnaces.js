@@ -1,6 +1,4 @@
-const { createEntitiesFunctions } = require("./index");
-
-createEntitiesFunctions.push(function () {
+module.exports = function () {
     return {
         'electric-furnace':       {
             image:    {
@@ -27,4 +25,4 @@ createEntitiesFunctions.push(function () {
             offset:   {x: 7, y: 0}
         }
     };
-});
+}

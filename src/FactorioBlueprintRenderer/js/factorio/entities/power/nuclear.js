@@ -1,6 +1,4 @@
-const { createEntitiesFunctions } = require("../index");
-
-createEntitiesFunctions.push(function () {
+module.exports = function () {
     return {
         'centrifuge':      {
             image:    {
@@ -127,4 +125,4 @@ createEntitiesFunctions.push(function () {
 
         },
     };
-});
+}

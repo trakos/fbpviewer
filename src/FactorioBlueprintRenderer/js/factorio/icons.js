@@ -1,8 +1,7 @@
 const $ = require("jquery");
-const FactorioBlueprintReader = require("./factorioBlueprintReader");
 
-FactorioBlueprintReader.iconSize = 32;
-FactorioBlueprintReader.icons = (function () {
+exports.iconSize = 32;
+exports.icons = (function () {
     const OVERLAY_LAYER = 200;
 
     var items = [

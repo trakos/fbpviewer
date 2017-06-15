@@ -1,6 +1,4 @@
-const { createEntitiesFunctions } = require("./index");
-
-createEntitiesFunctions.push(function () {
+module.exports = function () {
     return {
         'burner-mining-drill':   {
             directions: {
@@ -210,4 +208,4 @@ createEntitiesFunctions.push(function () {
             offset:   {x: 0, y: 0}
         },
     };
-});
+}

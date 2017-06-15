@@ -1,6 +1,4 @@
-const { createEntitiesFunctions } = require("../index");
-
-createEntitiesFunctions.push(function () {
+module.exports = function () {
     return {
         'rocket-silo':            {
             image:    {
@@ -30,4 +28,4 @@ createEntitiesFunctions.push(function () {
             offset:   {x: -32, y: -32}
         },
     };
-});
+}

@@ -1,38 +1,34 @@
 const $ = require("jquery");
+window.$ = window.jQuery = $;
+const Hammer = require("hammerjs");
+window.Hammer = Hammer;
 require("bootstrap");
+require("jquery-mousewheel");
 const BootstrapDialog = require("bootstrap3-dialog");
 const PIXI = require("pixi.js");
+const createColorFillShader = require("./pixi/createColorFillShader");
+const createDropShadowFilter = require("./pixi/createDropShadowFilter");
 
-const FactorioBlueprintReader = require("./factorio/factorioBlueprintReader");
-const animationHandler = require("./animationHandler");
-const iconCropper = require("./iconCropper")
-const zoomAndPanHandler = require("./zoomAndPanHandler");
-const keyboardHandler = require("./keyboardHandler")
+const FactorioBlueprintReader = require("./factorioBlueprintReader");
+const AnimationHandler = require("./animationHandler");
+const BlueprintRenderer = require("./blueprintRenderer");
+const IconCropper = require("./iconCropper");
+const KeyboardHandler = require("./keyboardHandler");
+const ZoomAndPanHandler = require("./zoomAndPanHandler");
+const Loader = require("./images/loader");
 
-const FBR_DEV = 0;
-const FBR_IMAGES_PREFIX = FBR_DEV ? "/images/factorio/" : "images/factorio/";
-const FBR_PIXELS_PER_TILE = 32;
+global.FBR_DEV = 0;
+global.FBR_IMAGES_PREFIX = FBR_DEV ? "/images/factorio/" : "images/factorio/";
+global.FBR_PIXELS_PER_TILE = 32;
 
-var FBR_CANVAS_WIDTH;
-var FBR_CANVAS_HEIGHT;
-var FBR_REDRAW_FUNC;
-var ColorFillShader;
+global.FBR_CANVAS_WIDTH;
+global.FBR_CANVAS_HEIGHT;
+global.FBR_REDRAW_FUNC;
+global.ColorFillShader;
 
 $(function () {
     ColorFillShader = createColorFillShader();
     createDropShadowFilter();
-
-    function loadEntities() {
-        FactorioBlueprintReader.entities = {};
-
-        $.each(FactorioBlueprintReader.createEntitiesFunctions, function (_, func) {
-            $.each(func(), function (entityKey, entitySpec) {
-                FactorioBlueprintReader.entities[entityKey] = entitySpec;
-            });
-        });
-    }
-
-    loadEntities();
 
     const STATUS_WIDTH = 100;
     const STATUS_HEIGHT = 20;
@@ -45,9 +41,20 @@ $(function () {
 
     $("#main-site-container").get(0).appendChild(renderer.view);
 
-    keyboardHandler.init();
+    const factorioBlueprintReader = new FactorioBlueprintReader();
+    factorioBlueprintReader.loadEntities();
+
+    const animationHandler = new AnimationHandler();
+    const keyboardHandler = new KeyboardHandler();
+    const loader = new Loader(factorioBlueprintReader);
+
+    const zoomAndPanHandler = new ZoomAndPanHandler(keyboardHandler);
     zoomAndPanHandler.init(renderer.view);
-    iconCropper.init();
+
+    const iconCropper = new IconCropper();
+    iconCropper.init($("#main-site-container").get(0));
+
+    const blueprintRenderer = new BlueprintRenderer(factorioBlueprintReader, animationHandler, zoomAndPanHandler, keyboardHandler);
 
     var stage = new PIXI.Container();
     var graphics = new PIXI.Graphics();
@@ -79,7 +86,7 @@ $(function () {
     var gameContainer = new PIXI.Container();
 
     PIXI.loader
-        .add(FBR_DEV ? FactorioBlueprintReader.Loader.getImagesToLoad() : '/images/spritesheet.json')
+        .add(FBR_DEV ? loader.getImagesToLoad() : '/images/spritesheet.json')
         .on("progress", function (loader, resource) {
 
             var url = resource.url;
@@ -100,7 +107,7 @@ $(function () {
             graphics = null;
 
             if (FBR_DEV) {
-                FactorioBlueprintReader.Loader.prepareTrimmedTextures();
+                loader.prepareTrimmedTextures();
             }
 
             function gameLoop() {
@@ -115,8 +122,7 @@ $(function () {
             var blueprintContainer = null;
             var currentBlueprintString = FBR_INITIAL_BLUEPRINT;
             var currentBlueprintIndex = 0;
-
-            var blueprintData = FactorioBlueprintReader.parse(currentBlueprintString);
+            var blueprintData = factorioBlueprintReader.parse(currentBlueprintString);
             blueprintContainer = new PIXI.Container();
             zoomAndPanHandler.setContainer(blueprintContainer);
             gameContainer.addChild(blueprintContainer);
@@ -129,13 +135,13 @@ $(function () {
                     containerToDestroy = null;
                 }, 0);
 
-                loadEntities();
+                factorioBlueprintReader.loadEntities();
                 if (blueprintData.data.blueprint) {
                     $("#blueprint-recipe-selector").hide();
-                    blueprintContainer = FactorioBlueprintReader.blueprintRenderer.renderBlueprint(renderer, stage, blueprintData.data);
+                    blueprintContainer = blueprintRenderer.renderBlueprint(renderer, stage, blueprintData.data);
                 } else if (blueprintData.data.blueprint_book) {
                     $("#blueprint-recipe-selector").show();
-                    blueprintContainer = FactorioBlueprintReader.blueprintRenderer.renderBlueprint(renderer, stage, blueprintData.data.blueprint_book.blueprints[currentBlueprintIndex]);
+                    blueprintContainer = blueprintRenderer.renderBlueprint(renderer, stage, blueprintData.data.blueprint_book.blueprints[currentBlueprintIndex]);
                     $('#blueprint-recipe-selector ul').find('li').remove();
                     $.each(blueprintData.data.blueprint_book.blueprints, function (key, value) {
                         var icons = '';
@@ -143,9 +149,9 @@ $(function () {
                             var icon = value.blueprint.icons[k];
                             if (icon) {
                                 var signalName = icon.signal.name;
-                                if (FactorioBlueprintReader.icons[signalName]) {
-                                    var imageSpec = FactorioBlueprintReader.icons[signalName].image;
-                                    var iconSprites = FactorioBlueprintReader.blueprintRenderer.createEntityLayers(imageSpec, {});
+                                if (factorioBlueprintReader.icons[signalName]) {
+                                    var imageSpec = factorioBlueprintReader.icons[signalName].image;
+                                    var iconSprites = blueprintRenderer.createEntityLayers(imageSpec, {});
                                     var iconSrc = iconCropper.createIconURL(iconSprites);
                                     icons += '<img src="' + iconSrc + '" />';
                                     continue;
@@ -205,7 +211,7 @@ $(function () {
                         action: function (dialogRef) {
                             var blueprintString = $("#factorio-blueprint-input").val();
                             try {
-                                var parsed = FactorioBlueprintReader.parse(blueprintString);
+                                var parsed = factorioBlueprintReader.parse(blueprintString);
                             } catch (e) {
                                 alert("Failed parsing the blueprint!");
                                 return;
@@ -270,4 +276,9 @@ $(function () {
                 });
             });
         });
+});
+
+$(document).on("mobileinit", function () {
+    $.mobile.ajaxEnabled = false;
+    $.mobile.loadingMessage = false;
 });

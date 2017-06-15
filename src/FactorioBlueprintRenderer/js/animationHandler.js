@@ -1,25 +1,27 @@
 const $ = require("jquery");
 
-module.exports = {
-    onSecondTickListeners:   [],
-    currentFrame:            0,
-    currentSecond:           0,
-    clear:                   function () {
+class AnimationHandler {
+    constructor() {
+        this.onSecondTickListeners =   [];
+        this.currentFrame =            0;
+        this.currentSecond =           0;
+    }
+    clear() {
         this.onSecondTickListeners = [];
-    },
-    tick:                    function () {
-        var that = this;
-
+    }
+    tick() {
         this.currentFrame++;
         if (this.currentFrame === 60) {
-            $.each(this.onSecondTickListeners, function (_, listener) {
-                listener(that.currentSecond);
+            $.each(this.onSecondTickListeners, (_, listener) => {
+                listener(this.currentSecond);
             });
             this.currentSecond++;
             this.currentFrame = 0;
         }
-    },
-    addOnSecondTickListener: function (listener) {
+    }
+    addOnSecondTickListener(listener) {
         this.onSecondTickListeners.push(listener);
-    },
-};
+    }
+}
+
+module.exports = AnimationHandler;

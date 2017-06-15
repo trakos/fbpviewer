@@ -1,31 +1,31 @@
 const BootstrapDialog = require("bootstrap3-dialog");
-const animationHandler = require("./animationHandler");
-const keyboardHandler = require("./keyboardHandler");
-const zoomAndPanHandler = require("./zoomAndPanHandler");
-const FactorioBlueprintReader = require("./factorio/factorioBlueprintReader");
+const hljs = require("highlight.js");
 
-FactorioBlueprintReader.blueprintRenderer = (function () {
+class BlueprintRenderer {
+    constructor(FactorioBlueprintReader, animationHandler, zoomAndPanHandler, keyboardHandler) {
+        this.DEFAULT_LAYER =                100;
+        this.OVERLAY_LAYER =                200;
+        this.factorioBlueprintReader =      FactorioBlueprintReader;
+        this.animationHandler =             animationHandler;
+        this.zoomAndPanHandler =            zoomAndPanHandler;
+        this.keyboardHandler =              keyboardHandler;
+    }
 
-    animationHandler.clear();
-
-    const DEFAULT_LAYER = 100;
-    const OVERLAY_LAYER = 200;
-
-    function getRandomInt(min, max) {
+    getRandomInt(min, max) {
         min = Math.ceil(min);
         max = Math.floor(max);
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
-    function hashTwoIntegers(a, b) {
+    hashTwoIntegers(a, b) {
         var A = a >= 0 ? 2 * a : -2 * a - 1;
         var B = b >= 0 ? 2 * b : -2 * b - 1;
         var C = (A >= B ? A * A + A + B : A + B * B) / 2;
         return a < 0 && b < 0 || a >= 0 && b >= 0 ? C : -C - 1;
     }
 
-    function getEntityDrawingSpecForEntity(entity) {
-        var entityDrawingSpec = FactorioBlueprintReader.entities[entity.name];
+    getEntityDrawingSpecForEntity(entity) {
+        var entityDrawingSpec = this.factorioBlueprintReader.entities[entity.name];
         if (!entityDrawingSpec) {
             return null;
         }
@@ -39,16 +39,16 @@ FactorioBlueprintReader.blueprintRenderer = (function () {
         return entityDrawingSpec;
     }
 
-    function createEntityLayers(entityImageSpec, entitySpec) {
+    createEntityLayers(entityImageSpec, entitySpec) {
         var layerSprites = {};
 
         if (entityImageSpec.type == 'sprite') {
-            layerSprites[entityImageSpec.layer || DEFAULT_LAYER] = new PIXI.Sprite(PIXI.Texture.fromFrame(FBR_IMAGES_PREFIX + entityImageSpec.path));
+            layerSprites[entityImageSpec.layer || this.DEFAULT_LAYER] = new PIXI.Sprite(PIXI.Texture.fromFrame(FBR_IMAGES_PREFIX + entityImageSpec.path));
         } else if (entityImageSpec.type == 'trim') {
-            layerSprites[entityImageSpec.layer || DEFAULT_LAYER] = new PIXI.Sprite(PIXI.Texture.fromFrame(FBR_IMAGES_PREFIX + entityImageSpec.path + "." + entityImageSpec.number));
+            layerSprites[entityImageSpec.layer || this.DEFAULT_LAYER] = new PIXI.Sprite(PIXI.Texture.fromFrame(FBR_IMAGES_PREFIX + entityImageSpec.path + "." + entityImageSpec.number));
         } else if (entityImageSpec.type == 'random_trim') {
-            var number = getRandomInt(entityImageSpec.from, entityImageSpec.to);
-            layerSprites[entityImageSpec.layer || DEFAULT_LAYER] = new PIXI.Sprite(PIXI.Texture.fromFrame(FBR_IMAGES_PREFIX + entityImageSpec.path + "." + number));
+            var number = this.getRandomInt(entityImageSpec.from, entityImageSpec.to);
+            layerSprites[entityImageSpec.layer || this.DEFAULT_LAYER] = new PIXI.Sprite(PIXI.Texture.fromFrame(FBR_IMAGES_PREFIX + entityImageSpec.path + "." + number));
         } else if (entityImageSpec.type == 'animated') {
             var frames = [];
             for (var i = entityImageSpec.from; i <= entityImageSpec.to; i++) {
@@ -64,12 +64,12 @@ FactorioBlueprintReader.blueprintRenderer = (function () {
             var sprite = new PIXI.extras.AnimatedSprite(frames);
             sprite.animationSpeed = entityImageSpec.animationSpeed || 1;
             sprite.play();
-            layerSprites[entityImageSpec.layer || DEFAULT_LAYER] = sprite;
+            layerSprites[entityImageSpec.layer || this.DEFAULT_LAYER] = sprite;
         } else if (entityImageSpec.type == 'container') {
             for (var imageKey in entityImageSpec.images) {
                 if (entityImageSpec.images.hasOwnProperty(imageKey)) {
-                    var entityLayers = createEntityLayers(entityImageSpec.images[imageKey], entitySpec);
-                    $.each(entityLayers, function (layer, entityLayer) {
+                    var entityLayers = this.createEntityLayers(entityImageSpec.images[imageKey], entitySpec);
+                    $.each(entityLayers, (layer, entityLayer) => {
                         entityLayer.x = entityImageSpec.images[imageKey].x;
                         entityLayer.y = entityImageSpec.images[imageKey].y;
                         layerSprites[layer] = layerSprites[layer] || new PIXI.Container();
@@ -81,7 +81,7 @@ FactorioBlueprintReader.blueprintRenderer = (function () {
             throw 'unknown type ' + entityImageSpec.type;
         }
 
-        $.each(layerSprites, function (layerNumber, layerSprite) {
+        $.each(layerSprites, (layerNumber, layerSprite) => {
             if (entityImageSpec.scale) {
                 layerSprite.scale.x = entityImageSpec.scale.x;
                 layerSprite.scale.y = entityImageSpec.scale.y;
@@ -116,8 +116,8 @@ FactorioBlueprintReader.blueprintRenderer = (function () {
         return layerSprites;
     }
 
-    function drawLayers(destinationLayers, sourceLayers, gridX, gridY, xOffset, yOffset) {
-        $.each(sourceLayers, function (layerNumber, spriteLayer) {
+    drawLayers(destinationLayers, sourceLayers, gridX, gridY, xOffset, yOffset) {
+        $.each(sourceLayers, (layerNumber, spriteLayer) => {
             spriteLayer.x = gridX * FBR_PIXELS_PER_TILE + xOffset;
             spriteLayer.y = gridY * FBR_PIXELS_PER_TILE + yOffset;
             destinationLayers[layerNumber] = destinationLayers[layerNumber] || new PIXI.Container();
@@ -125,36 +125,36 @@ FactorioBlueprintReader.blueprintRenderer = (function () {
         });
     }
 
-    function createIconSprite(imageSpec) {
-        var iconLayers = createEntityLayers(imageSpec);
-        var darkBackground = new PIXI.Sprite(PIXI.Texture.fromFrame(FBR_IMAGES_PREFIX + FactorioBlueprintReader.ImagesUI.INFO_DARK_BACKGROUND));
+    createIconSprite(imageSpec) {
+        var iconLayers = this.createEntityLayers(imageSpec);
+        var darkBackground = new PIXI.Sprite(PIXI.Texture.fromFrame(FBR_IMAGES_PREFIX + this.factorioBlueprintReader.ImagesUI.INFO_DARK_BACKGROUND));
         darkBackground.anchor.x = 0.5;
         darkBackground.anchor.y = 0.5;
-        iconLayers[OVERLAY_LAYER - 10] = darkBackground;
+        iconLayers[this.OVERLAY_LAYER - 10] = darkBackground;
 
         return iconLayers;
     }
 
-    function renderEntityToLayers(layers, minXY, entity) {
+    renderEntityToLayers(layers, minXY, entity) {
         var spriteLayers = {};
         var sizeW = 0;
         var sizeH = 0;
         var xOffset = 0;
         var yOffset = 0;
-        var entityDrawingSpec = getEntityDrawingSpecForEntity(entity);
+        var entityDrawingSpec = this.getEntityDrawingSpecForEntity(entity);
         if (!entityDrawingSpec) {
             console.log("Unknown entity name", entity.name);
             var sprite = new PIXI.Graphics();
             sprite.beginFill(0xFFFFFF);
             sprite.lineStyle(1, 0x000000);
             sprite.drawRect(0, 0, FBR_PIXELS_PER_TILE, FBR_PIXELS_PER_TILE);
-            spriteLayers[DEFAULT_LAYER] = sprite;
+            spriteLayers[this.DEFAULT_LAYER] = sprite;
             sizeW = 1;
             sizeH = 1;
             xOffset = 0;
             yOffset = 0;
         } else {
-            spriteLayers = createEntityLayers(entityDrawingSpec.image, entity);
+            spriteLayers = this.createEntityLayers(entityDrawingSpec.image, entity);
             sizeW = entityDrawingSpec.gridSize.w;
             sizeH = entityDrawingSpec.gridSize.h;
             xOffset = entityDrawingSpec.offset.x;
@@ -163,32 +163,32 @@ FactorioBlueprintReader.blueprintRenderer = (function () {
 
         var gridX = Math.floor(entity.position.x - minXY - sizeW / 2);
         var gridY = Math.floor(entity.position.y - minXY - sizeH / 2);
-        drawLayers(layers, spriteLayers, gridX, gridY, xOffset, yOffset);
+        this.drawLayers(layers, spriteLayers, gridX, gridY, xOffset, yOffset);
 
 
         if (entity.recipe) {
-            if (!FactorioBlueprintReader.icons[entity.recipe]) {
+            if (!this.factorioBlueprintReader.icons[entity.recipe]) {
                 console.log('Can\'t find icon for recipe', entity.recipe);
             } else {
-                var iconLayers = createIconSprite(FactorioBlueprintReader.icons[entity.recipe].image);
+                var iconLayers = this.createIconSprite(this.factorioBlueprintReader.icons[entity.recipe].image);
                 xOffset = (sizeW * FBR_PIXELS_PER_TILE) / 2;
                 yOffset = (sizeH * FBR_PIXELS_PER_TILE) / 2;
-                drawLayers(layers, iconLayers, gridX, gridY, xOffset, yOffset);
+                this.drawLayers(layers, iconLayers, gridX, gridY, xOffset, yOffset);
             }
         }
 
         if (entity.items) {
             var itemCount = 0;
-            $.each(entity.items, function (_, entityItem) {
+            $.each(entity.items, (_, entityItem) => {
                 // apparently items can be an array or an object
                 // i.e. either [{name: 'blabla', count:5}] or just {blabla:5}
                 itemCount += entityItem.count ? entityItem.count : entityItem;
             });
-            var startX = (sizeW * FBR_PIXELS_PER_TILE - itemCount * FactorioBlueprintReader.iconSize / 2) / 2;
+            var startX = (sizeW * FBR_PIXELS_PER_TILE - itemCount * this.factorioBlueprintReader.iconSize / 2) / 2;
             // add another half of icon size (which is uses scale 0.5, so a quarter of size) due to anchor being 0.5
-            startX += FactorioBlueprintReader.iconSize / 4;
+            startX += this.factorioBlueprintReader.iconSize / 4;
             var itemNumber = 0;
-            $.each(entity.items, function (itemName, entityItem) {
+            $.each(entity.items, (itemName, entityItem) => {
                 // apparently items can be an array or an object
                 // i.e. either [{name: 'blabla', count:5}] or just {blabla:5}
                 var count = entityItem;
@@ -197,16 +197,16 @@ FactorioBlueprintReader.blueprintRenderer = (function () {
                     count = entityItem.count;
                 }
                 for (var k = 0; k < count; k++) {
-                    if (!FactorioBlueprintReader.icons[itemName]) {
+                    if (!this.factorioBlueprintReader.icons[itemName]) {
                         console.log('Can\'t find icon for item', itemName);
                     } else {
-                        var iconLayers = createIconSprite(FactorioBlueprintReader.icons[itemName].image);
-                        $.each(iconLayers, function (layerNumber, layerContainer) {
+                        var iconLayers = this.createIconSprite(this.factorioBlueprintReader.icons[itemName].image);
+                        $.each(iconLayers, (layerNumber, layerContainer) => {
                             layerContainer.scale.x = layerContainer.scale.y = 0.5;
                         });
-                        xOffset = startX + FactorioBlueprintReader.iconSize / 2 * itemNumber;
-                        yOffset = (sizeH * FBR_PIXELS_PER_TILE) / 2 + FactorioBlueprintReader.iconSize;
-                        drawLayers(layers, iconLayers, gridX, gridY, xOffset, yOffset);
+                        xOffset = startX + this.factorioBlueprintReader.iconSize / 2 * itemNumber;
+                        yOffset = (sizeH * FBR_PIXELS_PER_TILE) / 2 + this.factorioBlueprintReader.iconSize;
+                        this.drawLayers(layers, iconLayers, gridX, gridY, xOffset, yOffset);
                     }
                     itemNumber++;
                 }
@@ -220,23 +220,23 @@ FactorioBlueprintReader.blueprintRenderer = (function () {
             filters = entity.request_filters;
         }
         var filterItemNumber = 0;
-        $.each(filters, function (_, filterItem) {
-            if (!FactorioBlueprintReader.icons[filterItem.name]) {
+        $.each(filters, (_, filterItem) => {
+            if (!this.factorioBlueprintReader.icons[filterItem.name]) {
                 console.log('Can\'t find icon for item', filterItem.name);
             } else {
-                var iconLayers = createIconSprite(FactorioBlueprintReader.icons[filterItem.name].image);
-                $.each(iconLayers, function (layerNumber, layerContainer) {
+                var iconLayers = this.createIconSprite(this.factorioBlueprintReader.icons[filterItem.name].image);
+                $.each(iconLayers, (layerNumber, layerContainer) => {
                     layerContainer.scale.x = layerContainer.scale.y = 0.4;
                 });
-                xOffset = (filterItemNumber % 2 == 0 ? 0 : 16) + (FactorioBlueprintReader.iconSize * 0.2);
-                yOffset = (Math.floor(filterItemNumber % 4 / 2) * 16) + (FactorioBlueprintReader.iconSize * 0.2);
-                drawLayers(layers, iconLayers, gridX, gridY, xOffset, yOffset);
+                xOffset = (filterItemNumber % 2 == 0 ? 0 : 16) + (this.factorioBlueprintReader.iconSize * 0.2);
+                yOffset = (Math.floor(filterItemNumber % 4 / 2) * 16) + (this.factorioBlueprintReader.iconSize * 0.2);
+                this.drawLayers(layers, iconLayers, gridX, gridY, xOffset, yOffset);
                 // if there's more than 4, cycle between them every 2 seconds; also hide if alt is pressed
                 var everyNSeconds = 5;
                 var currentFilterItemNumber = filterItemNumber;
-                animationHandler.addOnSecondTickListener(function (second) {
-                    $.each(iconLayers, function (layerNumber, layerContainer) {
-                        var altPressed = keyboardHandler.isPressed(keyboardHandler.alt);
+                this.animationHandler.addOnSecondTickListener((second) => {
+                    $.each(iconLayers, (layerNumber, layerContainer) => {
+                        var altPressed = this.keyboardHandler.isPressed(this.keyboardHandler.keys.alt);
                         layerContainer.visible = (!altPressed) && Math.floor(second / everyNSeconds) % (Math.ceil(filters.length / 4)) == Math.floor(currentFilterItemNumber / 4);
                     });
                 });
@@ -247,14 +247,14 @@ FactorioBlueprintReader.blueprintRenderer = (function () {
     }
 
 
-    function renderBlueprint(pixiRenderer, stage, blueprintData) {
+    renderBlueprint(pixiRenderer, stage, blueprintData) {
         var entities = blueprintData.blueprint.entities || [];
         var tiles = blueprintData.blueprint.tiles || [];
 
         var minXY = 0;
         var maxXY = 0;
 
-        $.each(tiles, function (key, entity) {
+        $.each(tiles, (key, entity) => {
             var x = entity.position.x;
             var y = entity.position.y;
             minXY = Math.min(minXY, x, y);
@@ -263,7 +263,7 @@ FactorioBlueprintReader.blueprintRenderer = (function () {
 
         var entitiesByYX = {};
         var allYCoordinates = [];
-        $.each(entities, function (key, entity) {
+        $.each(entities, (key, entity) => {
             var x = parseInt(entity.position.x);
             var y = parseInt(entity.position.y);
 
@@ -278,7 +278,7 @@ FactorioBlueprintReader.blueprintRenderer = (function () {
             minXY = Math.min(minXY, x, y);
             maxXY = Math.max(maxXY, x, y);
         });
-        allYCoordinates.sort(function (a, b) {
+        allYCoordinates.sort((a, b) => {
             return a - b;
         });
 
@@ -291,7 +291,7 @@ FactorioBlueprintReader.blueprintRenderer = (function () {
         var blueprintContainer = new PIXI.Container();
         blueprintContainer.scale.x = blueprintContainer.scale.y = minScale;
 
-        var background = new PIXI.extras.TilingSprite(PIXI.Texture.fromFrame(FBR_IMAGES_PREFIX + FactorioBlueprintReader.ImagesUI.BACKGROUND), FBR_CANVAS_WIDTH / minScale, FBR_CANVAS_HEIGHT / minScale);
+        var background = new PIXI.extras.TilingSprite(PIXI.Texture.fromFrame(FBR_IMAGES_PREFIX + this.factorioBlueprintReader.ImagesUI.BACKGROUND), FBR_CANVAS_WIDTH / minScale, FBR_CANVAS_HEIGHT / minScale);
         blueprintContainer.addChild(background);
 
         var isX0InHalfGrid = false;
@@ -300,7 +300,7 @@ FactorioBlueprintReader.blueprintRenderer = (function () {
             var entity = entities[0];
             var xEndsInHalf = entity.position.x - Math.floor(entity.position.x) > 0.4;
             var yEndsInHalf = entity.position.y - Math.floor(entity.position.y) > 0.4;
-            var entityDrawingSpec = getEntityDrawingSpecForEntity(entity);
+            var entityDrawingSpec = this.getEntityDrawingSpecForEntity(entity);
             if (entityDrawingSpec) {
                 var sizeW = entityDrawingSpec.gridSize.w;
                 var sizeH = entityDrawingSpec.gridSize.h;
@@ -309,18 +309,18 @@ FactorioBlueprintReader.blueprintRenderer = (function () {
             }
         }
 
-        $.each(tiles, function (key, entity) {
+        $.each(tiles, (key, entity) => {
             var spriteLayers;
-            if (FactorioBlueprintReader.tiles[entity.name]) {
+            if (this.factorioBlueprintReader.tiles[entity.name]) {
                 // overwrite getRandomInt for a moment to make sure tiling stays the same every time
-                var prevRandomInt = getRandomInt;
-                getRandomInt = function (min, max) {
-                    var number = Math.floor(Math.abs(hashTwoIntegers(Math.floor(entity.position.x), Math.floor(entity.position.y))));
+                var prevRandomInt = this.getRandomInt;
+                this.getRandomInt = function (min, max) {
+                    var number = Math.floor(Math.abs(this.hashTwoIntegers(Math.floor(entity.position.x), Math.floor(entity.position.y))));
                     number = number % (1 + max - min);
                     return number + min;
                 };
-                spriteLayers = createEntityLayers(FactorioBlueprintReader.tiles[entity.name].image);
-                getRandomInt = prevRandomInt;
+                spriteLayers = this.createEntityLayers(this.factorioBlueprintReader.tiles[entity.name].image);
+                this.getRandomInt = prevRandomInt;
             } else {
                 console.log("Unknown tile name", entity.name);
                 spriteLayers = new PIXI.Graphics();
@@ -330,7 +330,7 @@ FactorioBlueprintReader.blueprintRenderer = (function () {
             }
             var gridX = Math.floor(entity.position.x - minXY - (isX0InHalfGrid ? 1 : 0));
             var gridY = Math.floor(entity.position.y - minXY - (isY0InHalfGrid ? 1 : 0));
-            $.each(spriteLayers, function (layerNumber, sprite) {
+            $.each(spriteLayers, (layerNumber, sprite) => {
                 sprite.x = gridX * FBR_PIXELS_PER_TILE;
                 sprite.y = gridY * FBR_PIXELS_PER_TILE;
                 blueprintContainer.addChild(sprite);
@@ -339,15 +339,15 @@ FactorioBlueprintReader.blueprintRenderer = (function () {
 
         var layers = [];
 
-        $.each(allYCoordinates, function (_, y) {
-            $.each(entitiesByYX[y], function (x, entitiesForYX) {
-                $.each(entitiesForYX, function (_, entityKey) {
-                    renderEntityToLayers(layers, minXY, entities[entityKey]);
+        $.each(allYCoordinates, (_, y) => {
+            $.each(entitiesByYX[y], (x, entitiesForYX) => {
+                $.each(entitiesForYX, (_, entityKey) => {
+                    this.renderEntityToLayers(layers, minXY, entities[entityKey]);
                 })
             })
         });
 
-        $.each(layers, function (layerNumber, layer) {
+        $.each(layers, (layerNumber, layer) => {
             if (layer) {
                 blueprintContainer.addChild(layer);
             }
@@ -356,10 +356,10 @@ FactorioBlueprintReader.blueprintRenderer = (function () {
         var circuitryLayer = new PIXI.Graphics();
         circuitryLayer.alpha = 0.5;
 
-        function getCircuitXYTargetFromEntity(entity, circuitId) {
+        const getCircuitXYTargetFromEntity = (entity, circuitId) => {
             var sizeW = 1;
             var sizeH = 1;
-            var entityDrawingSpec = getEntityDrawingSpecForEntity(entity);
+            var entityDrawingSpec = this.getEntityDrawingSpecForEntity(entity);
             if (entityDrawingSpec) {
                 sizeW = entityDrawingSpec.gridSize.w;
                 sizeH = entityDrawingSpec.gridSize.h;
@@ -383,7 +383,7 @@ FactorioBlueprintReader.blueprintRenderer = (function () {
             return {x: x + xOffset, y: y + yOffset};
         }
 
-        function drawCircuitLine(fromEntityNumber, startPosition, connection) {
+        const drawCircuitLine = (fromEntityNumber, startPosition, connection) => {
             var targetEntityId = connection.entity_id;
             if (targetEntityId < fromEntityNumber || (targetEntityId == fromEntityNumber && connection.circuit_id == 1)) {
                 return;
@@ -400,19 +400,19 @@ FactorioBlueprintReader.blueprintRenderer = (function () {
 
         }
 
-        $.each(entities, function (key, entity) {
+        $.each(entities, (key, entity) => {
             if (!entity.connections) {
                 return;
             }
             var entity_number = entity.entity_number;
-            $.each(entity.connections, function (circuitId, connections) {
+            $.each(entity.connections, (circuitId, connections) => {
                 var startPosition = getCircuitXYTargetFromEntity(entity, circuitId);
                 circuitryLayer.lineStyle(2, 0xff0000);
-                $.each(connections.red, function (_, connection) {
+                $.each(connections.red, (_, connection) => {
                     drawCircuitLine(entity_number, startPosition, connection);
                 });
                 circuitryLayer.lineStyle(2, 0x00ff00);
-                $.each(connections.green, function (_, connection) {
+                $.each(connections.green, (_, connection) => {
                     drawCircuitLine(entity_number, startPosition, connection);
                 });
             });
@@ -421,7 +421,7 @@ FactorioBlueprintReader.blueprintRenderer = (function () {
         blueprintContainer.addChild(circuitryLayer);
 
 
-        zoomAndPanHandler.setOnMouseClickListener(function (x, y) {
+        this.zoomAndPanHandler.setOnMouseClickListener((x, y) => {
             x = Math.floor(x / FBR_PIXELS_PER_TILE);
             y = Math.floor(y / FBR_PIXELS_PER_TILE);
             /*$.each(tiles, function (key, entity) {
@@ -433,10 +433,10 @@ FactorioBlueprintReader.blueprintRenderer = (function () {
              });*/
 
 
-            $.each(entities, function (key, entity) {
+            $.each(entities, (key, entity) => {
                 var sizeW = 1;
                 var sizeH = 1;
-                var entityDrawingSpec = getEntityDrawingSpecForEntity(entity);
+                var entityDrawingSpec = this.getEntityDrawingSpecForEntity(entity);
                 if (entityDrawingSpec) {
                     sizeW = entityDrawingSpec.gridSize.w;
                     sizeH = entityDrawingSpec.gridSize.h;
@@ -450,12 +450,12 @@ FactorioBlueprintReader.blueprintRenderer = (function () {
                         message: '<pre class="json">' + JSON.stringify(entity, null, '    ') + '</pre>',
                         buttons: [{
                             label:  'OK',
-                            action: function (dialogRef) {
+                            action: (dialogRef) => {
                                 dialogRef.close();
                             }
                         }],
-                        onshown: function (dialogRef) {
-                            $('pre.json').each(function (i, block) {
+                        onshown: (dialogRef) => {
+                            $('pre.json').each((i, block) => {
                                 hljs.highlightBlock(block);
                             });
                         }
@@ -468,9 +468,6 @@ FactorioBlueprintReader.blueprintRenderer = (function () {
 
         return blueprintContainer;
     }
+}
 
-    return {
-        renderBlueprint:    renderBlueprint,
-        createEntityLayers: createEntityLayers
-    };
-})();
+module.exports = BlueprintRenderer;

@@ -1,6 +1,4 @@
-const { createEntitiesFunctions } = require("../index");
-
-createEntitiesFunctions.push(function () {
+module.exports = function () {
     return {
         'power-switch':         {
             image:    {
@@ -36,4 +34,4 @@ createEntitiesFunctions.push(function () {
             offset:   {x: -2, y: -66}
         }
     }
-});
+}

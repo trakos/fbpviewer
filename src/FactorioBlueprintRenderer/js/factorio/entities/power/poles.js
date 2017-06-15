@@ -1,6 +1,4 @@
-const { createEntitiesFunctions } = require("../index");
-
-createEntitiesFunctions.push(function () {
+module.exports = function () {
     return {
         'small-electric-pole':   {
             image:    {
@@ -47,4 +45,4 @@ createEntitiesFunctions.push(function () {
             offset:   {x: -8, y: -75}
         }
     };
-});
+}

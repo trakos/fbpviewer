@@ -1,19 +1,20 @@
-const keyboardHandler = require("./keyboardHandler");
-
-module.exports = {
-    MAX_SCALE:                 3,
-    minScale:                  1,
-    pixiContainer:             null,
-    lastPosition:              null,
-    canvasWidth:               0,
-    canvasHeight:              0,
-    pixiContainerWidth:        0,
-    pixiContainerHeight:       0,
-    onMousePositionChanged:    function (x, y) {
-    },
-    onMouseClickListener:      function (x, y) {
-    },
-    zoom:                      function (zoomMultiplier, x, y) {
+class ZoomAndPanHandler {
+    constructor(keyboardHandler) {
+        this.keyboardHandler =          keyboardHandler;
+        this.MAX_SCALE =                3;
+        this.minScale =                 1;
+        this.pixiContainer =            null;
+        this.lastPosition =             null;
+        this.canvasWidth =              0;
+        this.canvasHeight =             0;
+        this.pixiContainerWidth =       0;
+        this.pixiContainerHeight =      0;
+    }
+    onMousePositionChanged(x, y) {
+    }
+    onMouseClickListener(x, y) {
+    }
+    zoom(zoomMultiplier, x, y) {
         var worldPosition = this.getWorldPosition(x, y);
         this.pixiContainer.scale.x *= zoomMultiplier;
         this.pixiContainer.scale.y *= zoomMultiplier;
@@ -25,8 +26,8 @@ module.exports = {
         this.pixiContainer.x -= newScreenPosition.x - x;
         this.pixiContainer.y -= newScreenPosition.y - y;
         this.clampPosition();
-    },
-    clampZoom:                 function () {
+    }
+    clampZoom() {
         if (this.pixiContainer.scale.x > this.MAX_SCALE) {
             this.pixiContainer.scale.x = this.MAX_SCALE;
         }
@@ -39,8 +40,8 @@ module.exports = {
         if (this.pixiContainer.scale.y < this.minScale) {
             this.pixiContainer.scale.y = this.minScale;
         }
-    },
-    clampPosition:             function () {
+    }
+    clampPosition() {
         if (this.pixiContainer.x > 0) {
             this.pixiContainer.x = 0;
         }
@@ -59,58 +60,62 @@ module.exports = {
             x: this.pixiContainer.x,
             y: this.pixiContainer.y
         };
-    },
-    getWorldPosition:          function (mouseX, mouseY) {
+    }
+    getWorldPosition(mouseX, mouseY) {
         return {
             x: (mouseX - this.pixiContainer.x) / this.pixiContainer.scale.x,
             y: (mouseY - this.pixiContainer.y) / this.pixiContainer.scale.y
         };
-    },
-    handleKeyboardPanning:     function () {
+    }
+    handleKeyboardPanning() {
         if (!this.pixiContainer) {
             return;
         }
 
-        if (keyboardHandler.isPressed(keyboardHandler.W)) {
+        const keys = this.keyboardHandler.keys;
+
+        if (this.keyboardHandler.isPressed(keys.W)) {
             this.pixiContainer.y += 10;
             if (this.pixiContainer.y > 0) {
                 this.pixiContainer.y = 0;
             }
         }
-        if (keyboardHandler.isPressed(keyboardHandler.A)) {
+        if (this.keyboardHandler.isPressed(keys.A)) {
             this.pixiContainer.x += 10;
             if (this.pixiContainer.x > 0) {
                 this.pixiContainer.x = 0;
             }
         }
-        if (keyboardHandler.isPressed(keyboardHandler.S)) {
+        if (this.keyboardHandler.isPressed(keys.S)) {
             this.pixiContainer.y -= 10;
         }
-        if (keyboardHandler.isPressed(keyboardHandler.D)) {
+        if (this.keyboardHandler.isPressed(keys.D)) {
             this.pixiContainer.x -= 10;
         }
 
-        if (keyboardHandler.isPressed(keyboardHandler.dash)
-            || keyboardHandler.isPressed(keyboardHandler.num_sub)) {
+        if (this.keyboardHandler.isPressed(keys.dash)
+            || this.keyboardHandler.isPressed(keys.num_sub)) {
             this.zoom(0.99, this.canvasWidth / 2, this.canvasHeight / 2);
         }
 
-        if (keyboardHandler.isPressed(keyboardHandler.equal)
-            || keyboardHandler.isPressed(keyboardHandler.num_add)) {
+        if (this.keyboardHandler.isPressed(keys.equal)
+            || this.keyboardHandler.isPressed(keys.num_add)) {
             this.zoom(1.01, this.canvasWidth / 2, this.canvasHeight / 2);
         }
 
-        this.clampZoom();
-        this.clampPosition();
-    },
-    onMouseWheel:              function (event) {
+        // Had to disable this due to weird pixi exceptions, couldn't figure out whats wrong,
+        // this.pixiContainer.scale fails because transform is null
+        //this.clampZoom();
+        //this.clampPosition();
+    }
+    onMouseWheel(event) {
         if (!this.pixiContainer) {
             return;
         }
         var zoomMultiplier = event.deltaY > 0 ? 1.1 : 0.9;
         this.zoom(zoomMultiplier, event.offsetX, event.offsetY);
-    },
-    onMouseDown:               function (event) {
+    }
+    onMouseDown(event) {
         var offsetX = event.offsetX;
         var offsetY = event.offsetY;
         if (!offsetX) {
@@ -121,8 +126,8 @@ module.exports = {
         }
         this.lastPosition = {x: offsetX, y: offsetY};
         this.movedBy = 0;
-    },
-    onMouseUp:                 function (event) {
+    }
+    onMouseUp(event) {
         var offsetX = event.offsetX;
         var offsetY = event.offsetY;
         if (!offsetX) {
@@ -139,12 +144,12 @@ module.exports = {
             }, 100);
         }
         this.lastPosition = null;
-    },
-    onMouseOut:                function (event) {
+    }
+    onMouseOut(event) {
         this.lastPosition = null;
         this.moved = true;
-    },
-    onMouseMove:               function (event) {
+    }
+    onMouseMove(event) {
         var offsetX = event.offsetX;
         var offsetY = event.offsetY;
         if (!offsetX) {
@@ -165,11 +170,11 @@ module.exports = {
         }
         var worldPosition = this.getWorldPosition(event.offsetX, event.offsetY);
         this.onMousePositionChanged(Math.round(worldPosition.x), Math.round(worldPosition.y));
-    },
-    onHammerPinch:             function (event) {
+    }
+    onHammerPinch(event) {
         this.zoom(Math.pow(event.scale, 0.05), event.center.x, event.center.y);
-    },
-    setContainer:              function (container, keepPosition) {
+    }
+    setContainer(container, keepPosition) {
         this.minScale = container.scale.x;
         this.pixiContainerWidth = container.width / container.scale.x;
         this.pixiContainerHeight = container.height / container.scale.y;
@@ -180,14 +185,14 @@ module.exports = {
             container.scale.y = this.pixiContainer.scale.y;
         }
         this.pixiContainer = container;
-    },
-    setOnMousePositionChanged: function (listener) {
+    }
+    setOnMousePositionChanged(listener) {
         this.onMousePositionChanged = listener;
-    },
-    setOnMouseClickListener:   function (listener) {
+    }
+    setOnMouseClickListener(listener) {
         this.onMouseClickListener = listener;
-    },
-    init:                      function (canvas) {
+    }
+    init(canvas) {
         $(canvas).mousewheel(this.onMouseWheel.bind(this));
         $(canvas).on('vmousedown', this.onMouseDown.bind(this));
         $(canvas).on('vmouseup', this.onMouseUp.bind(this));
@@ -199,4 +204,6 @@ module.exports = {
         this.canvasWidth = canvas.width;
         this.canvasHeight = canvas.height;
     }
-};
+}
+
+module.exports = ZoomAndPanHandler;

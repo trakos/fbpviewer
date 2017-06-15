@@ -1,6 +1,4 @@
-const { createEntitiesFunctions } = require("../index");
-
-createEntitiesFunctions.push(function () {
+module.exports = function () {
 
     function prepareUndergroundBeltData(beltPrefix, beltImageColumns, beltAnimationSpeed) {
         return {
@@ -240,4 +238,4 @@ createEntitiesFunctions.push(function () {
         'fast-underground-belt':    prepareUndergroundBeltData('fast-', 32, 1.5),
         'express-underground-belt': prepareUndergroundBeltData('express-', 32, 2)
     };
-});
+}

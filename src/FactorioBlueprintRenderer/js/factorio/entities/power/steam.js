@@ -1,6 +1,4 @@
-const { createEntitiesFunctions } = require("../index");
-
-createEntitiesFunctions.push(function () {
+module.exports = function () {
     return {
         'boiler': {
             directions: {
@@ -61,4 +59,4 @@ createEntitiesFunctions.push(function () {
             offset:     {x: 0, y:-24}
         }
     };
-});
+}

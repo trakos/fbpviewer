@@ -1,18 +1,17 @@
 const $ = require("jquery");
 
-module.exports = {
-    init:               function () {
+class IconCropper {
+    init(domContainer) {
         this.renderer = PIXI.autoDetectRenderer(32, 32, {antialias: true, forceFXAA: true});
         this.renderer.backgroundColor = 0xFFFFFF;
 
-
-        $("#main-site-container").get(0).appendChild(this.renderer.view);
+        domContainer.appendChild(this.renderer.view);
 
         this.stage = new PIXI.Container();
         this.renderer.render(this.stage);
         $(this.renderer.view).hide();
-    },
-    createIconURL: function (spriteLayers) {
+    }
+    createIconURL(spriteLayers) {
         var tmpContainer = new PIXI.Container();
         $.each(spriteLayers, function(layerNumber, sprite) {
             tmpContainer.addChild(sprite);
@@ -28,4 +27,6 @@ module.exports = {
 
         return src;
     }
-};
+}
+
+module.exports = IconCropper;

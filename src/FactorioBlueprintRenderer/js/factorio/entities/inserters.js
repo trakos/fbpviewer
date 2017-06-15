@@ -1,6 +1,4 @@
-const { createEntitiesFunctions } = require("./index");
-
-createEntitiesFunctions.push(function () {
+module.exports = function () {
     function prepareInserterData(inserterName) {
         return {
             directions: {
@@ -189,8 +187,4 @@ createEntitiesFunctions.push(function () {
         'stack-filter-inserter': prepareInserterData('stack-filter-inserter'),
         'long-handed-inserter':  prepareInserterData('long-handed-inserter')
     };
-});
-
-
-
-
+}

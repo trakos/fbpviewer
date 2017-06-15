@@ -1,6 +1,4 @@
-const FactorioBlueprintReader = require("./factorioBlueprintReader");
-
-FactorioBlueprintReader.tiles = {
+exports.tiles = {
     'concrete':              {
         image: {
             type: 'random_trim',

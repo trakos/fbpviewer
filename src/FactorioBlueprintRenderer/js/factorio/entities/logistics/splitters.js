@@ -1,6 +1,4 @@
-const { createEntitiesFunctions } = require("../index");
-
-createEntitiesFunctions.push(function () {
+module.exports = function () {
 
     function prepareSplitterData(beltPrefix, beltImageColumns, beltAnimationSpeed) {
         return {
@@ -173,4 +171,4 @@ createEntitiesFunctions.push(function () {
         'fast-splitter':    prepareSplitterData('fast-', 32, 1.5),
         'express-splitter': prepareSplitterData('express-', 32, 2)
     };
-});
+}

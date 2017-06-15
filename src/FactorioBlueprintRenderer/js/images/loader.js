@@ -1,9 +1,11 @@
 const $ = require("jquery");
 const PIXI = require("pixi.js");
-const FactorioBlueprintReader = require("./factorioBlueprintReader");
 
-FactorioBlueprintReader.Loader = {
-    _prepareTrimmedTexture:                function (imagePath, rows, cols, number) {
+class Loader {
+    constructor(FactorioBlueprintReader) {
+        this.FactorioBlueprintReader = FactorioBlueprintReader;
+    }
+    _prepareTrimmedTexture(imagePath, rows, cols, number) {
         if (PIXI.utils.TextureCache[imagePath + "." + number]) {
             return;
         }
@@ -17,8 +19,8 @@ FactorioBlueprintReader.Loader = {
 
         var rect = new PIXI.Rectangle(w * col, h * row, w, h);
         PIXI.utils.TextureCache[imagePath + "." + number] = new PIXI.Texture(PIXI.utils.TextureCache[imagePath].baseTexture, rect, rect.clone(), null, null);
-    },
-    _prepareTrimmedTexturesFromImageData:  function (imageData) {
+    }
+    _prepareTrimmedTexturesFromImageData(imageData) {
         var imagePath = FBR_IMAGES_PREFIX + imageData.path;
         if (imageData.type == 'trim') {
             this._prepareTrimmedTexture(imagePath, imageData.rows, imageData.cols, imageData.number);
@@ -27,8 +29,8 @@ FactorioBlueprintReader.Loader = {
                 this._prepareTrimmedTexture(imagePath, imageData.rows, imageData.cols, k);
             }
         }
-    },
-    _prepareTrimmedTexturesFromEntityData: function (entityKey, entityData) {
+    }
+    _prepareTrimmedTexturesFromEntityData(entityKey, entityData) {
         var that = this;
 
         if (entityData.image.path) {
@@ -38,8 +40,8 @@ FactorioBlueprintReader.Loader = {
                 that._prepareTrimmedTexturesFromImageData(imageData);
             });
         }
-    },
-    prepareTrimmedTextures:                function () {
+    }
+    prepareTrimmedTextures() {
         var that = this;
 
         var prepareTrimmedTexturesHelper = function (entityKey, entityData) {
@@ -59,13 +61,13 @@ FactorioBlueprintReader.Loader = {
             that._prepareTrimmedTexturesFromEntityData(entityKey, entityData);
         };
 
-        $.each(FactorioBlueprintReader.entities, prepareTrimmedTexturesHelper);
+        $.each(this.FactorioBlueprintReader.entities, prepareTrimmedTexturesHelper);
 
-        $.each(FactorioBlueprintReader.tiles, function (entityKey, entityData) {
+        $.each(this.FactorioBlueprintReader.tiles, function (entityKey, entityData) {
             that._prepareTrimmedTexturesFromEntityData(entityKey, entityData);
         });
-    },
-    getImagesToLoad: function() {
+    }
+    getImagesToLoad() {
 
         var imagesToLoad = [];
 
@@ -85,14 +87,14 @@ FactorioBlueprintReader.Loader = {
             }
         }
 
-        $.each(FactorioBlueprintReader.icons, function (iconKey, iconData) {
+        $.each(this.FactorioBlueprintReader.icons, function (iconKey, iconData) {
 
             if (iconData.image) {
                 addEntityImageToLoader(iconKey, iconData);
             }
         });
 
-        $.each(FactorioBlueprintReader.entities, function (entityKey, entityData) {
+        $.each(this.FactorioBlueprintReader.entities, function (entityKey, entityData) {
             if (entityData.types) {
                 $.each(entityData.types, function(type, typeSpecificEntityData) {
                     if (typeSpecificEntityData.directions) {
@@ -119,14 +121,16 @@ FactorioBlueprintReader.Loader = {
                 }
             }
         });
-        $.each(FactorioBlueprintReader.tiles, function (entityKey, entityData) {
+        $.each(this.FactorioBlueprintReader.tiles, function (entityKey, entityData) {
             addEntityImageToLoader(entityKey, entityData);
         });
 
-        $.each(FactorioBlueprintReader.ImagesUI, function(imageUiName, imageUiPath) {
+        $.each(this.FactorioBlueprintReader.ImagesUI, function(imageUiName, imageUiPath) {
            imagesToLoad.push(FBR_IMAGES_PREFIX + imageUiPath);
         });
 
         return imagesToLoad;
     }
-};
+}
+
+module.exports = Loader;

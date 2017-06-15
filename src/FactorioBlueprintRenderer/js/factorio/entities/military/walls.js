@@ -1,6 +1,4 @@
-const { createEntitiesFunctions } = require("../index");
-
-createEntitiesFunctions.push(function () {
+module.exports = function () {
     return {
         'gate':                   {
             directions: {
@@ -62,4 +60,4 @@ createEntitiesFunctions.push(function () {
 
 
     };
-});
+}

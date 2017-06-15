@@ -1,6 +1,4 @@
-const { createEntitiesFunctions } = require("./index");
-
-createEntitiesFunctions.push(function () {
+module.exports = function () {
 
     const TILE_SIZE = 32;
 
@@ -351,4 +349,4 @@ createEntitiesFunctions.push(function () {
             offset:     {x: 0, y: 0}
         }
     };
-});
+}
