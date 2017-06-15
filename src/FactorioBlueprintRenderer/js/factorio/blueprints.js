@@ -1,4 +1,6 @@
-var FactorioBlueprintReader = FactorioBlueprintReader || {};
+const pako = require("pako");
+
+const FactorioBlueprintReader = require("./factorioBlueprintReader");
 
 FactorioBlueprintReader.parse = function (blueprintString) {
     var version = blueprintString[0];

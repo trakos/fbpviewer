@@ -1,6 +1,6 @@
-var FactorioBlueprintReader = FactorioBlueprintReader || {};
+const keyboardHandler = require("./keyboardHandler");
 
-FactorioBlueprintReader.zoomAndPanHandler = {
+module.exports = {
     MAX_SCALE:                 3,
     minScale:                  1,
     pixiContainer:             null,
@@ -71,32 +71,32 @@ FactorioBlueprintReader.zoomAndPanHandler = {
             return;
         }
 
-        if (FactorioBlueprintReader.keyboardHandler.isPressed(FactorioBlueprintReader.keyboardHandler.W)) {
+        if (keyboardHandler.isPressed(keyboardHandler.W)) {
             this.pixiContainer.y += 10;
             if (this.pixiContainer.y > 0) {
                 this.pixiContainer.y = 0;
             }
         }
-        if (FactorioBlueprintReader.keyboardHandler.isPressed(FactorioBlueprintReader.keyboardHandler.A)) {
+        if (keyboardHandler.isPressed(keyboardHandler.A)) {
             this.pixiContainer.x += 10;
             if (this.pixiContainer.x > 0) {
                 this.pixiContainer.x = 0;
             }
         }
-        if (FactorioBlueprintReader.keyboardHandler.isPressed(FactorioBlueprintReader.keyboardHandler.S)) {
+        if (keyboardHandler.isPressed(keyboardHandler.S)) {
             this.pixiContainer.y -= 10;
         }
-        if (FactorioBlueprintReader.keyboardHandler.isPressed(FactorioBlueprintReader.keyboardHandler.D)) {
+        if (keyboardHandler.isPressed(keyboardHandler.D)) {
             this.pixiContainer.x -= 10;
         }
 
-        if (FactorioBlueprintReader.keyboardHandler.isPressed(FactorioBlueprintReader.keyboardHandler.dash)
-            || FactorioBlueprintReader.keyboardHandler.isPressed(FactorioBlueprintReader.keyboardHandler.num_sub)) {
+        if (keyboardHandler.isPressed(keyboardHandler.dash)
+            || keyboardHandler.isPressed(keyboardHandler.num_sub)) {
             this.zoom(0.99, this.canvasWidth / 2, this.canvasHeight / 2);
         }
 
-        if (FactorioBlueprintReader.keyboardHandler.isPressed(FactorioBlueprintReader.keyboardHandler.equal)
-            || FactorioBlueprintReader.keyboardHandler.isPressed(FactorioBlueprintReader.keyboardHandler.num_add)) {
+        if (keyboardHandler.isPressed(keyboardHandler.equal)
+            || keyboardHandler.isPressed(keyboardHandler.num_add)) {
             this.zoom(1.01, this.canvasWidth / 2, this.canvasHeight / 2);
         }
 

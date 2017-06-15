@@ -1,9 +1,6 @@
-var FactorioBlueprintReader = FactorioBlueprintReader || {};
+const { createEntitiesFunctions } = require("./index");
 
-FactorioBlueprintReader.createEntitiesFunctions = FactorioBlueprintReader.createEntitiesFunctions || [];
-
-
-FactorioBlueprintReader.createEntitiesFunctions.push(function () {
+createEntitiesFunctions.push(function () {
     function prepareInserterData(inserterName) {
         return {
             directions: {

@@ -1,4 +1,6 @@
-var FactorioBlueprintReader = FactorioBlueprintReader || {};
+const $ = require("jquery");
+const PIXI = require("pixi.js");
+const FactorioBlueprintReader = require("./factorioBlueprintReader");
 
 FactorioBlueprintReader.Loader = {
     _prepareTrimmedTexture:                function (imagePath, rows, cols, number) {

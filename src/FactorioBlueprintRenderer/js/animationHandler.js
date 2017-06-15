@@ -1,6 +1,6 @@
-var FactorioBlueprintReader = FactorioBlueprintReader || {};
+const $ = require("jquery");
 
-FactorioBlueprintReader.animationHandler = {
+module.exports = {
     onSecondTickListeners:   [],
     currentFrame:            0,
     currentSecond:           0,

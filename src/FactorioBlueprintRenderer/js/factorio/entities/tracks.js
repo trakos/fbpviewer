@@ -1,8 +1,6 @@
-var FactorioBlueprintReader = FactorioBlueprintReader || {};
+const { createEntitiesFunctions } = require("./index");
 
-FactorioBlueprintReader.createEntitiesFunctions = FactorioBlueprintReader.createEntitiesFunctions || [];
-
-FactorioBlueprintReader.createEntitiesFunctions.push(function () {
+createEntitiesFunctions.push(function () {
 
     const LAYER_BG = 10;
     const LAYER_PATH = 20;

@@ -1,6 +1,6 @@
-var FactorioBlueprintReader = FactorioBlueprintReader || {};
+const $ = require("jquery");
 
-FactorioBlueprintReader.iconCropper = {
+module.exports = {
     init:               function () {
         this.renderer = PIXI.autoDetectRenderer(32, 32, {antialias: true, forceFXAA: true});
         this.renderer.backgroundColor = 0xFFFFFF;

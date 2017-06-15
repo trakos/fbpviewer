@@ -1,4 +1,5 @@
-var FactorioBlueprintReader = FactorioBlueprintReader || {};
+const $ = require("jquery");
+const FactorioBlueprintReader = require("./factorioBlueprintReader");
 
 FactorioBlueprintReader.iconSize = 32;
 FactorioBlueprintReader.icons = (function () {

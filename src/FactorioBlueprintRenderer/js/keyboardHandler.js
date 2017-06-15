@@ -1,6 +1,6 @@
-var FactorioBlueprintReader = FactorioBlueprintReader || {};
+const $ = require("jquery");
 
-FactorioBlueprintReader.keyboardHandler = {
+module.exports = {
     alt:         18,
     W:           87,
     A:           65,

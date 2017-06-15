@@ -1,3 +1,14 @@
+const $ = require("jquery");
+require("bootstrap");
+const BootstrapDialog = require("bootstrap3-dialog");
+const PIXI = require("pixi.js");
+
+const FactorioBlueprintReader = require("./factorio/factorioBlueprintReader");
+const animationHandler = require("./animationHandler");
+const iconCropper = require("./iconCropper")
+const zoomAndPanHandler = require("./zoomAndPanHandler");
+const keyboardHandler = require("./keyboardHandler")
+
 const FBR_DEV = 0;
 const FBR_IMAGES_PREFIX = FBR_DEV ? "/images/factorio/" : "images/factorio/";
 const FBR_PIXELS_PER_TILE = 32;
@@ -34,9 +45,9 @@ $(function () {
 
     $("#main-site-container").get(0).appendChild(renderer.view);
 
-    FactorioBlueprintReader.keyboardHandler.init();
-    FactorioBlueprintReader.zoomAndPanHandler.init(renderer.view);
-    FactorioBlueprintReader.iconCropper.init();
+    keyboardHandler.init();
+    zoomAndPanHandler.init(renderer.view);
+    iconCropper.init();
 
     var stage = new PIXI.Container();
     var graphics = new PIXI.Graphics();
@@ -61,7 +72,7 @@ $(function () {
     statusText.y = 2;
     bottomStatus.addChild(statusText);
 
-    FactorioBlueprintReader.zoomAndPanHandler.setOnMousePositionChanged(function (x, y) {
+    zoomAndPanHandler.setOnMousePositionChanged(function (x, y) {
         statusText.text = '(' + Math.floor(x / FBR_PIXELS_PER_TILE) + ', ' + Math.floor(y / FBR_PIXELS_PER_TILE) + ')';
     });
 
@@ -94,8 +105,8 @@ $(function () {
 
             function gameLoop() {
                 requestAnimationFrame(gameLoop);
-                FactorioBlueprintReader.zoomAndPanHandler.handleKeyboardPanning();
-                FactorioBlueprintReader.animationHandler.tick();
+                zoomAndPanHandler.handleKeyboardPanning();
+                animationHandler.tick();
                 renderer.render(stage);
             }
 
@@ -107,7 +118,7 @@ $(function () {
 
             var blueprintData = FactorioBlueprintReader.parse(currentBlueprintString);
             blueprintContainer = new PIXI.Container();
-            FactorioBlueprintReader.zoomAndPanHandler.setContainer(blueprintContainer);
+            zoomAndPanHandler.setContainer(blueprintContainer);
             gameContainer.addChild(blueprintContainer);
 
             function redraw() {
@@ -135,7 +146,7 @@ $(function () {
                                 if (FactorioBlueprintReader.icons[signalName]) {
                                     var imageSpec = FactorioBlueprintReader.icons[signalName].image;
                                     var iconSprites = FactorioBlueprintReader.blueprintRenderer.createEntityLayers(imageSpec, {});
-                                    var iconSrc = FactorioBlueprintReader.iconCropper.createIconURL(iconSprites);
+                                    var iconSrc = iconCropper.createIconURL(iconSprites);
                                     icons += '<img src="' + iconSrc + '" />';
                                     continue;
 
@@ -163,7 +174,7 @@ $(function () {
                         $('#blueprint-recipe-selector ul').append(option);
                     });
                 }
-                FactorioBlueprintReader.zoomAndPanHandler.setContainer(blueprintContainer);
+                zoomAndPanHandler.setContainer(blueprintContainer);
 
                 gameContainer.addChild(blueprintContainer);
             }

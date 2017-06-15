@@ -1,4 +1,4 @@
-var FactorioBlueprintReader = FactorioBlueprintReader || {};
+const FactorioBlueprintReader = require("./factorioBlueprintReader");
 
 FactorioBlueprintReader.tiles = {
     'concrete':              {

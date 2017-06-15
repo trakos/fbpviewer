@@ -1,8 +1,12 @@
-var FactorioBlueprintReader = FactorioBlueprintReader || {};
+const BootstrapDialog = require("bootstrap3-dialog");
+const animationHandler = require("./animationHandler");
+const keyboardHandler = require("./keyboardHandler");
+const zoomAndPanHandler = require("./zoomAndPanHandler");
+const FactorioBlueprintReader = require("./factorio/factorioBlueprintReader");
 
 FactorioBlueprintReader.blueprintRenderer = (function () {
 
-    FactorioBlueprintReader.animationHandler.clear();
+    animationHandler.clear();
 
     const DEFAULT_LAYER = 100;
     const OVERLAY_LAYER = 200;
@@ -230,9 +234,9 @@ FactorioBlueprintReader.blueprintRenderer = (function () {
                 // if there's more than 4, cycle between them every 2 seconds; also hide if alt is pressed
                 var everyNSeconds = 5;
                 var currentFilterItemNumber = filterItemNumber;
-                FactorioBlueprintReader.animationHandler.addOnSecondTickListener(function (second) {
+                animationHandler.addOnSecondTickListener(function (second) {
                     $.each(iconLayers, function (layerNumber, layerContainer) {
-                        var altPressed = FactorioBlueprintReader.keyboardHandler.isPressed(FactorioBlueprintReader.keyboardHandler.alt);
+                        var altPressed = keyboardHandler.isPressed(keyboardHandler.alt);
                         layerContainer.visible = (!altPressed) && Math.floor(second / everyNSeconds) % (Math.ceil(filters.length / 4)) == Math.floor(currentFilterItemNumber / 4);
                     });
                 });
@@ -417,7 +421,7 @@ FactorioBlueprintReader.blueprintRenderer = (function () {
         blueprintContainer.addChild(circuitryLayer);
 
 
-        FactorioBlueprintReader.zoomAndPanHandler.setOnMouseClickListener(function (x, y) {
+        zoomAndPanHandler.setOnMouseClickListener(function (x, y) {
             x = Math.floor(x / FBR_PIXELS_PER_TILE);
             y = Math.floor(y / FBR_PIXELS_PER_TILE);
             /*$.each(tiles, function (key, entity) {
