@@ -6,9 +6,10 @@ var config = {
     fbpviewer: './init.js',
   },
   output: {
-    path: __dirname + '/dist', // `dist` is the destination
+    path: __dirname + '/../AppBundle/Resources/public/js',
     filename: '[name].bundle.js',
   },
+  devtool: "cheap-module-eval-source-map",
 };
 
 module.exports = config;
