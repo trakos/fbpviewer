@@ -4,6 +4,7 @@ vendor/
 web/bundles/
 web/images/factorio/
 factorio_blueprint_reader.iml
+app/bootstrap.php.cache
 app/config/parameters.yml
 bin/fbpvatlasgen/node_modules/
 web/css/
@@ -11,3 +12,4 @@ web/js/
 web/images/spritesheet.json
 web/images/spritesheet.png
 bin/fbpvatlasgen/atlasgen_output/
+node_modules/
