@@ -6,11 +6,6 @@ var fs = require('fs'),
     spritesheet = require('spritesheet-js'),
     FactorioBlueprintReader = require("../../src/FactorioBlueprintRenderer/js/factorioBlueprintReader");
 
-const {JSDOM} = jsdom;
-const {window} = new JSDOM(`...`);
-
-var $ = require("jquery")(window);
-
 const factorioBlueprintReader = new FactorioBlueprintReader();
 factorioBlueprintReader.loadEntities();
 
