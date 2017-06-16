@@ -1,7 +1,6 @@
 var fs = require('fs'),
     _ = require("underscore"),
     jsdom = require("jsdom"),
-    walk = require("./atlasgen/walkDirectory"),
     imagesLoader = require('./atlasgen/fbpvImagesLoader.js'),
     rimraf = require('rimraf'),
     spritesheet = require('spritesheet-js'),
@@ -13,27 +12,22 @@ const {window} = new JSDOM(`...`);
 var $ = require("jquery")(window);
 
 const factorioBlueprintReader = new FactorioBlueprintReader();
+factorioBlueprintReader.loadEntities();
 
-walk("../../src/AppBundle/Resources/public/js/factorio", function (err, results) {
-    if (err) throw err;
+rimraf('./atlasgen_output', {}, function (err) {
+    if (err) {
+        throw new Error(err);
+    }
 
-    factorioBlueprintReader.loadEntities();
+    imagesLoader.prepareTrimmedTextures(factorioBlueprintReader, './atlasgen_output/images/factorio', function () {
 
-    rimraf('./atlasgen_output', {}, function (err) {
-        if (err) {
-            throw new Error(err);
-        }
+        process.chdir('./atlasgen_output');
+        spritesheet('**/*.png*', {format: 'pixi.js', fullpath: true, trim: false}, function (err) {
+            if (err) throw err;
 
-        imagesLoader.prepareTrimmedTextures(factorioBlueprintReader, './atlasgen_output/images/factorio', function () {
-
-            process.chdir('./atlasgen_output');
-            spritesheet('**/*.png*', {format: 'pixi.js', fullpath: true, trim: false}, function (err) {
-                if (err) throw err;
-
-                console.log('spritesheet successfully generated');
-            });
-
-            console.log('done');
+            console.log('spritesheet successfully generated');
         });
+
+        console.log('done');
     });
 });
