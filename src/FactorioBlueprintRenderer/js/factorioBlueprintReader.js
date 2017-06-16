@@ -1,4 +1,4 @@
-const $ = require("jquery");
+const forEach = require("lodash.foreach");
 
 const { iconSize, icons } = require("./factorio/icons");
 const { tiles } = require("./factorio/tiles");
@@ -22,7 +22,7 @@ class FactorioBlueprintReader {
         this.entities = {};
 
         this.createEntitiesFunctions.forEach((func) => {
-            $.each(func(), (entityKey, entitySpec) => {
+            forEach(func(), (entitySpec, entityKey) => {
                 this.entities[entityKey] = entitySpec;
             });
         });

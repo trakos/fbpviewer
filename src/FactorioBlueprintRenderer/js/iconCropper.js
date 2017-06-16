@@ -1,4 +1,4 @@
-const $ = require("jquery");
+const forEach = require("lodash.foreach");
 
 class IconCropper {
     init(domContainer) {
@@ -13,7 +13,7 @@ class IconCropper {
     }
     createIconURL(spriteLayers) {
         var tmpContainer = new PIXI.Container();
-        $.each(spriteLayers, function(layerNumber, sprite) {
+        forEach(spriteLayers, function(sprite, layerNumber) {
             tmpContainer.addChild(sprite);
         });
         tmpContainer.x = 16;

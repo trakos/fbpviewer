@@ -4,6 +4,7 @@ const Hammer = require("hammerjs");
 window.Hammer = Hammer;
 require("bootstrap");
 require("jquery-mousewheel");
+const forEach = require("lodash.foreach");
 const BootstrapDialog = require("bootstrap3-dialog");
 const PIXI = require("pixi.js");
 const createColorFillShader = require("./pixi/createColorFillShader");
@@ -143,7 +144,7 @@ $(function () {
                     $("#blueprint-recipe-selector").show();
                     blueprintContainer = blueprintRenderer.renderBlueprint(renderer, stage, blueprintData.data.blueprint_book.blueprints[currentBlueprintIndex]);
                     $('#blueprint-recipe-selector ul').find('li').remove();
-                    $.each(blueprintData.data.blueprint_book.blueprints, function (key, value) {
+                    forEach(blueprintData.data.blueprint_book.blueprints, function (value, key) {
                         var icons = '';
                         for (var k = 0; k < 4; k++) {
                             var icon = value.blueprint.icons[k];

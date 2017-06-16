@@ -1,4 +1,6 @@
-const $ = require("jquery");
+const forEach = require("lodash.foreach");
+const merge = require("lodash.merge");
+const includes = require("lodash.includes");
 const PIXI = require("pixi.js");
 
 class Loader {
@@ -31,40 +33,36 @@ class Loader {
         }
     }
     _prepareTrimmedTexturesFromEntityData(entityKey, entityData) {
-        var that = this;
-
         if (entityData.image.path) {
             this._prepareTrimmedTexturesFromImageData(entityData.image);
         } else if (entityData.image.type == 'container') {
-            $.each(entityData.image.images, function (imageKey, imageData) {
-                that._prepareTrimmedTexturesFromImageData(imageData);
+            forEach(entityData.image.images, (imageData) => {
+                this._prepareTrimmedTexturesFromImageData(imageData);
             });
         }
     }
     prepareTrimmedTextures() {
-        var that = this;
-
-        var prepareTrimmedTexturesHelper = function (entityKey, entityData) {
+        var prepareTrimmedTexturesHelper = (entityData, entityKey) => {
             if (entityData.types) {
-                $.each(entityData.types, function(type, typeSpecificEntityData) {
-                    prepareTrimmedTexturesHelper(entityKey, typeSpecificEntityData);
+                forEach(entityData.types, function(typeSpecificEntityData) {
+                    prepareTrimmedTexturesHelper(typeSpecificEntityData, entityKey);
                 });
 
                 return;
             }
             if (entityData.directions) {
-                $.each(entityData.directions, function (direction, directionSpecificEntityData) {
-                    var combinedEntityData = $.extend({}, entityData, directionSpecificEntityData);
-                    that._prepareTrimmedTexturesFromEntityData(entityKey, combinedEntityData);
+                forEach(entityData.directions, (directionSpecificEntityData) => {
+                    var combinedEntityData = merge({}, entityData, directionSpecificEntityData);
+                    this._prepareTrimmedTexturesFromEntityData(entityKey, combinedEntityData);
                 })
             }
-            that._prepareTrimmedTexturesFromEntityData(entityKey, entityData);
+            this._prepareTrimmedTexturesFromEntityData(entityKey, entityData);
         };
 
-        $.each(this.FactorioBlueprintReader.entities, prepareTrimmedTexturesHelper);
+        forEach(this.FactorioBlueprintReader.entities, prepareTrimmedTexturesHelper);
 
-        $.each(this.FactorioBlueprintReader.tiles, function (entityKey, entityData) {
-            that._prepareTrimmedTexturesFromEntityData(entityKey, entityData);
+        forEach(this.FactorioBlueprintReader.tiles, (entityData, entityKey) => {
+            this._prepareTrimmedTexturesFromEntityData(entityKey, entityData);
         });
     }
     getImagesToLoad() {
@@ -74,32 +72,32 @@ class Loader {
         function addEntityImageToLoader(entityKey, entityData) {
             if (entityData.image.path) {
                 var fullPath = FBR_IMAGES_PREFIX + entityData.image.path;
-                if ($.inArray(fullPath, imagesToLoad) < 0) {
+                if (!includes(imagesToLoad, inArray)) {
                     imagesToLoad.push(fullPath);
                 }
             } else if (entityData.image.type == 'container') {
-                $.each(entityData.image.images, function (imageKey, imageData) {
+                forEach(entityData.image.images, function (imageData) {
                     var imageFullPath = FBR_IMAGES_PREFIX + imageData.path;
-                    if ($.inArray(imageFullPath, imagesToLoad) < 0) {
+                    if (!includes(imagesToLoad, imageFullPath)) {
                         imagesToLoad.push(imageFullPath);
                     }
                 });
             }
         }
 
-        $.each(this.FactorioBlueprintReader.icons, function (iconKey, iconData) {
+        forEach(this.FactorioBlueprintReader.icons, function (iconData, iconKey) {
 
             if (iconData.image) {
                 addEntityImageToLoader(iconKey, iconData);
             }
         });
 
-        $.each(this.FactorioBlueprintReader.entities, function (entityKey, entityData) {
+        forEach(this.FactorioBlueprintReader.entities, function (entityData, entityKey) {
             if (entityData.types) {
-                $.each(entityData.types, function(type, typeSpecificEntityData) {
+                forEach(entityData.types, function(typeSpecificEntityData, type) {
                     if (typeSpecificEntityData.directions) {
-                        $.each(typeSpecificEntityData.directions, function (direction, directionSpecificEntityData) {
-                            var combinedEntityData = $.extend({}, typeSpecificEntityData, directionSpecificEntityData);
+                        forEach(typeSpecificEntityData.directions, function (directionSpecificEntityData) {
+                            var combinedEntityData = merge({}, typeSpecificEntityData, directionSpecificEntityData);
                             addEntityImageToLoader(entityKey, combinedEntityData);
                         })
                     }
@@ -110,8 +108,8 @@ class Loader {
                 });
             } else {
                 if (entityData.directions) {
-                    $.each(entityData.directions, function (direction, directionSpecificEntityData) {
-                        var combinedEntityData = $.extend({}, entityData, directionSpecificEntityData);
+                    forEach(entityData.directions, function (directionSpecificEntityData) {
+                        var combinedEntityData = merge({}, entityData, directionSpecificEntityData);
                         addEntityImageToLoader(entityKey, combinedEntityData);
                     })
                 }
@@ -121,11 +119,11 @@ class Loader {
                 }
             }
         });
-        $.each(this.FactorioBlueprintReader.tiles, function (entityKey, entityData) {
+        forEach(this.FactorioBlueprintReader.tiles, function (entityData, entityKey) {
             addEntityImageToLoader(entityKey, entityData);
         });
 
-        $.each(this.FactorioBlueprintReader.ImagesUI, function(imageUiName, imageUiPath) {
+        forEach(this.FactorioBlueprintReader.ImagesUI, function(imageUiPath) {
            imagesToLoad.push(FBR_IMAGES_PREFIX + imageUiPath);
         });
 

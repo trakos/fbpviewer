@@ -1,3 +1,5 @@
+const forEach = require("lodash.foreach");
+const merge = require("lodash.merge");
 const BootstrapDialog = require("bootstrap3-dialog");
 const hljs = require("highlight.js");
 
@@ -30,10 +32,10 @@ class BlueprintRenderer {
             return null;
         }
         if (entity.type && entityDrawingSpec.types) {
-            entityDrawingSpec = $.extend({}, entityDrawingSpec, entityDrawingSpec.types[entity.type]);
+            entityDrawingSpec = merge({}, entityDrawingSpec, entityDrawingSpec.types[entity.type]);
         }
         if (entity.direction && entityDrawingSpec.directions && entityDrawingSpec.directions[entity.direction]) {
-            entityDrawingSpec = $.extend({}, entityDrawingSpec, entityDrawingSpec.directions[entity.direction]);
+            entityDrawingSpec = merge({}, entityDrawingSpec, entityDrawingSpec.directions[entity.direction]);
         }
 
         return entityDrawingSpec;
@@ -69,7 +71,7 @@ class BlueprintRenderer {
             for (var imageKey in entityImageSpec.images) {
                 if (entityImageSpec.images.hasOwnProperty(imageKey)) {
                     var entityLayers = this.createEntityLayers(entityImageSpec.images[imageKey], entitySpec);
-                    $.each(entityLayers, (layer, entityLayer) => {
+                    forEach(entityLayers, (entityLayer, layer) => {
                         entityLayer.x = entityImageSpec.images[imageKey].x;
                         entityLayer.y = entityImageSpec.images[imageKey].y;
                         layerSprites[layer] = layerSprites[layer] || new PIXI.Container();
@@ -81,7 +83,7 @@ class BlueprintRenderer {
             throw 'unknown type ' + entityImageSpec.type;
         }
 
-        $.each(layerSprites, (layerNumber, layerSprite) => {
+        forEach(layerSprites, (layerSprite, layerNumber) => {
             if (entityImageSpec.scale) {
                 layerSprite.scale.x = entityImageSpec.scale.x;
                 layerSprite.scale.y = entityImageSpec.scale.y;
@@ -117,7 +119,7 @@ class BlueprintRenderer {
     }
 
     drawLayers(destinationLayers, sourceLayers, gridX, gridY, xOffset, yOffset) {
-        $.each(sourceLayers, (layerNumber, spriteLayer) => {
+        forEach(sourceLayers, (spriteLayer, layerNumber) => {
             spriteLayer.x = gridX * FBR_PIXELS_PER_TILE + xOffset;
             spriteLayer.y = gridY * FBR_PIXELS_PER_TILE + yOffset;
             destinationLayers[layerNumber] = destinationLayers[layerNumber] || new PIXI.Container();
@@ -179,7 +181,7 @@ class BlueprintRenderer {
 
         if (entity.items) {
             var itemCount = 0;
-            $.each(entity.items, (_, entityItem) => {
+            forEach(entity.items, (entityItem) => {
                 // apparently items can be an array or an object
                 // i.e. either [{name: 'blabla', count:5}] or just {blabla:5}
                 itemCount += entityItem.count ? entityItem.count : entityItem;
@@ -188,7 +190,7 @@ class BlueprintRenderer {
             // add another half of icon size (which is uses scale 0.5, so a quarter of size) due to anchor being 0.5
             startX += this.factorioBlueprintReader.iconSize / 4;
             var itemNumber = 0;
-            $.each(entity.items, (itemName, entityItem) => {
+            forEach(entity.items, (entityItem, itemName) => {
                 // apparently items can be an array or an object
                 // i.e. either [{name: 'blabla', count:5}] or just {blabla:5}
                 var count = entityItem;
@@ -201,7 +203,7 @@ class BlueprintRenderer {
                         console.log('Can\'t find icon for item', itemName);
                     } else {
                         var iconLayers = this.createIconSprite(this.factorioBlueprintReader.icons[itemName].image);
-                        $.each(iconLayers, (layerNumber, layerContainer) => {
+                        forEach(iconLayers, (layerContainer, layerNumber) => {
                             layerContainer.scale.x = layerContainer.scale.y = 0.5;
                         });
                         xOffset = startX + this.factorioBlueprintReader.iconSize / 2 * itemNumber;
@@ -220,12 +222,12 @@ class BlueprintRenderer {
             filters = entity.request_filters;
         }
         var filterItemNumber = 0;
-        $.each(filters, (_, filterItem) => {
+        forEach(filters, (filterItem) => {
             if (!this.factorioBlueprintReader.icons[filterItem.name]) {
                 console.log('Can\'t find icon for item', filterItem.name);
             } else {
                 var iconLayers = this.createIconSprite(this.factorioBlueprintReader.icons[filterItem.name].image);
-                $.each(iconLayers, (layerNumber, layerContainer) => {
+                forEach(iconLayers, (layerContainer, layerNumber) => {
                     layerContainer.scale.x = layerContainer.scale.y = 0.4;
                 });
                 xOffset = (filterItemNumber % 2 == 0 ? 0 : 16) + (this.factorioBlueprintReader.iconSize * 0.2);
@@ -235,7 +237,7 @@ class BlueprintRenderer {
                 var everyNSeconds = 5;
                 var currentFilterItemNumber = filterItemNumber;
                 this.animationHandler.addOnSecondTickListener((second) => {
-                    $.each(iconLayers, (layerNumber, layerContainer) => {
+                    forEach(iconLayers, (layerContainer, layerNumber) => {
                         var altPressed = this.keyboardHandler.isPressed(this.keyboardHandler.keys.alt);
                         layerContainer.visible = (!altPressed) && Math.floor(second / everyNSeconds) % (Math.ceil(filters.length / 4)) == Math.floor(currentFilterItemNumber / 4);
                     });
@@ -254,7 +256,7 @@ class BlueprintRenderer {
         var minXY = 0;
         var maxXY = 0;
 
-        $.each(tiles, (key, entity) => {
+        forEach(tiles, (entity) => {
             var x = entity.position.x;
             var y = entity.position.y;
             minXY = Math.min(minXY, x, y);
@@ -263,7 +265,7 @@ class BlueprintRenderer {
 
         var entitiesByYX = {};
         var allYCoordinates = [];
-        $.each(entities, (key, entity) => {
+        forEach(entities, (entity, key) => {
             var x = parseInt(entity.position.x);
             var y = parseInt(entity.position.y);
 
@@ -309,7 +311,7 @@ class BlueprintRenderer {
             }
         }
 
-        $.each(tiles, (key, entity) => {
+        forEach(tiles, (entity, key) => {
             var spriteLayers;
             if (this.factorioBlueprintReader.tiles[entity.name]) {
                 // overwrite getRandomInt for a moment to make sure tiling stays the same every time
@@ -330,7 +332,7 @@ class BlueprintRenderer {
             }
             var gridX = Math.floor(entity.position.x - minXY - (isX0InHalfGrid ? 1 : 0));
             var gridY = Math.floor(entity.position.y - minXY - (isY0InHalfGrid ? 1 : 0));
-            $.each(spriteLayers, (layerNumber, sprite) => {
+            forEach(spriteLayers, (sprite, layerNumber) => {
                 sprite.x = gridX * FBR_PIXELS_PER_TILE;
                 sprite.y = gridY * FBR_PIXELS_PER_TILE;
                 blueprintContainer.addChild(sprite);
@@ -339,15 +341,15 @@ class BlueprintRenderer {
 
         var layers = [];
 
-        $.each(allYCoordinates, (_, y) => {
-            $.each(entitiesByYX[y], (x, entitiesForYX) => {
-                $.each(entitiesForYX, (_, entityKey) => {
+        forEach(allYCoordinates, (y) => {
+            forEach(entitiesByYX[y], (entitiesForYX) => {
+                forEach(entitiesForYX, (entityKey) => {
                     this.renderEntityToLayers(layers, minXY, entities[entityKey]);
                 })
             })
         });
 
-        $.each(layers, (layerNumber, layer) => {
+        forEach(layers, (layer, layerNumber) => {
             if (layer) {
                 blueprintContainer.addChild(layer);
             }
@@ -400,19 +402,19 @@ class BlueprintRenderer {
 
         }
 
-        $.each(entities, (key, entity) => {
+        forEach(entities, (entity) => {
             if (!entity.connections) {
                 return;
             }
             var entity_number = entity.entity_number;
-            $.each(entity.connections, (circuitId, connections) => {
+            forEach(entity.connections, (connections, circuitId) => {
                 var startPosition = getCircuitXYTargetFromEntity(entity, circuitId);
                 circuitryLayer.lineStyle(2, 0xff0000);
-                $.each(connections.red, (_, connection) => {
+                forEach(connections.red, (connection) => {
                     drawCircuitLine(entity_number, startPosition, connection);
                 });
                 circuitryLayer.lineStyle(2, 0x00ff00);
-                $.each(connections.green, (_, connection) => {
+                forEach(connections.green, (connection) => {
                     drawCircuitLine(entity_number, startPosition, connection);
                 });
             });
@@ -433,7 +435,7 @@ class BlueprintRenderer {
              });*/
 
 
-            $.each(entities, (key, entity) => {
+            forEach(entities, (entity) => {
                 var sizeW = 1;
                 var sizeH = 1;
                 var entityDrawingSpec = this.getEntityDrawingSpecForEntity(entity);

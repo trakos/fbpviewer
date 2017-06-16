@@ -1,5 +1,3 @@
-const $ = require("jquery");
-
 class AnimationHandler {
     constructor() {
         this.onSecondTickListeners =   [];
@@ -12,7 +10,7 @@ class AnimationHandler {
     tick() {
         this.currentFrame++;
         if (this.currentFrame === 60) {
-            $.each(this.onSecondTickListeners, (_, listener) => {
+            this.onSecondTickListeners.forEach((listener) => {
                 listener(this.currentSecond);
             });
             this.currentSecond++;

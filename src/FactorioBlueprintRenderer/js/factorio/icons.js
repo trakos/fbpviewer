@@ -1,4 +1,4 @@
-const $ = require("jquery");
+const forEach = require("lodash.foreach");
 
 exports.iconSize = 32;
 exports.icons = (function () {
@@ -230,7 +230,7 @@ exports.icons = (function () {
 
     var allIcons = {};
 
-    $.each(items, function (_, itemName) {
+    forEach(items, function (itemName) {
         allIcons[itemName] = {
             image: {
                 type:   'sprite',
@@ -243,7 +243,7 @@ exports.icons = (function () {
         };
     });
 
-    $.each(itemsWithSpecialNames, function (itemName, imageName) {
+    forEach(itemsWithSpecialNames, function (imageName, itemName) {
         allIcons[itemName] = {
             image: {
                 type:   'sprite',
@@ -256,7 +256,7 @@ exports.icons = (function () {
         };
     });
 
-    $.each(recipes, function (recipeName, iconName) {
+    forEach(recipes, function (iconName, recipeName) {
         allIcons[recipeName] = {
             image: {
                 type:   'sprite',
@@ -269,7 +269,7 @@ exports.icons = (function () {
         };
     });
 
-    $.each(fluids, function (fluidName, fluidDetails) {
+    forEach(fluids, function (fluidDetails, fluidName) {
         allIcons[fluidName] = {
             image: {
                 type:   'sprite',
@@ -363,7 +363,7 @@ exports.icons = (function () {
                 }
             };
         }
-        $.each(signalColors, function (_, color) {
+        forEach(signalColors, function (color) {
             allIcons['signal-' + color] = {
                 image: {
                     type:   'sprite',
