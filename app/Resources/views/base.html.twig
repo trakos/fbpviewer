@@ -23,20 +23,6 @@
 </head>
 <body>
 {% block body %}{% endblock %}
-{% javascripts
-    '@AppBundle/Resources/public/bootstrap/js/jquery.min.js'
-    '@AppBundle/Resources/public/bootstrap/js/bootstrap.js'
-    '@AppBundle/Resources/public/bootstrap/js/bootstrap-dialog.js'
-    filter='uglifyjs'
-%}
-    <script src="{{ asset_url }}"></script>
-{% endjavascripts %}
-<script type="text/javascript">
-    $(document).on("mobileinit", function () {
-        $.mobile.ajaxEnabled = false;
-        $.mobile.loadingMessage = false;
-    });
-</script>
 {% block javascripts %}{% endblock %}
 </body>
 </html>

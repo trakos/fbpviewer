@@ -49,14 +49,9 @@
 
 {% block javascripts %}
     {% javascripts
-        '@AppBundle/Resources/public/js/*.js'
-        '@AppBundle/Resources/public/js/*/*.js'
-        '@AppBundle/Resources/public/js/*/*.js'
-        '@AppBundle/Resources/public/js/*/*/*.js'
-        '@AppBundle/Resources/public/js/*/*/*/*.js'
-        filter='uglifyjs'
+        '@AppBundle/Resources/public/js/fbpviewer.bundle.js'
     %}
-    <script src="{{ asset_url }}"></script>
+        <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
     <script type="text/javascript">
         const FBR_INITIAL_BLUEPRINT = {{ blueprint_string|json_encode|raw }};
