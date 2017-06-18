@@ -72,7 +72,7 @@ class Loader {
         function addEntityImageToLoader(entityKey, entityData) {
             if (entityData.image.path) {
                 var fullPath = FBR_IMAGES_PREFIX + entityData.image.path;
-                if (!includes(imagesToLoad, inArray)) {
+                if (!includes(imagesToLoad, fullPath)) {
                     imagesToLoad.push(fullPath);
                 }
             } else if (entityData.image.type == 'container') {

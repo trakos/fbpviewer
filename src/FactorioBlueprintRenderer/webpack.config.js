@@ -5,6 +5,12 @@ var config = {
   entry: {
     fbpviewer: './init.js',
   },
+  externals: [
+    {
+      "window": "window",
+      "navigator": "navigator"
+    }
+  ],
   output: {
     path: __dirname + '/../AppBundle/Resources/public/js',
     filename: '[name].bundle.js',
