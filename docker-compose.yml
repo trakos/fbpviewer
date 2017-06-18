@@ -20,16 +20,15 @@ php:
     volumes:
         - .:/var/www
         - /var/www/app/Resources/node_tools/node_modules
-        - /var/www/src/FactorioBlueprintRenderer/node_modules
     working_dir: /var/www/web
     links:
         - mysql
 
 node:
     build: docker/node
-    command: 'tail -f /dev/null' # just keeps it running, because exec is faster than run
+    command: 'tail -f /dev/null' # just keeps it running, so that we can use exec instead of run
     volumes:
         - .:/var/www
-        - /var/www/app/Resources/node_tools/node_modules
-        - /var/www/src/FactorioBlueprintRenderer/node_modules
+        - /bin/fbpvatlasgen/node_modules
+        - /var/www/fbpviewer-js/node_modules
     working_dir: /var/www/bin
