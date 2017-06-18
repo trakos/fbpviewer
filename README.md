@@ -14,6 +14,23 @@ docker-compose up -d
 bash bin/dev_init.sh
 ```
 
+This script will ask you to fill in app/config/parameters.yml values. For docker development, it should look like this:
+
+```
+parameters:
+    database_host: mysql
+    database_port: null
+    database_name: symfony
+    database_user: symfony
+    database_password: symfony
+    mailer_transport: smtp
+    mailer_host: 127.0.0.1
+    mailer_user: null
+    mailer_password: null
+    secret: ThisTokenIsNotSoSecretChangeIt
+    shared_blueprint_host: 'http://php-docker.local'
+```
+
 You'd also have to add `php-docker.local` to your hosts file (to make it point to docker machine, if you're using docker-machine you can find it's ip by calling `docker-machine ip`, otherwise it's probably localhost).
 
 You also have to have spritesheet generated. The best way is to simply download it from my website (both `spritesheet.json` and `spritesheet.png`) and put it in `/web/images`.
