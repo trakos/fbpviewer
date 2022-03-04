@@ -27,16 +27,6 @@ framework:
     php_errors:
         log: true
 
-assetic:
-    debug:          '%kernel.debug%'
-    use_controller: '%kernel.debug%'
-    filters:
-        cssrewrite: ~
-        uglifyjs:
-            bin: '%kernel.root_dir%/Resources/node_tools/node_modules/.bin/uglifyjs'
-        uglifycss:
-            bin: '%kernel.root_dir%/Resources/node_tools/node_modules/.bin/uglifycss'
-
 twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
