@@ -4,49 +4,33 @@
     "type": "project",
     "description": "The \"Symfony Standard Edition\" distribution",
     "autoload": {
-        "psr-4": { "": "src/" },
-        "classmap": [ "app/AppKernel.php", "app/AppCache.php" ]
+        "psr-4": {
+            "App\\": "src/"
+        }
     },
     "autoload-dev": {
-        "psr-4": { "Tests\\": "tests/" },
-        "files": [ "vendor/symfony/symfony/src/Symfony/Component/VarDumper/Resources/functions/dump.php" ]
+        "psr-4": {
+            "App\\Tests\\": "tests/"
+        }
     },
     "require": {
         "php": ">=7.4",
-        "doctrine/doctrine-bundle": "^1.12.13",
-        "doctrine/orm": "^2.5",
-        "incenteev/composer-parameter-handler": "^2",
+        "doctrine/doctrine-bundle": "^2.5",
+        "doctrine/orm": "^2.11",
         "mopa/bootstrap-bundle": "^3.4",
-        "sensio/framework-extra-bundle": "^6.2",
         "symfony/monolog-bundle": "^3.7",
         "symfony/polyfill-apcu": "^1.25",
         "symfony/symfony": "^4.4",
-        "symfony/webpack-encore-bundle": "1.0",
+        "symfony/webpack-encore-bundle": "^1",
         "twig/twig": "^3"
     },
     "require-dev": {
-        "symfony/phpunit-bridge": "^3.0"
-    },
-    "scripts": {
-        "symfony-scripts": [
-            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters"
-        ],
-        "post-install-cmd": [
-            "@symfony-scripts"
-        ],
-        "post-update-cmd": [
-            "@symfony-scripts"
-        ]
+        "symfony/phpunit-bridge": "^5"
     },
     "config": {
         "platform": {
             "php": "7.4"
         },
         "sort-packages": true
-    },
-    "extra": {
-        "incenteev-parameters": {
-            "file": "app/config/parameters.yml"
-        }
     }
 }

@@ -1,4 +1,4 @@
-version: "2.4"
+version: "3"
 services:
   mysql:
     image: mysql:5
@@ -9,28 +9,30 @@ services:
       MYSQL_ALLOW_EMPTY_PASSWORD: 1
 
   web:
-      image: nginx
-      ports:
-          - "80:80"
-      volumes:
-          - .:/var/www
-          - ./docker/nginx.conf:/etc/nginx/conf.d/site.conf
-      links:
-          - php
+    image: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - .:/var/www
+      - ./docker/nginx.conf:/etc/nginx/conf.d/site.conf
+    links:
+      - php
   php:
-      build: docker/php
-      user: "${COMPOSE_USER_ID-1000}:${COMPOSE_GROUP_ID-1000}"
-      working_dir: /var/www/web
-      links:
-          - mysql
-      volumes:
-        - .:/var/www
-        - ${HOME}/.cache/composer/:/.composer/cache
+    build: docker/php
+    user: "${COMPOSE_USER_ID-1000}:${COMPOSE_GROUP_ID-1000}"
+    working_dir: /var/www/web
+    links:
+      - mysql
+    volumes:
+      - .:/var/www
+      - ${HOME}/.cache/composer/:/.composer/cache
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
 
   node:
-      build: docker/node
-      user: "${COMPOSE_USER_ID-1000}:${COMPOSE_GROUP_ID-1000}"
-      command: sleep infinity
-      working_dir: /var/www/bin
-      volumes:
-        - .:/var/www
+    build: docker/node
+    user: "${COMPOSE_USER_ID-1000}:${COMPOSE_GROUP_ID-1000}"
+    command: sleep infinity
+    working_dir: /var/www/bin
+    volumes:
+      - .:/var/www

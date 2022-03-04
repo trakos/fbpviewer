@@ -1,6 +1,6 @@
 <?php
 
-namespace FactorioBlueprintLib;
+namespace App\FactorioBlueprintLib;
 
 class TestCases
 {

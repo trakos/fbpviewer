@@ -1,11 +1,11 @@
 <?php
 
-namespace AppBundle\Entity;
+namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="AppBundle\Repository\SharedBlueprintRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\SharedBlueprintRepository")
  * @ORM\Table(name="shared_blueprint")
  */
 class SharedBlueprint

@@ -1,9 +1,9 @@
 <?php
 
-namespace AppBundle\Manager;
+namespace App\Manager;
 
-use AppBundle\Entity\SharedBlueprint;
-use AppBundle\Repository\SharedBlueprintRepository;
+use App\Entity\SharedBlueprint;
+use App\Repository\SharedBlueprintRepository;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 class SharedBlueprintManager

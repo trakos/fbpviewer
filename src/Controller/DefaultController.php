@@ -1,15 +1,16 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace App\Controller;
 
-use AppBundle\Manager\SharedBlueprintManager;
-use FactorioBlueprintLib\TestCases;
+use App\FactorioBlueprintLib\TestCases;
+use App\Manager\SharedBlueprintManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class DefaultController extends AbstractController
 {
@@ -24,7 +25,7 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/b/{blueprintHash}", requirements={"blueprintHash" = "[a-zA-Z0-9_-]+"})
+     * @Route("/b/{blueprintHash}", name="blueprint", requirements={"blueprintHash" = "[a-zA-Z0-9_-]+"})
      */
     public function blueprintAction(string $blueprintHash, SharedBlueprintManager $blueprintManager)
     {
@@ -64,9 +65,11 @@ class DefaultController extends AbstractController
     {
         $sharedBlueprint = $blueprintManager->shareBlueprint($blueprintString);
 
-        $host = $this->getParameter('shared_blueprint_host');
-
-        return $host . '/b/' . $sharedBlueprint->getBlueprintHash();
+        return $this->generateUrl(
+            'blueprint',
+            ['blueprintHash' => $sharedBlueprint->getBlueprintHash()],
+            UrlGeneratorInterface::ABSOLUTE_URL
+        );
     }
 
     private function isBlueprintValid($blueprintString)

@@ -1,8 +1,8 @@
 <?php
 
-namespace AppBundle\Repository;
+namespace App\Repository;
 
-use AppBundle\Entity\SharedBlueprint;
+use App\Entity\SharedBlueprint;
 use Doctrine\ORM\EntityRepository;
 
 class SharedBlueprintRepository extends EntityRepository
