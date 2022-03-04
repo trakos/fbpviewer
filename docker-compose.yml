@@ -25,6 +25,7 @@ services:
           - mysql
       volumes:
         - .:/var/www
+        - ${HOME}/.cache/composer/:/.composer/cache
 
   node:
       build: docker/node
