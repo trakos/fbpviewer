@@ -13,31 +13,23 @@ class SharedBlueprint
     /**
      * @ORM\Id
      * @ORM\Column(type="string", unique=true)
-     *
-     * @var string
      */
-    private $blueprintHash;
+    private string $blueprintHash;
 
     /**
      * @ORM\Column(type="text")
-     *
-     * @var string
      */
-    private $blueprintString;
+    private string $blueprintString;
 
     /**
      * @ORM\Column(type="string")
-     *
-     * @var string
      */
-    private $ip;
+    private string $ip;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     *
-     * @var \DateTime
      */
-    private $dateCreated;
+    private \DateTime $dateCreated;
 
     public function __construct(string $blueprintHash, string $blueprintString, string $ip)
     {

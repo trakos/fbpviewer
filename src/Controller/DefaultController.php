@@ -17,17 +17,17 @@ class DefaultController extends AbstractController
     /**
      * @Route("/", name="homepage")
      */
-    public function indexAction(Request $request)
+    public function indexAction(Request $request): Response
     {
         return $this->render('default/index.html.twig', [
-            'blueprint_string' => TestCases::REDDIT_BOOK
+            'blueprint_string' => TestCases::REDDIT_BOOK,
         ]);
     }
 
     /**
      * @Route("/b/{blueprintHash}", name="blueprint", requirements={"blueprintHash" = "[a-zA-Z0-9_-]+"})
      */
-    public function blueprintAction(string $blueprintHash, SharedBlueprintManager $blueprintManager)
+    public function blueprintAction(string $blueprintHash, SharedBlueprintManager $blueprintManager): Response
     {
         $blueprint = $blueprintManager->getSharedBlueprint($blueprintHash);
         if (!$blueprint) {
@@ -35,14 +35,14 @@ class DefaultController extends AbstractController
         }
 
         return $this->render('default/index.html.twig', [
-            'blueprint_string' => $blueprint->getBlueprintString()
+            'blueprint_string' => $blueprint->getBlueprintString(),
         ]);
     }
 
     /**
      * @Route("/share", name="share_blueprint", methods={"POST"})
      */
-    public function shareAction(Request $request, SharedBlueprintManager $blueprintManager)
+    public function shareAction(Request $request, SharedBlueprintManager $blueprintManager): Response
     {
         $blueprintString = $request->getContent();
 
@@ -56,12 +56,12 @@ class DefaultController extends AbstractController
     /**
      * @Route("/debug", name="debug")
      */
-    public function debugAction(Request $request)
+    public function debugAction(Request $request): Response
     {
         return new JsonResponse(['ip' => $request->getClientIp()]);
     }
 
-    private function getUrl($blueprintString, SharedBlueprintManager $blueprintManager)
+    private function getUrl($blueprintString, SharedBlueprintManager $blueprintManager): string
     {
         $sharedBlueprint = $blueprintManager->shareBlueprint($blueprintString);
 
@@ -72,24 +72,22 @@ class DefaultController extends AbstractController
         );
     }
 
-    private function isBlueprintValid($blueprintString)
+    private function isBlueprintValid($blueprintString): bool
     {
-        $prevHandler = set_error_handler(function ($errno, $errstr, $errfile, $errline, array $errcontext) {
+        $prevHandler = set_error_handler(function ($errno, $errstr, $errfile, $errline, array $errorContext) {
             throw new \ErrorException($errstr, 0, $errno, $errfile, $errline);
         });
 
         try {
-            $this->parseBlueprint($blueprintString);
+            return is_array($this->parseBlueprint($blueprintString));
         } catch (\Exception $e) {
             return false;
         } finally {
             set_error_handler($prevHandler);
         }
-
-        return true;
     }
 
-    private function parseBlueprint(string $blueprintString)
+    private function parseBlueprint(string $blueprintString): array
     {
         $blueprintString = substr($blueprintString, 1);
         $blueprintString = base64_decode($blueprintString);

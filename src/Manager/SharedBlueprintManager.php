@@ -4,19 +4,13 @@ namespace App\Manager;
 
 use App\Entity\SharedBlueprint;
 use App\Repository\SharedBlueprintRepository;
+use JetBrains\PhpStorm\Pure;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 class SharedBlueprintManager
 {
-    /**
-     * @var SharedBlueprintRepository
-     */
-    protected $repository;
-
-    /**
-     * @var RequestStack
-     */
-    protected $requestStack;
+    private SharedBlueprintRepository $repository;
+    private RequestStack $requestStack;
 
     public function __construct(SharedBlueprintRepository $repository, RequestStack $requestStack)
     {
@@ -24,12 +18,7 @@ class SharedBlueprintManager
         $this->requestStack = $requestStack;
     }
 
-    /**
-     * @param string $hash
-     *
-     * @return null|SharedBlueprint
-     */
-    public function getSharedBlueprint(string $hash)
+    public function getSharedBlueprint(string $hash): ?SharedBlueprint
     {
         return $this->repository->find($hash);
     }
@@ -51,17 +40,20 @@ class SharedBlueprintManager
         return $this->requestStack->getMasterRequest()->getClientIp();
     }
 
+    #[Pure]
     protected function createHash(string $blueprintString): string
     {
         return $this->base64urlEncode(sha1($blueprintString, true));
     }
 
-    protected function base64urlEncode($data)
+    #[Pure]
+    protected function base64urlEncode($data): string
     {
         return rtrim(strtr(base64_encode($data), '+/', '-_'), '=');
     }
 
-    protected function base64urlDecode($data)
+    #[Pure]
+    protected function base64urlDecode($data): string
     {
         return base64_decode(str_pad(strtr($data, '-_', '+/'), strlen($data) % 4, '=', STR_PAD_RIGHT));
     }
