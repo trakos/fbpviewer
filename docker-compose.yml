@@ -19,15 +19,17 @@ services:
           - php
   php:
       build: docker/php
-      volumes:
-          - .:/var/www
+      user: "${COMPOSE_USER_ID-1000}:${COMPOSE_GROUP_ID-1000}"
       working_dir: /var/www/web
       links:
           - mysql
+      volumes:
+        - .:/var/www
 
   node:
       build: docker/node
-      command: 'tail -f /dev/null' # just keeps it running, so that we can use exec instead of run
+      user: "${COMPOSE_USER_ID-1000}:${COMPOSE_GROUP_ID-1000}"
+      command: sleep infinity
+      working_dir: /var/www/bin
       volumes:
         - .:/var/www
-      working_dir: /var/www/bin
