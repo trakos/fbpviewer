@@ -1,4 +1,4 @@
-FROM php:7.3-fpm-bullseye
+FROM php:7.4-fpm
 
 RUN export DEBIAN_FRONTEND=noninteractive \
     && apt-get update \
