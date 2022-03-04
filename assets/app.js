@@ -1,5 +1,4 @@
 require("./js/init")
-require("jquery-mobile/css/themes/default/jquery.mobile.css")
 require("./css/highlight/atom-one-dark.css")
 require("./bootstrap/css/bootstrap.css")
 require("./bootstrap/css/bootstrap-dialog.css")

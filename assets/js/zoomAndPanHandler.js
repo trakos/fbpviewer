@@ -1,5 +1,3 @@
-require('imports-loader?this=>window!./lib/jquery.mobile.custom');
-
 class ZoomAndPanHandler {
     constructor(keyboardHandler) {
         this.keyboardHandler =          keyboardHandler;
@@ -194,10 +192,10 @@ class ZoomAndPanHandler {
     }
     init(canvas) {
         $(canvas).mousewheel(this.onMouseWheel.bind(this));
-        $(canvas).on('vmousedown', this.onMouseDown.bind(this));
-        $(canvas).on('vmouseup', this.onMouseUp.bind(this));
-        $(canvas).on('vmouseout', this.onMouseOut.bind(this));
-        $(canvas).on('vmousemove', this.onMouseMove.bind(this));
+        $(canvas).on('pointerdown', this.onMouseDown.bind(this));
+        $(canvas).on('pointerup', this.onMouseUp.bind(this));
+        $(canvas).on('pointerout', this.onMouseOut.bind(this));
+        $(canvas).on('pointermove', this.onMouseMove.bind(this));
         var hammertime = new Hammer($(canvas).get(0));
         hammertime.get('pinch').set({ enable: true });
         hammertime.on('pinch', this.onHammerPinch.bind(this));
