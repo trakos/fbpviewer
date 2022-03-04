@@ -2,33 +2,24 @@
 
 namespace App\Entity;
 
+use App\Repository\SharedBlueprintRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-/**
- * @ORM\Entity(repositoryClass="App\Repository\SharedBlueprintRepository")
- * @ORM\Table(name="shared_blueprint")
- */
+#[ORM\Entity(repositoryClass: SharedBlueprintRepository::class)]
+#[ORM\Table(name: 'shared_blueprint')]
 class SharedBlueprint
 {
-    /**
-     * @ORM\Id
-     * @ORM\Column(type="string", unique=true)
-     */
+    #[ORM\Id]
+    #[ORM\Column(type: 'string', unique: true)]
     private string $blueprintHash;
 
-    /**
-     * @ORM\Column(type="text")
-     */
+    #[ORM\Column(type: 'text')]
     private string $blueprintString;
 
-    /**
-     * @ORM\Column(type="string")
-     */
+    #[ORM\Column(type: 'string')]
     private string $ip;
 
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
+    #[ORM\Column(type: 'datetime', nullable: true)]
     private \DateTime $dateCreated;
 
     public function __construct(string $blueprintHash, string $blueprintString, string $ip)

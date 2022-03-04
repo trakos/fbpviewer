@@ -14,9 +14,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class DefaultController extends AbstractController
 {
-    /**
-     * @Route("/", name="homepage")
-     */
+    #[Route('/', name: 'homepage')]
     public function indexAction(Request $request): Response
     {
         return $this->render('default/index.html.twig', [
@@ -24,9 +22,7 @@ class DefaultController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/b/{blueprintHash}", name="blueprint", requirements={"blueprintHash" = "[a-zA-Z0-9_-]+"})
-     */
+    #[Route('/b/{blueprintHash}', name: 'blueprint', requirements: ['blueprintHash' => '[a-zA-Z0-9_-]+'])]
     public function blueprintAction(string $blueprintHash, SharedBlueprintManager $blueprintManager): Response
     {
         $blueprint = $blueprintManager->getSharedBlueprint($blueprintHash);
@@ -39,9 +35,7 @@ class DefaultController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route("/share", name="share_blueprint", methods={"POST"})
-     */
+    #[Route('/share', name: 'share_blueprint', methods: ['POST'])]
     public function shareAction(Request $request, SharedBlueprintManager $blueprintManager): Response
     {
         $blueprintString = $request->getContent();
@@ -53,9 +47,7 @@ class DefaultController extends AbstractController
         return new JsonResponse(['url' => $this->getUrl($blueprintString, $blueprintManager)], Response::HTTP_ACCEPTED);
     }
 
-    /**
-     * @Route("/debug", name="debug")
-     */
+    #[Route('/debug', name: 'debug')]
     public function debugAction(Request $request): Response
     {
         return new JsonResponse(['ip' => $request->getClientIp()]);
