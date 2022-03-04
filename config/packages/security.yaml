@@ -1,4 +1,6 @@
 security:
+    enable_authenticator_manager: true
+
     providers:
         in_memory:
             memory: ~
@@ -8,5 +10,4 @@ security:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
-        main:
-            anonymous: ~
+        main: ~

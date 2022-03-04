@@ -37,7 +37,7 @@ class SharedBlueprintManager
 
     protected function getIp(): string
     {
-        return $this->requestStack->getMasterRequest()->getClientIp();
+        return $this->requestStack->getMainRequest()->getClientIp();
     }
 
     #[Pure]
