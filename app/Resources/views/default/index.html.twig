@@ -48,11 +48,7 @@
 {% endblock %}
 
 {% block javascripts %}
-    {% javascripts
-        '@AppBundle/Resources/public/js/fbpviewer.bundle.js'
-    %}
-        <script src="{{ asset_url }}"></script>
-    {% endjavascripts %}
+    {{ encore_entry_script_tags('fbpviewer') }}
     <script type="text/javascript">
         const FBR_INITIAL_BLUEPRINT = {{ blueprint_string|json_encode|raw }};
     </script>

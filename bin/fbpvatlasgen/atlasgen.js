@@ -4,7 +4,7 @@ var fs = require('fs'),
     imagesLoader = require('./atlasgen/fbpvImagesLoader.js'),
     rimraf = require('rimraf'),
     spritesheet = require('spritesheet-js'),
-    FactorioBlueprintReader = require("../../fbpviewer-js/js/factorioBlueprintReader");
+    FactorioBlueprintReader = require("../../assets/js/factorioBlueprintReader");
 
 const factorioBlueprintReader = new FactorioBlueprintReader();
 factorioBlueprintReader.loadEntities();

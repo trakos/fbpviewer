@@ -14,3 +14,4 @@ web/images/spritesheet.png
 bin/fbpvatlasgen/atlasgen_output/
 node_modules/
 src/AppBundle/Resources/public/js/fbpviewer.bundle.js
+/web/build/

@@ -1,8 +1,8 @@
-FROM php:7.2-fpm
+FROM php:7.3-fpm-bullseye
 
 RUN export DEBIAN_FRONTEND=noninteractive \
     && apt-get update \
-    && apt-get -y --no-install-recommends install zip unzip git nodejs npm libzip-dev \
+    && apt-get -y --no-install-recommends install zip unzip libzip-dev \
     && apt-get clean \
     && docker-php-ext-install -j$(nproc) pdo_mysql \
     && docker-php-ext-install -j$(nproc) zip \

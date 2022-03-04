@@ -23,6 +23,7 @@
         "symfony/monolog-bundle": "^3.1.0",
         "symfony/polyfill-apcu": "^1.0",
         "symfony/symfony": "^3.0",
+        "symfony/webpack-encore-bundle": "1.0",
         "twig/twig": "^2.0"
     },
     "require-dev": {
