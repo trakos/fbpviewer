@@ -1,10 +1,9 @@
-FROM php:7-fpm
+FROM php:7.2-fpm
 
 RUN export DEBIAN_FRONTEND=noninteractive \
     && apt-get update \
-    && apt-get -y install zip unzip git nodejs npm \
+    && apt-get -y --no-install-recommends install zip unzip git nodejs npm libzip-dev \
     && apt-get clean \
-    && ln -s /usr/bin/nodejs /usr/bin/node \
     && docker-php-ext-install -j$(nproc) pdo_mysql \
     && docker-php-ext-install -j$(nproc) zip \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /usr/share/doc/* \

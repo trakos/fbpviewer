@@ -1,34 +1,36 @@
-mysql:
-  image: mysql
-  environment:
-    MYSQL_DATABASE: symfony
-    MYSQL_USER: symfony
-    MYSQL_PASSWORD: symfony
-    MYSQL_ALLOW_EMPTY_PASSWORD: 1
+version: "2.4"
+services:
+  mysql:
+    image: mysql:5
+    environment:
+      MYSQL_DATABASE: symfony
+      MYSQL_USER: symfony
+      MYSQL_PASSWORD: symfony
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
 
-web:
-    image: nginx
-    ports:
-        - "80:80"
-    volumes:
-        - .:/var/www
-        - ./docker/nginx.conf:/etc/nginx/conf.d/site.conf
-    links:
-        - php
-php:
-    build: docker/php
-    volumes:
-        - .:/var/www
-        - /var/www/app/Resources/node_tools/node_modules
-    working_dir: /var/www/web
-    links:
-        - mysql
+  web:
+      image: nginx
+      ports:
+          - "80:80"
+      volumes:
+          - .:/var/www
+          - ./docker/nginx.conf:/etc/nginx/conf.d/site.conf
+      links:
+          - php
+  php:
+      build: docker/php
+      volumes:
+          - .:/var/www
+          - /var/www/app/Resources/node_tools/node_modules
+      working_dir: /var/www/web
+      links:
+          - mysql
 
-node:
-    build: docker/node
-    command: 'tail -f /dev/null' # just keeps it running, so that we can use exec instead of run
-    volumes:
-        - .:/var/www
-        - /bin/fbpvatlasgen/node_modules
-        - /var/www/fbpviewer-js/node_modules
-    working_dir: /var/www/bin
+  node:
+      build: docker/node
+      command: 'tail -f /dev/null' # just keeps it running, so that we can use exec instead of run
+      volumes:
+          - .:/var/www
+          - /bin/fbpvatlasgen/node_modules
+          - /var/www/fbpviewer-js/node_modules
+      working_dir: /var/www/bin
