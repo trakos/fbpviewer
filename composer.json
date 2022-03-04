@@ -1,8 +1,7 @@
 {
-    "name": "symfony/framework-standard-edition",
+    "name": "trakos/fbpviewer",
     "license": "MIT",
     "type": "project",
-    "description": "The \"Symfony Standard Edition\" distribution",
     "autoload": {
         "psr-4": {
             "App\\": "src/"
@@ -14,7 +13,7 @@
         }
     },
     "require": {
-        "php": ">=7.4",
+        "php": ">=8.1",
         "doctrine/doctrine-bundle": "^2.5",
         "doctrine/orm": "^2.11",
         "mopa/bootstrap-bundle": "^3.4",
@@ -29,7 +28,7 @@
     },
     "config": {
         "platform": {
-            "php": "7.4"
+            "php": "8.1"
         },
         "sort-packages": true
     }
