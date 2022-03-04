@@ -13,16 +13,16 @@
     },
     "require": {
         "php": ">=7.4",
-        "doctrine/doctrine-bundle": "^1.6",
+        "doctrine/doctrine-bundle": "^1.12.13",
         "doctrine/orm": "^2.5",
-        "incenteev/composer-parameter-handler": "^2.0",
-        "mopa/bootstrap-bundle": "^3.1",
-        "sensio/framework-extra-bundle": "^3.0.2",
-        "symfony/monolog-bundle": "^3.1.0",
-        "symfony/polyfill-apcu": "^1.0",
-        "symfony/symfony": "^3.0",
+        "incenteev/composer-parameter-handler": "^2",
+        "mopa/bootstrap-bundle": "^3.4",
+        "sensio/framework-extra-bundle": "^6.2",
+        "symfony/monolog-bundle": "^3.7",
+        "symfony/polyfill-apcu": "^1.25",
+        "symfony/symfony": "^4.4",
         "symfony/webpack-encore-bundle": "1.0",
-        "twig/twig": "^2.0"
+        "twig/twig": "^3"
     },
     "require-dev": {
         "symfony/phpunit-bridge": "^3.0"
@@ -47,9 +47,6 @@
     "extra": {
         "incenteev-parameters": {
             "file": "app/config/parameters.yml"
-        },
-        "branch-alias": {
-            "dev-master": "3.3-dev"
         }
     }
 }

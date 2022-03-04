@@ -4,15 +4,14 @@ namespace AppBundle\Controller;
 
 use AppBundle\Manager\SharedBlueprintManager;
 use FactorioBlueprintLib\TestCases;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class DefaultController extends Controller
+class DefaultController extends AbstractController
 {
     /**
      * @Route("/", name="homepage")
@@ -27,9 +26,9 @@ class DefaultController extends Controller
     /**
      * @Route("/b/{blueprintHash}", requirements={"blueprintHash" = "[a-zA-Z0-9_-]+"})
      */
-    public function blueprintAction(string $blueprintHash, Request $request)
+    public function blueprintAction(string $blueprintHash, SharedBlueprintManager $blueprintManager)
     {
-        $blueprint = $this->getSharedBlueprintManager()->getSharedBlueprint($blueprintHash);
+        $blueprint = $blueprintManager->getSharedBlueprint($blueprintHash);
         if (!$blueprint) {
             throw new NotFoundHttpException();
         }
@@ -40,10 +39,9 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/share", name="share_blueprint")
-     * @Method({"POST"})
+     * @Route("/share", name="share_blueprint", methods={"POST"})
      */
-    public function shareAction(Request $request)
+    public function shareAction(Request $request, SharedBlueprintManager $blueprintManager)
     {
         $blueprintString = $request->getContent();
 
@@ -51,7 +49,7 @@ class DefaultController extends Controller
             return new JsonResponse(['error' => 'Blueprint string isn\'t valid'], Response::HTTP_BAD_REQUEST);
         }
 
-        return new JsonResponse(['url' => $this->getUrl($blueprintString)], Response::HTTP_ACCEPTED);
+        return new JsonResponse(['url' => $this->getUrl($blueprintString, $blueprintManager)], Response::HTTP_ACCEPTED);
     }
 
     /**
@@ -62,21 +60,16 @@ class DefaultController extends Controller
         return new JsonResponse(['ip' => $request->getClientIp()]);
     }
 
-    protected function getUrl($blueprintString)
+    private function getUrl($blueprintString, SharedBlueprintManager $blueprintManager)
     {
-        $sharedBlueprint = $this->getSharedBlueprintManager()->shareBlueprint($blueprintString);
+        $sharedBlueprint = $blueprintManager->shareBlueprint($blueprintString);
 
         $host = $this->getParameter('shared_blueprint_host');
 
         return $host . '/b/' . $sharedBlueprint->getBlueprintHash();
     }
 
-    protected function getSharedBlueprintManager(): SharedBlueprintManager
-    {
-        return $this->get('app.shared_blueprint_manager');
-    }
-
-    protected function isBlueprintValid($blueprintString)
+    private function isBlueprintValid($blueprintString)
     {
         $prevHandler = set_error_handler(function ($errno, $errstr, $errfile, $errline, array $errcontext) {
             throw new \ErrorException($errstr, 0, $errno, $errfile, $errline);
@@ -93,7 +86,7 @@ class DefaultController extends Controller
         return true;
     }
 
-    protected function parseBlueprint(string $blueprintString)
+    private function parseBlueprint(string $blueprintString)
     {
         $blueprintString = substr($blueprintString, 1);
         $blueprintString = base64_decode($blueprintString);

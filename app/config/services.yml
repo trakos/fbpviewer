@@ -1,12 +1,18 @@
 parameters:
 
 services:
-    app.shared_blueprint_repository:
+    AppBundle\Controller\:
+        autoconfigure: true
+        autowire: true
+        resource: '%kernel.project_dir%/src/AppBundle/Controller/*'
+        tags: [ 'controller.service_arguments' ]
+
+    AppBundle\Repository\SharedBlueprintRepository:
         class: Doctrine\ORM\EntityRepository
         factory: ['@doctrine.orm.default_entity_manager', getRepository]
         arguments:
             - AppBundle\Entity\SharedBlueprint
 
-    app.shared_blueprint_manager:
+    AppBundle\Manager\SharedBlueprintManager:
         class: AppBundle\Manager\SharedBlueprintManager
-        arguments: ['@app.shared_blueprint_repository', '@request_stack']
+        arguments: ['@AppBundle\Repository\SharedBlueprintRepository', '@Symfony\Component\HttpFoundation\RequestStack']
