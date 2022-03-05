@@ -16,3 +16,8 @@ services:
     App\Manager\SharedBlueprintManager:
         class: App\Manager\SharedBlueprintManager
         arguments: ['@App\Repository\SharedBlueprintRepository', '@Symfony\Component\HttpFoundation\RequestStack']
+
+    oci8.listener:
+        class: Doctrine\DBAL\Event\Listeners\OracleSessionInit
+        tags:
+            - { name: doctrine.event_listener, event: postConnect }

@@ -3,3 +3,4 @@ doctrine_migrations:
         'App\Migrations': '%kernel.project_dir%/src/Migrations'
     enable_profiler: '%kernel.debug%'
     transactional: true
+    check_database_platform: true
