@@ -1,3 +1,4 @@
+/.env
 /.env.dev.local
 /.idea/
 /.phpunit.result.cache

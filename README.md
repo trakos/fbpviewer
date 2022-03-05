@@ -7,23 +7,23 @@ Live version available here: [http://fbpviewer.trakos.pl/](http://fbpviewer.trak
 
 ## Development
 
-If you want to run entire website, I recommend having docker installed. Then, you can simply run:
+To run fbpviewer locally, you'll need docker and docker-compose.
 
+First, create `.env` files with following 3 variables set:
+
+```.dotenv
+# Path to extracted https://factorio.com/get-download/0.15.40/alpha/linux64
+FACTORIO_DIR=~/Downloads/factorio
+# This will be used as web host in docker. 
+NGINX_HOST=php-docker.local
+NGINX_PORT=80
 ```
-docker-compose up -d
-bash bin/dev_init.sh
+
+Next, you can start docker by running:
+
+```shell
+make start
 ```
-
-Database can be configured using environment variable DATABASE_URL.
-Default is set for docker development in .env.dev and .dev.test.
-
-You'd also have to add `php-docker.local` to your hosts file (to make it point to docker machine,
-if you're using docker-machine you can find it's ip by calling `docker-machine ip`,
-otherwise it's probably localhost).
-
-You also have to have spritesheet generated. Make sure that FACTORIO_DIR is set in .env to
-path of extracted https://factorio.com/get-download/0.15.40/alpha/linux64 (Factorio 0.15 install), and then
-recreate docker-compose and use  `bin/dev_atlasgen.sh` to generate it yourself.
 
 ## License
 

@@ -18,8 +18,8 @@ services:
     links:
       - php
     environment:
-      NGINX_HOST: php-docker.local
-      NGINX_PORT: 80
+      NGINX_HOST: ${NGINX_HOST}
+      NGINX_PORT: ${NGINX_PORT}
 
   php:
     build: docker/php
@@ -36,8 +36,8 @@ services:
   node:
     build: docker/node
     user: "${COMPOSE_USER_ID-1000}:${COMPOSE_GROUP_ID-1000}"
-    command: sleep infinity
+    command: "bash -c 'cd assets && yarn install && yarn watch'"
     working_dir: /var/www
     volumes:
       - .:/var/www
-      - /home/trakos/Downloads/factorio:/var/factorio
+      - ${FACTORIO_DIR}:/var/factorio
