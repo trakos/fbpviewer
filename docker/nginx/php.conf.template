@@ -1,5 +1,6 @@
 server {
-    server_name php-docker.local;
+    server_name ${NGINX_HOST};
+    listen ${NGINX_PORT};
     root /var/www/web;
 
     sendfile off;

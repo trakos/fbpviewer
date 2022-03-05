@@ -9,14 +9,18 @@ services:
       MYSQL_ALLOW_EMPTY_PASSWORD: 1
 
   web:
-    image: nginx
+    image: nginx:1.21
     ports:
       - "80:80"
     volumes:
+      - ./docker/nginx:/etc/nginx/templates
       - .:/var/www
-      - ./docker/nginx.conf:/etc/nginx/conf.d/site.conf
     links:
       - php
+    environment:
+      NGINX_HOST: php-docker.local
+      NGINX_PORT: 80
+
   php:
     build: docker/php
     user: "${COMPOSE_USER_ID-1000}:${COMPOSE_GROUP_ID-1000}"
