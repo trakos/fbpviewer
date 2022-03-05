@@ -1,0 +1,11 @@
+/.*
+/assets/node_modules
+/atlasgen/node_modules
+/docker
+/docker-compose.yml
+/node_modules
+/var/
+/vendor/
+/web/build/
+/web/bundles/
+/web/images/

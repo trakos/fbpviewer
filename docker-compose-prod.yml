@@ -1,0 +1,34 @@
+version: "3"
+services:
+  mysql:
+    image: mysql:8
+    environment:
+      MYSQL_DATABASE: symfony
+      MYSQL_USER: symfony
+      MYSQL_PASSWORD: symfony
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+
+  web:
+    image: fbpviewer_prod_nginx
+    ports:
+      - "80:80"
+    links:
+      - php
+    environment:
+      NGINX_HOST: ${NGINX_HOST}
+      NGINX_PORT: ${NGINX_PORT}
+
+  php:
+    image: fbpviewer_prod_php
+    working_dir: /var/www/web
+    user: www-data
+    environment:
+      APP_ENV: prod
+    links:
+      - mysql
+
+  wait_for_mysql:
+    image: dadarek/wait-for-dependencies
+    depends_on:
+      - mysql
+    command: mysql:3306

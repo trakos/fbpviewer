@@ -9,11 +9,10 @@ services:
       MYSQL_ALLOW_EMPTY_PASSWORD: 1
 
   web:
-    image: nginx:1.21
+    build: docker/nginx
     ports:
       - "80:80"
     volumes:
-      - ./docker/nginx:/etc/nginx/templates
       - .:/var/www
     links:
       - php

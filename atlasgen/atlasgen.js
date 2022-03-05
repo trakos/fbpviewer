@@ -7,8 +7,6 @@ var fs = require('fs'),
     rimraf = require('rimraf'),
     spritesheet = require('spritesheet-js'),
     FactorioBlueprintReader = require("../assets/js/factorioBlueprintReader");
-const {cpSync} = require("fs");
-
 const OUTPUT_DIR = '/tmp/atlas';
 const factorioBlueprintReader = new FactorioBlueprintReader();
 factorioBlueprintReader.loadEntities();

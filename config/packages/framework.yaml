@@ -1,8 +1,12 @@
 parameters:
     locale: en
-
+    env(DATABASE_URL): 'mysql://root:@mysql:3306/symfony?serverVersion=5.7&charset=utf8mb4'
+    env(DATABASE_USER): 'root'
+    env(DATABASE_PASSWORD): ~
+    env(SECRET): 'secret'
+    
 framework:
-    secret: '%env(resolve:SECRET)%'
+    secret: '%env(SECRET)%'
     router:
         strict_requirements: ~
         utf8: true
@@ -31,9 +35,9 @@ twig:
 
 doctrine:
     dbal:
-        url: '%env(resolve:DATABASE_URL)%'
-        user: '%env(resolve:DATABASE_USER)%'
-        password: '%env(resolve:DATABASE_PASSWORD)%'
+        url: '%env(DATABASE_URL)%'
+        user: '%env(DATABASE_USER)%'
+        password: '%env(DATABASE_PASSWORD)%'
     orm:
         auto_generate_proxy_classes: '%kernel.debug%'
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware

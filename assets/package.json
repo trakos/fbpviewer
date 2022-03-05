@@ -5,7 +5,6 @@
   "main": "js/init.js",
   "scripts": {
     "build": "webpack",
-    "build:prod": "webpack -p",
     "watch": "webpack --watch"
   },
   "author": "",
