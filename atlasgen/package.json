@@ -1,7 +1,7 @@
 {
   "name": "fbpvatlasgen",
   "version": "1.0.0",
-  "dependencies": {
+  "devDependencies": {
     "gm": "^1.23.0",
     "jquery": "^3.2.1",
     "jsdom": "^11.0.0",

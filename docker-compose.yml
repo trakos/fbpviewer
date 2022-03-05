@@ -37,7 +37,7 @@ services:
     build: docker/node
     user: "${COMPOSE_USER_ID-1000}:${COMPOSE_GROUP_ID-1000}"
     command: sleep infinity
-    working_dir: /var/www/bin
+    working_dir: /var/www
     volumes:
       - .:/var/www
       - /home/trakos/Downloads/factorio:/var/factorio

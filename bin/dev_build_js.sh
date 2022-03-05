@@ -3,4 +3,4 @@
 cd "$(dirname ${BASH_SOURCE[0]})"
 cd ..
 
-docker-compose exec node bash -c "yarn install && yarn build"
+docker-compose exec node bash -c "cd /var/www/assets && yarn install && yarn build"

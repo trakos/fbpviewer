@@ -6,7 +6,7 @@ var fs = require('fs'),
     imagesLoader = require('./atlasgen/fbpvImagesLoader.js'),
     rimraf = require('rimraf'),
     spritesheet = require('spritesheet-js'),
-    FactorioBlueprintReader = require("../../assets/js/factorioBlueprintReader");
+    FactorioBlueprintReader = require("../assets/js/factorioBlueprintReader");
 const {cpSync} = require("fs");
 
 const OUTPUT_DIR = '/tmp/atlas';

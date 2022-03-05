@@ -9,7 +9,7 @@ if (!Encore.isRuntimeEnvironmentConfigured()) {
 
 Encore
     // directory where compiled assets will be stored
-    .setOutputPath('web/build/')
+    .setOutputPath('../web/build/')
     // public path used by the web server to access the output path
     .setPublicPath('/build')
     // only needed for CDN's or sub-directory deploy
@@ -21,10 +21,10 @@ Encore
      * Each entry will result in one JavaScript file (e.g. app.js)
      * and one CSS file (e.g. app.css) if your JavaScript imports CSS.
      */
-    .addEntry('fbpviewer', './assets/app.js')
+    .addEntry('fbpviewer', './app.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
-    .enableStimulusBridge('./assets/controllers.json')
+    .enableStimulusBridge('./controllers.json')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     //.splitEntryChunks()
@@ -79,11 +79,5 @@ Encore
     ])
     .addPlugin(new NodePolyfillPlugin())
 ;
-
-let config = Encore.getWebpackConfig();
-if (!config.resolve.fallback) {
-    config.resolve.fallback = {}
-}
-config.resolve.fallback.path = require.resolve("path-browserify");
 
 module.exports = Encore.getWebpackConfig();

@@ -2,12 +2,10 @@
 /.idea/
 /.phpunit.result.cache
 /*.iml
-/bin/fbpvatlasgen/atlasgen_output/
-/bin/fbpvatlasgen/node_modules/
 /cwallet.sso
-/node_modules/
 /var/
 /vendor/
 /web/build/
 /web/bundles/
 /web/images/
+node_modules
