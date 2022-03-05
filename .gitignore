@@ -8,6 +8,4 @@
 /vendor/
 /web/build/
 /web/bundles/
-/web/images/factorio/
-/web/images/spritesheet.json
-/web/images/spritesheet.png
+/web/images/

@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 var fs = require('fs'),
     _ = require("underscore"),
     jsdom = require("jsdom"),
@@ -5,22 +7,24 @@ var fs = require('fs'),
     rimraf = require('rimraf'),
     spritesheet = require('spritesheet-js'),
     FactorioBlueprintReader = require("../../assets/js/factorioBlueprintReader");
+const {cpSync} = require("fs");
 
+const OUTPUT_DIR = '/tmp/atlas';
 const factorioBlueprintReader = new FactorioBlueprintReader();
 factorioBlueprintReader.loadEntities();
 
-rimraf('./atlasgen_output', {}, function (err) {
+rimraf(OUTPUT_DIR, {}, function (err) {
     if (err) {
         throw new Error(err);
     }
 
-    imagesLoader.prepareTrimmedTextures(factorioBlueprintReader, './atlasgen_output/images/factorio', function () {
+    imagesLoader.prepareTrimmedTextures(factorioBlueprintReader, OUTPUT_DIR, function () {
 
-        process.chdir('./atlasgen_output');
+        process.chdir(OUTPUT_DIR);
         spritesheet('**/*.png*', {format: 'pixi.js', fullpath: true, trim: false}, function (err) {
             if (err) throw err;
 
-            console.log('spritesheet successfully generated');
+            fs.cpSync(OUTPUT_DIR, "/var/www/web/images", {recursive: true});
         });
 
         console.log('done');

@@ -8,13 +8,13 @@ module.exports = function () {
                         images: [
                             {
                                 type: 'sprite',
-                                path: 'entity/gate/gate-base-horizontal.png',
+                                path: 'base/graphics/entity/gate/gate-base-horizontal.png',
                                 x:    0,
                                 y:    15
                             },
                             {
                                 type:   'trim',
-                                path:   'entity/gate/gate-horizontal.png',
+                                path:   'base/graphics/entity/gate/gate-horizontal.png',
                                 number: 0,
                                 cols:   8,
                                 rows:   2,
@@ -31,13 +31,13 @@ module.exports = function () {
                 images: [
                     {
                         type: 'sprite',
-                        path: 'entity/gate/gate-base-vertical.png',
+                        path: 'base/graphics/entity/gate/gate-base-vertical.png',
                         x:    0,
                         y:    0
                     },
                     {
                         type:   'trim',
-                        path:   'entity/gate/gate-vertical.png',
+                        path:   'base/graphics/entity/gate/gate-vertical.png',
                         number: 0,
                         cols:   8,
                         rows:   2,
@@ -52,7 +52,7 @@ module.exports = function () {
         'stone-wall':             {
             image:    {
                 type: 'sprite',
-                path: 'entity/stone-wall/wall-single.png'
+                path: 'base/graphics/entity/stone-wall/wall-single.png'
             },
             gridSize: {w: 1, h: 1},
             offset:   {x: 5, y: -15}

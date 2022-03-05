@@ -19,7 +19,7 @@ const ZoomAndPanHandler = require("./zoomAndPanHandler");
 const Loader = require("./images/loader");
 
 global.FBR_DEV = 0;
-global.FBR_IMAGES_PREFIX = FBR_DEV ? "/images/factorio/" : "images/factorio/";
+global.FBR_IMAGES_PREFIX = "";
 global.FBR_PIXELS_PER_TILE = 32;
 
 global.FBR_CANVAS_WIDTH;

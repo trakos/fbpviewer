@@ -3,7 +3,7 @@ module.exports = function () {
         'assembling-machine-1':   {
             image:    {
                 type:   'trim',
-                path:   'entity/assembling-machine-1/assembling-machine-1.png',
+                path:   'base/graphics/entity/assembling-machine-1/assembling-machine-1.png',
                 number: 0,
                 cols:   8,
                 rows:   4
@@ -19,7 +19,7 @@ module.exports = function () {
                         images: [
                             {
                                 type:   'trim',
-                                path:   'entity/assembling-machine-2/assembling-machine-2.png',
+                                path:   'base/graphics/entity/assembling-machine-2/assembling-machine-2.png',
                                 number: 0,
                                 cols:   8,
                                 rows:   4,
@@ -28,7 +28,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/fluid-indication-arrow.png',
+                                path:     'core/graphics/arrows/fluid-indication-arrow.png',
                                 scale:    {x: 0.5, y: 0.5},
                                 rotation: 1.5,
                                 x:        95,
@@ -36,7 +36,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/fluid-indication-arrow.png',
+                                path:     'core/graphics/arrows/fluid-indication-arrow.png',
                                 scale:    {x: 0.5, y: 0.5},
                                 rotation: 1.5,
                                 x:        10,
@@ -51,7 +51,7 @@ module.exports = function () {
                         images: [
                             {
                                 type:   'trim',
-                                path:   'entity/assembling-machine-2/assembling-machine-2.png',
+                                path:   'base/graphics/entity/assembling-machine-2/assembling-machine-2.png',
                                 number: 0,
                                 cols:   8,
                                 rows:   4,
@@ -60,14 +60,14 @@ module.exports = function () {
                             },
                             {
                                 type:  'sprite',
-                                path:  'core/fluid-indication-arrow.png',
+                                path:  'core/graphics/arrows/fluid-indication-arrow.png',
                                 scale: {x: 0.5, y: 0.5},
                                 x:     40,
                                 y:     -3
                             },
                             {
                                 type:  'sprite',
-                                path:  'core/fluid-indication-arrow.png',
+                                path:  'core/graphics/arrows/fluid-indication-arrow.png',
                                 scale: {x: 0.5, y: 0.5},
                                 x:     40,
                                 y:     80
@@ -81,7 +81,7 @@ module.exports = function () {
                         images: [
                             {
                                 type:   'trim',
-                                path:   'entity/assembling-machine-2/assembling-machine-2.png',
+                                path:   'base/graphics/entity/assembling-machine-2/assembling-machine-2.png',
                                 number: 0,
                                 cols:   8,
                                 rows:   4,
@@ -90,7 +90,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/fluid-indication-arrow.png',
+                                path:     'core/graphics/arrows/fluid-indication-arrow.png',
                                 scale:    {x: 0.5, y: 0.5},
                                 rotation: 0.5,
                                 x:        95,
@@ -98,7 +98,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/fluid-indication-arrow.png',
+                                path:     'core/graphics/arrows/fluid-indication-arrow.png',
                                 scale:    {x: 0.5, y: 0.5},
                                 rotation: 0.5,
                                 x:        15,
@@ -114,7 +114,7 @@ module.exports = function () {
                 images: [
                     {
                         type:   'trim',
-                        path:   'entity/assembling-machine-2/assembling-machine-2.png',
+                        path:   'base/graphics/entity/assembling-machine-2/assembling-machine-2.png',
                         number: 0,
                         cols:   8,
                         rows:   4,
@@ -123,7 +123,7 @@ module.exports = function () {
                     },
                     {
                         type:     'sprite',
-                        path:     'core/fluid-indication-arrow.png',
+                        path:     'core/graphics/arrows/fluid-indication-arrow.png',
                         scale:    {x: 0.5, y: 0.5},
                         rotation: 1,
                         x:        52,
@@ -131,7 +131,7 @@ module.exports = function () {
                     },
                     {
                         type:     'sprite',
-                        path:     'core/fluid-indication-arrow.png',
+                        path:     'core/graphics/arrows/fluid-indication-arrow.png',
                         scale:    {x: 0.5, y: 0.5},
                         rotation: 1,
                         x:        52,
@@ -150,7 +150,7 @@ module.exports = function () {
                         images: [
                             {
                                 type:   'trim',
-                                path:   'entity/assembling-machine-3/assembling-machine-3.png',
+                                path:   'base/graphics/entity/assembling-machine-3/assembling-machine-3.png',
                                 number: 0,
                                 cols:   8,
                                 rows:   4,
@@ -159,7 +159,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/fluid-indication-arrow.png',
+                                path:     'core/graphics/arrows/fluid-indication-arrow.png',
                                 scale:    {x: 0.5, y: 0.5},
                                 rotation: 1.5,
                                 x:        95,
@@ -167,7 +167,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/fluid-indication-arrow.png',
+                                path:     'core/graphics/arrows/fluid-indication-arrow.png',
                                 scale:    {x: 0.5, y: 0.5},
                                 rotation: 1.5,
                                 x:        10,
@@ -182,7 +182,7 @@ module.exports = function () {
                         images: [
                             {
                                 type:   'trim',
-                                path:   'entity/assembling-machine-3/assembling-machine-3.png',
+                                path:   'base/graphics/entity/assembling-machine-3/assembling-machine-3.png',
                                 number: 0,
                                 cols:   8,
                                 rows:   4,
@@ -191,14 +191,14 @@ module.exports = function () {
                             },
                             {
                                 type:  'sprite',
-                                path:  'core/fluid-indication-arrow.png',
+                                path:  'core/graphics/arrows/fluid-indication-arrow.png',
                                 scale: {x: 0.5, y: 0.5},
                                 x:     40,
                                 y:     -3
                             },
                             {
                                 type:  'sprite',
-                                path:  'core/fluid-indication-arrow.png',
+                                path:  'core/graphics/arrows/fluid-indication-arrow.png',
                                 scale: {x: 0.5, y: 0.5},
                                 x:     40,
                                 y:     80
@@ -212,7 +212,7 @@ module.exports = function () {
                         images: [
                             {
                                 type:   'trim',
-                                path:   'entity/assembling-machine-3/assembling-machine-3.png',
+                                path:   'base/graphics/entity/assembling-machine-3/assembling-machine-3.png',
                                 number: 0,
                                 cols:   8,
                                 rows:   4,
@@ -221,7 +221,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/fluid-indication-arrow.png',
+                                path:     'core/graphics/arrows/fluid-indication-arrow.png',
                                 scale:    {x: 0.5, y: 0.5},
                                 rotation: 0.5,
                                 x:        95,
@@ -229,7 +229,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/fluid-indication-arrow.png',
+                                path:     'core/graphics/arrows/fluid-indication-arrow.png',
                                 scale:    {x: 0.5, y: 0.5},
                                 rotation: 0.5,
                                 x:        15,
@@ -245,7 +245,7 @@ module.exports = function () {
                 images: [
                     {
                         type:   'trim',
-                        path:   'entity/assembling-machine-3/assembling-machine-3.png',
+                        path:   'base/graphics/entity/assembling-machine-3/assembling-machine-3.png',
                         number: 0,
                         cols:   8,
                         rows:   4,
@@ -254,7 +254,7 @@ module.exports = function () {
                     },
                     {
                         type:     'sprite',
-                        path:     'core/fluid-indication-arrow.png',
+                        path:     'core/graphics/arrows/fluid-indication-arrow.png',
                         scale:    {x: 0.5, y: 0.5},
                         rotation: 1,
                         x:        52,
@@ -262,7 +262,7 @@ module.exports = function () {
                     },
                     {
                         type:     'sprite',
-                        path:     'core/fluid-indication-arrow.png',
+                        path:     'core/graphics/arrows/fluid-indication-arrow.png',
                         scale:    {x: 0.5, y: 0.5},
                         rotation: 1,
                         x:        52,

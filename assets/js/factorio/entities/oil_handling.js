@@ -8,7 +8,7 @@ module.exports = function () {
             images: [
                 {
                     type:   'trim',
-                    path:   'entity/pumpjack/pumpjack-base.png',
+                    path:   'base/graphics/entity/pumpjack/pumpjack-base.png',
                     number: number,
                     cols:   4,
                     rows:   1,
@@ -17,7 +17,7 @@ module.exports = function () {
                 },
                 {
                     type:   'trim',
-                    path:   'entity/pumpjack/pumpjack-animation.png',
+                    path:   'base/graphics/entity/pumpjack/pumpjack-animation.png',
                     number: 0,
                     cols:   10,
                     rows:   4,
@@ -26,7 +26,7 @@ module.exports = function () {
                 },
                 {
                     type:     'sprite',
-                    path:     'core/fluid-indication-arrow.png',
+                    path:     'core/graphics/arrows/fluid-indication-arrow.png',
                     scale:    {x: 0.5, y: 0.5},
                     rotation: arrowRotation,
                     x:        arrowX,
@@ -42,7 +42,7 @@ module.exports = function () {
             images: [
                 {
                     type:   'trim',
-                    path:   'entity/oil-refinery/oil-refinery.png',
+                    path:   'base/graphics/entity/oil-refinery/oil-refinery.png',
                     number: number,
                     cols:   4,
                     rows:   1,
@@ -51,7 +51,7 @@ module.exports = function () {
                 },
                 {
                     type:     'sprite',
-                    path:     'core/fluid-indication-arrow.png',
+                    path:     'core/graphics/arrows/fluid-indication-arrow.png',
                     scale:    {x: 0.5, y: 0.5},
                     rotation: rotation,
                     x:        arrows[0].x,
@@ -59,7 +59,7 @@ module.exports = function () {
                 },
                 {
                     type:     'sprite',
-                    path:     'core/fluid-indication-arrow.png',
+                    path:     'core/graphics/arrows/fluid-indication-arrow.png',
                     scale:    {x: 0.5, y: 0.5},
                     rotation: rotation,
                     x:        arrows[1].x,
@@ -67,7 +67,7 @@ module.exports = function () {
                 },
                 {
                     type:     'sprite',
-                    path:     'core/fluid-indication-arrow.png',
+                    path:     'core/graphics/arrows/fluid-indication-arrow.png',
                     scale:    {x: 0.5, y: 0.5},
                     rotation: rotation,
                     x:        arrows[2].x,
@@ -75,7 +75,7 @@ module.exports = function () {
                 },
                 {
                     type:     'sprite',
-                    path:     'core/fluid-indication-arrow.png',
+                    path:     'core/graphics/arrows/fluid-indication-arrow.png',
                     scale:    {x: 0.5, y: 0.5},
                     rotation: rotation,
                     x:        arrows[3].x,
@@ -83,7 +83,7 @@ module.exports = function () {
                 },
                 {
                     type:     'sprite',
-                    path:     'core/fluid-indication-arrow.png',
+                    path:     'core/graphics/arrows/fluid-indication-arrow.png',
                     scale:    {x: 0.5, y: 0.5},
                     rotation: rotation,
                     x:        arrows[4].x,
@@ -103,7 +103,7 @@ module.exports = function () {
                         images: [
                             {
                                 type:   'trim',
-                                path:   'entity/chemical-plant/chemical-plant.png',
+                                path:   'base/graphics/entity/chemical-plant/chemical-plant.png',
                                 number: 1,
                                 cols:   4,
                                 rows:   1,
@@ -112,7 +112,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/fluid-indication-arrow.png',
+                                path:     'core/graphics/arrows/fluid-indication-arrow.png',
                                 scale:    {x: 0.5, y: 0.5},
                                 rotation: 1.5,
                                 x:        5,
@@ -120,7 +120,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/fluid-indication-arrow.png',
+                                path:     'core/graphics/arrows/fluid-indication-arrow.png',
                                 scale:    {x: 0.5, y: 0.5},
                                 rotation: 1.5,
                                 x:        79,
@@ -128,7 +128,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/fluid-indication-arrow.png',
+                                path:     'core/graphics/arrows/fluid-indication-arrow.png',
                                 scale:    {x: 0.5, y: 0.5},
                                 rotation: 1.5,
                                 x:        5,
@@ -136,7 +136,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/fluid-indication-arrow.png',
+                                path:     'core/graphics/arrows/fluid-indication-arrow.png',
                                 scale:    {x: 0.5, y: 0.5},
                                 rotation: 1.5,
                                 x:        79,
@@ -151,7 +151,7 @@ module.exports = function () {
                         images: [
                             {
                                 type:   'trim',
-                                path:   'entity/chemical-plant/chemical-plant.png',
+                                path:   'base/graphics/entity/chemical-plant/chemical-plant.png',
                                 number: 2,
                                 cols:   4,
                                 rows:   1,
@@ -160,7 +160,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/fluid-indication-arrow.png',
+                                path:     'core/graphics/arrows/fluid-indication-arrow.png',
                                 scale:    {x: 0.5, y: 0.5},
                                 rotation: 0,
                                 x:        5,
@@ -168,7 +168,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/fluid-indication-arrow.png',
+                                path:     'core/graphics/arrows/fluid-indication-arrow.png',
                                 scale:    {x: 0.5, y: 0.5},
                                 rotation: 0,
                                 x:        66,
@@ -176,7 +176,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/fluid-indication-arrow.png',
+                                path:     'core/graphics/arrows/fluid-indication-arrow.png',
                                 scale:    {x: 0.5, y: 0.5},
                                 rotation: 0,
                                 x:        5,
@@ -184,7 +184,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/fluid-indication-arrow.png',
+                                path:     'core/graphics/arrows/fluid-indication-arrow.png',
                                 scale:    {x: 0.5, y: 0.5},
                                 rotation: 0,
                                 x:        66,
@@ -199,7 +199,7 @@ module.exports = function () {
                         images: [
                             {
                                 type:   'trim',
-                                path:   'entity/chemical-plant/chemical-plant.png',
+                                path:   'base/graphics/entity/chemical-plant/chemical-plant.png',
                                 number: 3,
                                 cols:   4,
                                 rows:   1,
@@ -208,7 +208,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/fluid-indication-arrow.png',
+                                path:     'core/graphics/arrows/fluid-indication-arrow.png',
                                 scale:    {x: 0.5, y: 0.5},
                                 rotation: 0.5,
                                 x:        10,
@@ -216,7 +216,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/fluid-indication-arrow.png',
+                                path:     'core/graphics/arrows/fluid-indication-arrow.png',
                                 scale:    {x: 0.5, y: 0.5},
                                 rotation: 0.5,
                                 x:        89,
@@ -224,7 +224,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/fluid-indication-arrow.png',
+                                path:     'core/graphics/arrows/fluid-indication-arrow.png',
                                 scale:    {x: 0.5, y: 0.5},
                                 rotation: 0.5,
                                 x:        10,
@@ -232,7 +232,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/fluid-indication-arrow.png',
+                                path:     'core/graphics/arrows/fluid-indication-arrow.png',
                                 scale:    {x: 0.5, y: 0.5},
                                 rotation: 0.5,
                                 x:        89,
@@ -248,7 +248,7 @@ module.exports = function () {
                 images: [
                     {
                         type:   'trim',
-                        path:   'entity/chemical-plant/chemical-plant.png',
+                        path:   'base/graphics/entity/chemical-plant/chemical-plant.png',
                         number: 0,
                         cols:   4,
                         rows:   1,
@@ -257,7 +257,7 @@ module.exports = function () {
                     },
                     {
                         type:     'sprite',
-                        path:     'core/fluid-indication-arrow.png',
+                        path:     'core/graphics/arrows/fluid-indication-arrow.png',
                         scale:    {x: 0.5, y: 0.5},
                         rotation: 1,
                         x:        15,
@@ -265,7 +265,7 @@ module.exports = function () {
                     },
                     {
                         type:     'sprite',
-                        path:     'core/fluid-indication-arrow.png',
+                        path:     'core/graphics/arrows/fluid-indication-arrow.png',
                         scale:    {x: 0.5, y: 0.5},
                         rotation: 1,
                         x:        79,
@@ -273,7 +273,7 @@ module.exports = function () {
                     },
                     {
                         type:     'sprite',
-                        path:     'core/fluid-indication-arrow.png',
+                        path:     'core/graphics/arrows/fluid-indication-arrow.png',
                         scale:    {x: 0.5, y: 0.5},
                         rotation: 1,
                         x:        15,
@@ -281,7 +281,7 @@ module.exports = function () {
                     },
                     {
                         type:     'sprite',
-                        path:     'core/fluid-indication-arrow.png',
+                        path:     'core/graphics/arrows/fluid-indication-arrow.png',
                         scale:    {x: 0.5, y: 0.5},
                         rotation: 1,
                         x:        79,

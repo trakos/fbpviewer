@@ -36,3 +36,4 @@ services:
     working_dir: /var/www/bin
     volumes:
       - .:/var/www
+      - /home/trakos/Downloads/factorio:/var/factorio

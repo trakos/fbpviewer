@@ -21,11 +21,9 @@ You'd also have to add `php-docker.local` to your hosts file (to make it point t
 if you're using docker-machine you can find it's ip by calling `docker-machine ip`,
 otherwise it's probably localhost).
 
-You also have to have spritesheet generated. The best way is to simply download it from my website
-(both `spritesheet.json` and `spritesheet.png`) and put it in `/web/images`.
-
-You could also use the script at `bin/dev_atlasgen.sh` to generate it yourself,
-but it requires you to copy most of the factorio images to `web/images/factorio` first.
+You also have to have spritesheet generated. Make sure that FACTORIO_DIR is set in .env to
+path of extracted https://factorio.com/get-download/0.15.40/alpha/linux64 (Factorio 0.15 install), and then
+recreate docker-compose and use  `bin/dev_atlasgen.sh` to generate it yourself.
 
 ## License
 

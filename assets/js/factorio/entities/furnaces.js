@@ -3,7 +3,7 @@ module.exports = function () {
         'electric-furnace':       {
             image:    {
                 type: 'sprite',
-                path: 'entity/electric-furnace/electric-furnace-base.png'
+                path: 'base/graphics/entity/electric-furnace/electric-furnace-base.png'
             },
             gridSize: {w: 3, h: 3},
             offset:   {x: 0, y: 0}
@@ -11,7 +11,7 @@ module.exports = function () {
         'steel-furnace':          {
             image:    {
                 type: 'sprite',
-                path: 'entity/steel-furnace/steel-furnace.png'
+                path: 'base/graphics/entity/steel-furnace/steel-furnace.png'
             },
             gridSize: {w: 2, h: 2},
             offset:   {x: -12, y: -10}
@@ -19,7 +19,7 @@ module.exports = function () {
         'stone-furnace':          {
             image:    {
                 type: 'sprite',
-                path: 'entity/stone-furnace/stone-furnace.png'
+                path: 'base/graphics/entity/stone-furnace/stone-furnace.png'
             },
             gridSize: {w: 2, h: 2},
             offset:   {x: 7, y: 0}

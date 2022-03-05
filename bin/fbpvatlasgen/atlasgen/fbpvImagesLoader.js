@@ -4,11 +4,21 @@ var fs = require('fs'),
     gm = require('gm'),
     mkdirp = require('mkdirp');
 
-const FBR_IMAGES_PREFIX = "../../web/images/factorio/";
+const FACTORIO_IMAGES_PREFIX = "/var/factorio/data/";
+const LOCAL_IMAGES_PREFIX = "./images/"
 
 module.exports = {
     _alreadyLoaded:                        {},
     _outputDir:                            '',
+    _getFullImagePath:                     function (imagePath) {
+        if (fs.existsSync(LOCAL_IMAGES_PREFIX + imagePath)) {
+            return LOCAL_IMAGES_PREFIX + imagePath;
+        } else if (fs.existsSync(FACTORIO_IMAGES_PREFIX + imagePath)) {
+            return FACTORIO_IMAGES_PREFIX + imagePath;
+        } else {
+            throw `Image ${FACTORIO_IMAGES_PREFIX + imagePath} not found!`;
+        }
+    },
     _prepareTrimmedTexture:                function (imagePath, rows, cols, number, callback) {
         if (this._alreadyLoaded[imagePath + "." + number]) {
             callback();
@@ -17,6 +27,7 @@ module.exports = {
         }
 
         this._alreadyLoaded[imagePath + "." + number] = 1;
+        var sourcePath = this._getFullImagePath(imagePath);
         var destinationPath = this._outputDir + '/' + imagePath + "." + number;
         mkdirp(path.dirname(destinationPath), function (err) {
             if (err) {
@@ -24,7 +35,7 @@ module.exports = {
                 return;
             }
 
-            gm(FBR_IMAGES_PREFIX + imagePath).size(function (err, size) {
+            gm(sourcePath).size(function (err, size) {
                 if (err) {
                     callback(err);
                     return;
@@ -35,7 +46,7 @@ module.exports = {
                 var h = textureHeight / rows;
                 var row = Math.floor(number / cols);
                 var col = number % cols;
-                gm(FBR_IMAGES_PREFIX + imagePath)
+                gm(sourcePath)
                     .crop(w, h, w * col, h * row)
                     .write(destinationPath, function (err) {
                         if (err) {
@@ -55,6 +66,7 @@ module.exports = {
             return;
         }
 
+        var sourcePath = this._getFullImagePath(imagePath);
         var destinationPath = this._outputDir + '/' + imagePath;
 
         mkdirp(path.dirname(destinationPath), function (err) {
@@ -63,7 +75,7 @@ module.exports = {
                 return;
             }
 
-            gm(FBR_IMAGES_PREFIX + imagePath)
+            gm(sourcePath)
                 .write(destinationPath, function (err) {
                     if (err) {
                         callback(err);

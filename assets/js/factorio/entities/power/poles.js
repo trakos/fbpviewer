@@ -3,7 +3,7 @@ module.exports = function () {
         'small-electric-pole':   {
             image:    {
                 type:   'trim',
-                path:   'entity/small-electric-pole/small-electric-pole.png',
+                path:   'base/graphics/entity/small-electric-pole/small-electric-pole.png',
                 number: 0,
                 cols:   4,
                 rows:   1
@@ -14,7 +14,7 @@ module.exports = function () {
         'medium-electric-pole':   {
             image:    {
                 type:   'trim',
-                path:   'entity/medium-electric-pole/medium-electric-pole.png',
+                path:   'base/graphics/entity/medium-electric-pole/medium-electric-pole.png',
                 number: 0,
                 cols:   4,
                 rows:   1
@@ -25,7 +25,7 @@ module.exports = function () {
         'big-electric-pole':      {
             image:    {
                 type:   'trim',
-                path:   'entity/big-electric-pole/big-electric-pole.png',
+                path:   'base/graphics/entity/big-electric-pole/big-electric-pole.png',
                 number: 0,
                 rows:   1,
                 cols:   4
@@ -36,7 +36,7 @@ module.exports = function () {
         'substation': {
             image:    {
                 type:   'trim',
-                path:   'entity/substation/substation.png',
+                path:   'base/graphics/entity/substation/substation.png',
                 number: 0,
                 rows:   1,
                 cols:   4

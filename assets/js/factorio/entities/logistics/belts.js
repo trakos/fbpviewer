@@ -6,7 +6,7 @@ module.exports = function () {
                 2: {
                     image:  {
                         type:           'animated',
-                        path:           'entity/' + beltName + '/' + beltName + '.png',
+                        path:           'base/graphics/entity/' + beltName + '/' + beltName + '.png',
                         cols:           imageColumns,
                         rows:           11,
                         from:           0,
@@ -18,7 +18,7 @@ module.exports = function () {
                 4: {
                     image:  {
                         type:           'animated',
-                        path:           'entity/' + beltName + '/' + beltName + '.png',
+                        path:           'base/graphics/entity/' + beltName + '/' + beltName + '.png',
                         cols:           imageColumns,
                         rows:           11,
                         from:           imageColumns,
@@ -31,7 +31,7 @@ module.exports = function () {
                 6: {
                     image:  {
                         type:           'animated',
-                        path:           'entity/' + beltName + '/' + beltName + '.png',
+                        path:           'base/graphics/entity/' + beltName + '/' + beltName + '.png',
                         cols:           imageColumns,
                         rows:           11,
                         from:           0,
@@ -44,7 +44,7 @@ module.exports = function () {
             },
             image:      {
                 type:           'animated',
-                path:           'entity/' + beltName + '/' + beltName + '.png',
+                path:           'base/graphics/entity/' + beltName + '/' + beltName + '.png',
                 cols:           imageColumns,
                 rows:           11,
                 from:           imageColumns,

@@ -3,7 +3,7 @@ module.exports = function () {
         'power-switch':         {
             image:    {
                 type:   'trim',
-                path:   'entity/power-switch/power-switch.png',
+                path:   'base/graphics/entity/power-switch/power-switch.png',
                 number: 0,
                 cols:   2,
                 rows:   3
@@ -17,14 +17,14 @@ module.exports = function () {
                 images: [
                     {
                         type:  'sprite',
-                        path:  'entity/programmable-speaker/programmable-speaker-shadow.png',
+                        path:  'base/graphics/entity/programmable-speaker/programmable-speaker-shadow.png',
                         alpha: 0.5,
                         x:     10,
                         y:     70
                     },
                     {
                         type: 'sprite',
-                        path: 'entity/programmable-speaker/programmable-speaker.png',
+                        path: 'base/graphics/entity/programmable-speaker/programmable-speaker.png',
                         x:    0,
                         y:    0
                     }

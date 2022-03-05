@@ -8,7 +8,7 @@ module.exports = function () {
                         images: [
                             {
                                 type:   'trim',
-                                path:   'entity/combinator/combinator-entities.png',
+                                path:   'base/graphics/entity/combinator/combinator-entities.png',
                                 number: 0,
                                 cols:   4,
                                 rows:   3,
@@ -17,7 +17,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/indication-arrow-gui-ascending.png',
+                                path:     'core/graphics/arrows/indication-arrow-gui-ascending.png',
                                 scale:    {x: 0.25, y: 0.25},
                                 rotation: 0.5,
                                 x:        10,
@@ -25,7 +25,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/indication-arrow-gui-ascending.png',
+                                path:     'core/graphics/arrows/indication-arrow-gui-ascending.png',
                                 scale:    {x: 0.25, y: 0.25},
                                 rotation: 0.5,
                                 x:        55,
@@ -45,7 +45,7 @@ module.exports = function () {
                         images: [
                             {
                                 type:   'trim',
-                                path:   'entity/combinator/combinator-entities.png',
+                                path:   'base/graphics/entity/combinator/combinator-entities.png',
                                 number: 3,
                                 cols:   4,
                                 rows:   3,
@@ -54,7 +54,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/indication-arrow-gui-ascending.png',
+                                path:     'core/graphics/arrows/indication-arrow-gui-ascending.png',
                                 scale:    {x: 0.25, y: 0.25},
                                 rotation: 1,
                                 x:        15,
@@ -62,7 +62,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/indication-arrow-gui-ascending.png',
+                                path:     'core/graphics/arrows/indication-arrow-gui-ascending.png',
                                 scale:    {x: 0.25, y: 0.25},
                                 rotation: 1,
                                 x:        15,
@@ -82,7 +82,7 @@ module.exports = function () {
                         images: [
                             {
                                 type:   'trim',
-                                path:   'entity/combinator/combinator-entities.png',
+                                path:   'base/graphics/entity/combinator/combinator-entities.png',
                                 number: 1,
                                 cols:   4,
                                 rows:   3,
@@ -91,7 +91,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/indication-arrow-gui-ascending.png',
+                                path:     'core/graphics/arrows/indication-arrow-gui-ascending.png',
                                 scale:    {x: 0.25, y: 0.25},
                                 rotation: 1.5,
                                 x:        10,
@@ -99,7 +99,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/indication-arrow-gui-ascending.png',
+                                path:     'core/graphics/arrows/indication-arrow-gui-ascending.png',
                                 scale:    {x: 0.25, y: 0.25},
                                 rotation: 1.5,
                                 x:        55,
@@ -119,7 +119,7 @@ module.exports = function () {
                 images: [
                     {
                         type:   'trim',
-                        path:   'entity/combinator/combinator-entities.png',
+                        path:   'base/graphics/entity/combinator/combinator-entities.png',
                         number: 2,
                         cols:   4,
                         rows:   3,
@@ -128,7 +128,7 @@ module.exports = function () {
                     },
                     {
                         type:     'sprite',
-                        path:     'core/indication-arrow-gui-ascending.png',
+                        path:     'core/graphics/arrows/indication-arrow-gui-ascending.png',
                         scale:    {x: 0.25, y: 0.25},
                         rotation: 0,
                         x:        10,
@@ -136,7 +136,7 @@ module.exports = function () {
                     },
                     {
                         type:     'sprite',
-                        path:     'core/indication-arrow-gui-ascending.png',
+                        path:     'core/graphics/arrows/indication-arrow-gui-ascending.png',
                         scale:    {x: 0.25, y: 0.25},
                         rotation: 0,
                         x:        10,
@@ -156,7 +156,7 @@ module.exports = function () {
                 2: {
                     image:            {
                         type:   'trim',
-                        path:   'entity/combinator/combinator-entities.png',
+                        path:   'base/graphics/entity/combinator/combinator-entities.png',
                         number: 8,
                         cols:   4,
                         rows:   3
@@ -165,7 +165,7 @@ module.exports = function () {
                 4: {
                     image: {
                         type:   'trim',
-                        path:   'entity/combinator/combinator-entities.png',
+                        path:   'base/graphics/entity/combinator/combinator-entities.png',
                         number: 11,
                         cols:   4,
                         rows:   3
@@ -174,7 +174,7 @@ module.exports = function () {
                 6: {
                     image: {
                         type:   'trim',
-                        path:   'entity/combinator/combinator-entities.png',
+                        path:   'base/graphics/entity/combinator/combinator-entities.png',
                         number: 9,
                         cols:   4,
                         rows:   3
@@ -183,7 +183,7 @@ module.exports = function () {
             },
             image:      {
                 type:   'trim',
-                path:   'entity/combinator/combinator-entities.png',
+                path:   'base/graphics/entity/combinator/combinator-entities.png',
                 number: 10,
                 cols:   4,
                 rows:   3
@@ -199,7 +199,7 @@ module.exports = function () {
                         images: [
                             {
                                 type:   'trim',
-                                path:   'entity/combinator/combinator-entities.png',
+                                path:   'base/graphics/entity/combinator/combinator-entities.png',
                                 number: 4,
                                 cols:   4,
                                 rows:   3,
@@ -208,7 +208,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/indication-arrow-gui-ascending.png',
+                                path:     'core/graphics/arrows/indication-arrow-gui-ascending.png',
                                 scale:    {x: 0.25, y: 0.25},
                                 rotation: 0.5,
                                 x:        10,
@@ -216,7 +216,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/indication-arrow-gui-ascending.png',
+                                path:     'core/graphics/arrows/indication-arrow-gui-ascending.png',
                                 scale:    {x: 0.25, y: 0.25},
                                 rotation: 0.5,
                                 x:        55,
@@ -236,7 +236,7 @@ module.exports = function () {
                         images: [
                             {
                                 type:   'trim',
-                                path:   'entity/combinator/combinator-entities.png',
+                                path:   'base/graphics/entity/combinator/combinator-entities.png',
                                 number: 7,
                                 cols:   4,
                                 rows:   3,
@@ -245,7 +245,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/indication-arrow-gui-ascending.png',
+                                path:     'core/graphics/arrows/indication-arrow-gui-ascending.png',
                                 scale:    {x: 0.25, y: 0.25},
                                 rotation: 1,
                                 x:        15,
@@ -253,7 +253,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/indication-arrow-gui-ascending.png',
+                                path:     'core/graphics/arrows/indication-arrow-gui-ascending.png',
                                 scale:    {x: 0.25, y: 0.25},
                                 rotation: 1,
                                 x:        15,
@@ -273,7 +273,7 @@ module.exports = function () {
                         images: [
                             {
                                 type:   'trim',
-                                path:   'entity/combinator/combinator-entities.png',
+                                path:   'base/graphics/entity/combinator/combinator-entities.png',
                                 number: 5,
                                 cols:   4,
                                 rows:   3,
@@ -282,7 +282,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/indication-arrow-gui-ascending.png',
+                                path:     'core/graphics/arrows/indication-arrow-gui-ascending.png',
                                 scale:    {x: 0.25, y: 0.25},
                                 rotation: 1.5,
                                 x:        10,
@@ -290,7 +290,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/indication-arrow-gui-ascending.png',
+                                path:     'core/graphics/arrows/indication-arrow-gui-ascending.png',
                                 scale:    {x: 0.25, y: 0.25},
                                 rotation: 1.5,
                                 x:        55,
@@ -310,7 +310,7 @@ module.exports = function () {
                 images: [
                     {
                         type:   'trim',
-                        path:   'entity/combinator/combinator-entities.png',
+                        path:   'base/graphics/entity/combinator/combinator-entities.png',
                         number: 6,
                         cols:   4,
                         rows:   3,
@@ -319,7 +319,7 @@ module.exports = function () {
                     },
                     {
                         type:     'sprite',
-                        path:     'core/indication-arrow-gui-ascending.png',
+                        path:     'core/graphics/arrows/indication-arrow-gui-ascending.png',
                         scale:    {x: 0.25, y: 0.25},
                         rotation: 0,
                         x:        10,
@@ -327,7 +327,7 @@ module.exports = function () {
                     },
                     {
                         type:     'sprite',
-                        path:     'core/indication-arrow-gui-ascending.png',
+                        path:     'core/graphics/arrows/indication-arrow-gui-ascending.png',
                         scale:    {x: 0.25, y: 0.25},
                         rotation: 0,
                         x:        10,

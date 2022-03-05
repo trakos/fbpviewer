@@ -3,7 +3,7 @@ module.exports = function () {
         'radar':                  {
             image:    {
                 type: 'animated',
-                path: 'entity/radar/radar.png',
+                path: 'base/graphics/entity/radar/radar.png',
                 from: 0,
                 to:   63,
                 cols: 8,

@@ -5,7 +5,7 @@ module.exports = function () {
                 2: {
                     image:    {
                         type: 'sprite',
-                        path: 'entity/boiler/boiler-E-idle.png'
+                        path: 'base/graphics/entity/boiler/boiler-E-idle.png'
                     },
                     gridSize: {w: 2, h: 3},
                     offset:   {x: -28, y: -28}
@@ -13,7 +13,7 @@ module.exports = function () {
                 4: {
                     image:    {
                         type: 'sprite',
-                        path: 'entity/boiler/boiler-S-idle.png'
+                        path: 'base/graphics/entity/boiler/boiler-S-idle.png'
                     },
                     gridSize: {w: 3, h: 2},
                     offset:   {x: -14, y: -2}
@@ -21,7 +21,7 @@ module.exports = function () {
                 6: {
                     image:    {
                         type: 'sprite',
-                        path: 'entity/boiler/boiler-W-idle.png'
+                        path: 'base/graphics/entity/boiler/boiler-W-idle.png'
                     },
                     gridSize: {w: 2, h: 3},
                     offset:   {x: -12, y: -10}
@@ -29,7 +29,7 @@ module.exports = function () {
             },
             image:      {
                 type: 'sprite',
-                path: 'entity/boiler/boiler-N-idle.png'
+                path: 'base/graphics/entity/boiler/boiler-N-idle.png'
             },
             gridSize:   {w: 3, h: 2},
             offset:     {x: -20, y: -24}
@@ -39,7 +39,7 @@ module.exports = function () {
                 2: {
                     image:    {
                         type:   'trim',
-                        path:   'entity/steam-engine/steam-engine-H.png',
+                        path:   'base/graphics/entity/steam-engine/steam-engine-H.png',
                         cols:   8,
                         rows:   4,
                         number: 0
@@ -50,7 +50,7 @@ module.exports = function () {
             },
             image:      {
                 type:   'trim',
-                path:   'entity/steam-engine/steam-engine-V.png',
+                path:   'base/graphics/entity/steam-engine/steam-engine-V.png',
                 cols:   8,
                 rows:   4,
                 number: 0

@@ -6,13 +6,13 @@ module.exports = function () {
                 images: [
                     {
                         type: 'sprite',
-                        path: 'entity/beacon/beacon-base.png',
+                        path: 'base/graphics/entity/beacon/beacon-base.png',
                         x:    0,
                         y:    0
                     },
                     {
                         type: 'animated',
-                        path: 'entity/beacon/beacon-antenna.png',
+                        path: 'base/graphics/entity/beacon/beacon-antenna.png',
                         cols: 8,
                         rows: 4,
                         from: 0,
@@ -28,7 +28,7 @@ module.exports = function () {
         'lab':        {
             image:    {
                 type:   'trim',
-                path:   'entity/lab/lab.png',
+                path:   'base/graphics/entity/lab/lab.png',
                 number: 0,
                 cols:   11,
                 rows:   3
@@ -42,13 +42,13 @@ module.exports = function () {
                 images: [
                     {
                         type: 'sprite',
-                        path: 'entity/small-lamp/light-off.png',
+                        path: 'base/graphics/entity/small-lamp/light-off.png',
                         x:    0,
                         y:    0
                     },
                     {
                         type: 'sprite',
-                        path: 'entity/small-lamp/light-on-patch.png',
+                        path: 'base/graphics/entity/small-lamp/light-on-patch.png',
                         x:    3,
                         y:    -10
                     }
@@ -63,13 +63,13 @@ module.exports = function () {
                 images: [
                     {
                         type: 'sprite',
-                        path: 'entity/roboport/roboport-base.png',
+                        path: 'base/graphics/entity/roboport/roboport-base.png',
                         x:    0,
                         y:    0
                     },
                     {
                         type:   'trim',
-                        path:   'entity/roboport/roboport-base-animation.png',
+                        path:   'base/graphics/entity/roboport/roboport-base-animation.png',
                         cols:   8,
                         rows:   1,
                         number: 0,

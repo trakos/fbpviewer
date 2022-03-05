@@ -9,7 +9,7 @@ module.exports = function () {
                         images: [
                             {
                                 type:           'animated',
-                                path:           'entity/' + beltPrefix + 'transport-belt/' + beltPrefix + 'transport-belt.png',
+                                path:           'base/graphics/entity/' + beltPrefix + 'transport-belt/' + beltPrefix + 'transport-belt.png',
                                 cols:           beltImageColumns,
                                 rows:           11,
                                 from:           0,
@@ -20,7 +20,7 @@ module.exports = function () {
                             },
                             {
                                 type:           'animated',
-                                path:           'entity/' + beltPrefix + 'transport-belt/' + beltPrefix + 'transport-belt.png',
+                                path:           'base/graphics/entity/' + beltPrefix + 'transport-belt/' + beltPrefix + 'transport-belt.png',
                                 cols:           beltImageColumns,
                                 rows:           11,
                                 from:           0,
@@ -31,7 +31,7 @@ module.exports = function () {
                             },
                             {
                                 type:   'trim',
-                                path:   'entity/' + beltPrefix + 'splitter/' + beltPrefix + 'splitter-east.png',
+                                path:   'base/graphics/entity/' + beltPrefix + 'splitter/' + beltPrefix + 'splitter-east.png',
                                 cols:   16,
                                 rows:   2,
                                 number: 0,
@@ -48,7 +48,7 @@ module.exports = function () {
                         images: [
                             {
                                 type:           'animated',
-                                path:           'entity/' + beltPrefix + 'transport-belt/' + beltPrefix + 'transport-belt.png',
+                                path:           'base/graphics/entity/' + beltPrefix + 'transport-belt/' + beltPrefix + 'transport-belt.png',
                                 cols:           beltImageColumns,
                                 rows:           11,
                                 from:           beltImageColumns,
@@ -60,7 +60,7 @@ module.exports = function () {
                             },
                             {
                                 type:           'animated',
-                                path:           'entity/' + beltPrefix + 'transport-belt/' + beltPrefix + 'transport-belt.png',
+                                path:           'base/graphics/entity/' + beltPrefix + 'transport-belt/' + beltPrefix + 'transport-belt.png',
                                 cols:           beltImageColumns,
                                 rows:           11,
                                 from:           beltImageColumns,
@@ -72,7 +72,7 @@ module.exports = function () {
                             },
                             {
                                 type:   'trim',
-                                path:   'entity/' + beltPrefix + 'splitter/' + beltPrefix + 'splitter-south.png',
+                                path:   'base/graphics/entity/' + beltPrefix + 'splitter/' + beltPrefix + 'splitter-south.png',
                                 cols:   16,
                                 rows:   2,
                                 number: 0,
@@ -89,7 +89,7 @@ module.exports = function () {
                         images: [
                             {
                                 type:           'animated',
-                                path:           'entity/' + beltPrefix + 'transport-belt/' + beltPrefix + 'transport-belt.png',
+                                path:           'base/graphics/entity/' + beltPrefix + 'transport-belt/' + beltPrefix + 'transport-belt.png',
                                 cols:           beltImageColumns,
                                 rows:           11,
                                 from:           0,
@@ -101,7 +101,7 @@ module.exports = function () {
                             },
                             {
                                 type:           'animated',
-                                path:           'entity/' + beltPrefix + 'transport-belt/' + beltPrefix + 'transport-belt.png',
+                                path:           'base/graphics/entity/' + beltPrefix + 'transport-belt/' + beltPrefix + 'transport-belt.png',
                                 cols:           beltImageColumns,
                                 rows:           11,
                                 from:           0,
@@ -113,7 +113,7 @@ module.exports = function () {
                             },
                             {
                                 type:   'trim',
-                                path:   'entity/' + beltPrefix + 'splitter/' + beltPrefix + 'splitter-west.png',
+                                path:   'base/graphics/entity/' + beltPrefix + 'splitter/' + beltPrefix + 'splitter-west.png',
                                 cols:   16,
                                 rows:   2,
                                 number: 0,
@@ -130,7 +130,7 @@ module.exports = function () {
                 images: [
                     {
                         type:           'animated',
-                        path:           'entity/' + beltPrefix + 'transport-belt/' + beltPrefix + 'transport-belt.png',
+                        path:           'base/graphics/entity/' + beltPrefix + 'transport-belt/' + beltPrefix + 'transport-belt.png',
                         cols:           beltImageColumns,
                         rows:           11,
                         from:           beltImageColumns,
@@ -141,7 +141,7 @@ module.exports = function () {
                     },
                     {
                         type:           'animated',
-                        path:           'entity/' + beltPrefix + 'transport-belt/' + beltPrefix + 'transport-belt.png',
+                        path:           'base/graphics/entity/' + beltPrefix + 'transport-belt/' + beltPrefix + 'transport-belt.png',
                         cols:           beltImageColumns,
                         rows:           11,
                         from:           beltImageColumns,
@@ -152,7 +152,7 @@ module.exports = function () {
                     },
                     {
                         type:   'trim',
-                        path:   'entity/' + beltPrefix + 'splitter/' + beltPrefix + 'splitter-north.png',
+                        path:   'base/graphics/entity/' + beltPrefix + 'splitter/' + beltPrefix + 'splitter-north.png',
                         cols:   16,
                         rows:   2,
                         number: 0,

@@ -6,7 +6,7 @@ module.exports = function () {
                 images: [
                     {
                         type:   'trim',
-                        path:   'entity/centrifuge/centrifuge-A.png',
+                        path:   'base/graphics/entity/centrifuge/centrifuge-A.png',
                         number: 0,
                         cols:   8,
                         rows:   8,
@@ -15,7 +15,7 @@ module.exports = function () {
                     },
                     {
                         type:   'trim',
-                        path:   'entity/centrifuge/centrifuge-B.png',
+                        path:   'base/graphics/entity/centrifuge/centrifuge-B.png',
                         number: 0,
                         cols:   8,
                         rows:   8,
@@ -24,7 +24,7 @@ module.exports = function () {
                     },
                     {
                         type:   'trim',
-                        path:   'entity/centrifuge/centrifuge-C.png',
+                        path:   'base/graphics/entity/centrifuge/centrifuge-C.png',
                         number: 0,
                         cols:   8,
                         rows:   8,
@@ -41,7 +41,7 @@ module.exports = function () {
                 2: {
                     image:    {
                         type: 'sprite',
-                        path: 'entity/heat-exchanger/heatex-E-idle.png'
+                        path: 'base/graphics/entity/heat-exchanger/heatex-E-idle.png'
                     },
                     gridSize: {w: 2, h: 3},
                     offset:   {x: -22, y: -26}
@@ -49,7 +49,7 @@ module.exports = function () {
                 4: {
                     image:    {
                         type: 'sprite',
-                        path: 'entity/heat-exchanger/heatex-S-idle.png'
+                        path: 'base/graphics/entity/heat-exchanger/heatex-S-idle.png'
                     },
                     gridSize: {w: 3, h: 2},
                     offset:   {x: -14, y: -8}
@@ -57,7 +57,7 @@ module.exports = function () {
                 6: {
                     image:    {
                         type: 'sprite',
-                        path: 'entity/heat-exchanger/heatex-W-idle.png'
+                        path: 'base/graphics/entity/heat-exchanger/heatex-W-idle.png'
                     },
                     gridSize: {w: 2, h: 3},
                     offset:   {x: -15, y: -14}
@@ -65,7 +65,7 @@ module.exports = function () {
             },
             image:      {
                 type: 'sprite',
-                path: 'entity/heat-exchanger/heatex-N-idle.png'
+                path: 'base/graphics/entity/heat-exchanger/heatex-N-idle.png'
             },
             gridSize:   {w: 3, h: 2},
             offset:     {x: -18, y: -24}
@@ -73,7 +73,7 @@ module.exports = function () {
         'heat-pipe':       {
             image:    {
                 type: 'sprite',
-                path: 'entity/heat-pipe/heat-pipe-t-1.png'
+                path: 'base/graphics/entity/heat-pipe/heat-pipe-t-1.png'
             },
             gridSize: {w: 1, h: 1},
             offset:   {x: 0, y: 0}
@@ -84,13 +84,13 @@ module.exports = function () {
                 images: [
                     {
                         type: 'sprite',
-                        path: 'entity/nuclear-reactor/reactor.png',
+                        path: 'base/graphics/entity/nuclear-reactor/reactor.png',
                         x:    0,
                         y:    0
                     },
                     {
                         type: 'sprite',
-                        path: 'entity/nuclear-reactor/reactor-pipes.png',
+                        path: 'base/graphics/entity/nuclear-reactor/reactor-pipes.png',
                         x:    0,
                         y:    0
                     }
@@ -104,7 +104,7 @@ module.exports = function () {
                 2: {
                     image:    {
                         type:   'trim',
-                        path:   'entity/steam-turbine/steam-turbine-H.png',
+                        path:   'base/graphics/entity/steam-turbine/steam-turbine-H.png',
                         cols:   4,
                         rows:   2,
                         number: 0
@@ -115,7 +115,7 @@ module.exports = function () {
             },
             image:      {
                 type:   'trim',
-                path:   'entity/steam-turbine/steam-turbine-V.png',
+                path:   'base/graphics/entity/steam-turbine/steam-turbine-V.png',
                 cols:   4,
                 rows:   2,
                 number: 0

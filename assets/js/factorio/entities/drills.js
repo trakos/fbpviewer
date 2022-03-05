@@ -8,7 +8,7 @@ module.exports = function () {
                         images: [
                             {
                                 type:   'trim',
-                                path:   'entity/burner-mining-drill/east.png',
+                                path:   'base/graphics/entity/burner-mining-drill/burner-mining-drill-E.png',
                                 number: 0,
                                 cols:   4,
                                 rows:   8,
@@ -17,7 +17,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/indication-arrow-gui-ascending.png',
+                                path:     'core/graphics/arrows/indication-arrow-gui-ascending.png',
                                 scale:    {x: 0.5, y: 0.5},
                                 rotation: 0.5,
                                 x:        65,
@@ -32,7 +32,7 @@ module.exports = function () {
                         images: [
                             {
                                 type:   'trim',
-                                path:   'entity/burner-mining-drill/south.png',
+                                path:   'base/graphics/entity/burner-mining-drill/burner-mining-drill-S.png',
                                 number: 0,
                                 cols:   4,
                                 rows:   8,
@@ -41,7 +41,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/indication-arrow-gui-ascending.png',
+                                path:     'core/graphics/arrows/indication-arrow-gui-ascending.png',
                                 scale:    {x: 0.5, y: 0.5},
                                 rotation: 1,
                                 x:        50,
@@ -56,7 +56,7 @@ module.exports = function () {
                         images: [
                             {
                                 type:   'trim',
-                                path:   'entity/burner-mining-drill/west.png',
+                                path:   'base/graphics/entity/burner-mining-drill/burner-mining-drill-W.png',
                                 number: 0,
                                 cols:   4,
                                 rows:   8,
@@ -65,7 +65,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/indication-arrow-gui-ascending.png',
+                                path:     'core/graphics/arrows/indication-arrow-gui-ascending.png',
                                 scale:    {x: 0.5, y: 0.5},
                                 rotation: 1.5,
                                 x:        8,
@@ -81,7 +81,7 @@ module.exports = function () {
                 images: [
                     {
                         type:   'trim',
-                        path:   'entity/burner-mining-drill/north.png',
+                        path:   'base/graphics/entity/burner-mining-drill/burner-mining-drill-N.png',
                         number: 0,
                         cols:   4,
                         rows:   8,
@@ -90,7 +90,7 @@ module.exports = function () {
                     },
                     {
                         type:  'sprite',
-                        path:  'core/indication-arrow-gui-ascending.png',
+                        path:  'core/graphics/arrows/indication-arrow-gui-ascending.png',
                         scale: {x: 0.5, y: 0.5},
                         x:     5,
                         y:     10
@@ -108,7 +108,7 @@ module.exports = function () {
                         images: [
                             {
                                 type:   'trim',
-                                path:   'entity/electric-mining-drill/electric-mining-drill-E-drill-shadow.png',
+                                path:   'base/graphics/entity/electric-mining-drill/electric-mining-drill-E-drill-shadow.png',
                                 number: 0,
                                 cols:   8,
                                 rows:   8,
@@ -117,7 +117,7 @@ module.exports = function () {
                             },
                             {
                                 type:   'trim',
-                                path:   'entity/electric-mining-drill/electric-mining-drill-E.png',
+                                path:   'base/graphics/entity/electric-mining-drill/electric-mining-drill-E.png',
                                 number: 0,
                                 cols:   8,
                                 rows:   8,
@@ -134,7 +134,7 @@ module.exports = function () {
                         images: [
                             {
                                 type:   'trim',
-                                path:   'entity/electric-mining-drill/electric-mining-drill-S-drill-shadow.png',
+                                path:   'base/graphics/entity/electric-mining-drill/electric-mining-drill-S-drill-shadow.png',
                                 number: 0,
                                 cols:   8,
                                 rows:   8,
@@ -143,7 +143,7 @@ module.exports = function () {
                             },
                             {
                                 type:   'trim',
-                                path:   'entity/electric-mining-drill/electric-mining-drill-S.png',
+                                path:   'base/graphics/entity/electric-mining-drill/electric-mining-drill-S.png',
                                 number: 0,
                                 cols:   8,
                                 rows:   8,
@@ -160,7 +160,7 @@ module.exports = function () {
                         images: [
                             {
                                 type:   'trim',
-                                path:   'entity/electric-mining-drill/electric-mining-drill-W-drill-shadow.png',
+                                path:   'base/graphics/entity/electric-mining-drill/electric-mining-drill-W-drill-shadow.png',
                                 number: 0,
                                 cols:   8,
                                 rows:   8,
@@ -169,7 +169,7 @@ module.exports = function () {
                             },
                             {
                                 type:   'trim',
-                                path:   'entity/electric-mining-drill/electric-mining-drill-W.png',
+                                path:   'base/graphics/entity/electric-mining-drill/electric-mining-drill-W.png',
                                 number: 0,
                                 cols:   8,
                                 rows:   8,
@@ -186,7 +186,7 @@ module.exports = function () {
                 images: [
                     {
                         type:   'trim',
-                        path:   'entity/electric-mining-drill/electric-mining-drill-N-drill-shadow.png',
+                        path:   'base/graphics/entity/electric-mining-drill/electric-mining-drill-N-drill-shadow.png',
                         number: 0,
                         cols:   8,
                         rows:   8,
@@ -195,7 +195,7 @@ module.exports = function () {
                     },
                     {
                         type:   'trim',
-                        path:   'entity/electric-mining-drill/electric-mining-drill-N.png',
+                        path:   'base/graphics/entity/electric-mining-drill/electric-mining-drill-N.png',
                         number: 0,
                         cols:   8,
                         rows:   8,

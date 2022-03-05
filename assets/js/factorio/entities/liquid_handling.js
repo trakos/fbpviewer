@@ -3,7 +3,7 @@ module.exports = function () {
         'pipe':           {
             image:    {
                 type: 'sprite',
-                path: "entity/pipe/pipe-straight-horizontal-single.png"
+                path: 'base/graphics/entity/pipe/pipe-straight-horizontal-single.png'
             },
             gridSize: {w: 1, h: 1},
             offset:   {x: -25, y: -22}
@@ -13,25 +13,25 @@ module.exports = function () {
                 2: {
                     image: {
                         type: 'sprite',
-                        path: 'entity/pipe-to-ground/pipe-to-ground-right.png'
+                        path: 'base/graphics/entity/pipe-to-ground/pipe-to-ground-right.png'
                     }
                 },
                 4: {
                     image: {
                         type: 'sprite',
-                        path: 'entity/pipe-to-ground/pipe-to-ground-down.png'
+                        path: 'base/graphics/entity/pipe-to-ground/pipe-to-ground-down.png'
                     }
                 },
                 6: {
                     image: {
                         type: 'sprite',
-                        path: 'entity/pipe-to-ground/pipe-to-ground-left.png'
+                        path: 'base/graphics/entity/pipe-to-ground/pipe-to-ground-left.png'
                     }
                 }
             },
             image:      {
                 type: 'sprite',
-                path: 'entity/pipe-to-ground/pipe-to-ground-up.png'
+                path: 'base/graphics/entity/pipe-to-ground/pipe-to-ground-up.png'
             },
             gridSize:   {w: 1, h: 1},
             offset:     {x: -16, y: -16}
@@ -41,7 +41,7 @@ module.exports = function () {
                 2: {
                     image: {
                         type:   'trim',
-                        path:   'entity/offshore-pump/offshore-pump.png',
+                        path:   'base/graphics/entity/offshore-pump/offshore-pump.png',
                         number: 1,
                         cols:   4,
                         rows:   1
@@ -50,7 +50,7 @@ module.exports = function () {
                 4: {
                     image: {
                         type:   'trim',
-                        path:   'entity/offshore-pump/offshore-pump.png',
+                        path:   'base/graphics/entity/offshore-pump/offshore-pump.png',
                         number: 2,
                         cols:   4,
                         rows:   1
@@ -59,7 +59,7 @@ module.exports = function () {
                 6: {
                     image: {
                         type:   'trim',
-                        path:   'entity/offshore-pump/offshore-pump.png',
+                        path:   'base/graphics/entity/offshore-pump/offshore-pump.png',
                         number: 3,
                         cols:   4,
                         rows:   1
@@ -68,7 +68,7 @@ module.exports = function () {
             },
             image:      {
                 type:   'trim',
-                path:   'entity/offshore-pump/offshore-pump.png',
+                path:   'base/graphics/entity/offshore-pump/offshore-pump.png',
                 number: 0,
                 cols:   4,
                 rows:   1
@@ -85,7 +85,7 @@ module.exports = function () {
                         images: [
                             {
                                 type:   'trim',
-                                path:   'entity/pump/pump-east.png',
+                                path:   'base/graphics/entity/pump/pump-east.png',
                                 number: 0,
                                 cols:   8,
                                 rows:   4,
@@ -94,7 +94,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/fluid-indication-arrow.png',
+                                path:     'core/graphics/arrows/fluid-indication-arrow.png',
                                 scale:    {x: 0.5, y: 0.5},
                                 rotation: 0.5,
                                 x:        64,
@@ -111,7 +111,7 @@ module.exports = function () {
                         images: [
                             {
                                 type:   'trim',
-                                path:   'entity/pump/pump-south.png',
+                                path:   'base/graphics/entity/pump/pump-south.png',
                                 number: 0,
                                 cols:   8,
                                 rows:   4,
@@ -120,7 +120,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/fluid-indication-arrow.png',
+                                path:     'core/graphics/arrows/fluid-indication-arrow.png',
                                 scale:    {x: 0.5, y: 0.5},
                                 rotation: 1,
                                 x:        16,
@@ -136,7 +136,7 @@ module.exports = function () {
                         images: [
                             {
                                 type:   'trim',
-                                path:   'entity/pump/pump-west.png',
+                                path:   'base/graphics/entity/pump/pump-west.png',
                                 number: 0,
                                 cols:   8,
                                 rows:   4,
@@ -145,7 +145,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/fluid-indication-arrow.png',
+                                path:     'core/graphics/arrows/fluid-indication-arrow.png',
                                 scale:    {x: 0.5, y: 0.5},
                                 rotation: 1.5,
                                 x:        0,
@@ -162,7 +162,7 @@ module.exports = function () {
                 images: [
                     {
                         type:   'trim',
-                        path:   'entity/pump/pump-north.png',
+                        path:   'base/graphics/entity/pump/pump-north.png',
                         number: 0,
                         cols:   8,
                         rows:   4,
@@ -171,7 +171,7 @@ module.exports = function () {
                     },
                     {
                         type:     'sprite',
-                        path:     'core/fluid-indication-arrow.png',
+                        path:     'core/graphics/arrows/fluid-indication-arrow.png',
                         scale:    {x: 0.5, y: 0.5},
                         rotation: 0,
                         x:        8,
@@ -187,7 +187,7 @@ module.exports = function () {
                 2: {
                     image: {
                         type:   'trim',
-                        path:   'entity/storage-tank/storage-tank.png',
+                        path:   'base/graphics/entity/storage-tank/storage-tank.png',
                         number: 1,
                         cols:   2,
                         rows:   1
@@ -196,7 +196,7 @@ module.exports = function () {
                 6: {
                     image: {
                         type:   'trim',
-                        path:   'entity/storage-tank/storage-tank.png',
+                        path:   'base/graphics/entity/storage-tank/storage-tank.png',
                         number: 1,
                         cols:   2,
                         rows:   1
@@ -205,7 +205,7 @@ module.exports = function () {
             },
             image:      {
                 type:   'trim',
-                path:   'entity/storage-tank/storage-tank.png',
+                path:   'base/graphics/entity/storage-tank/storage-tank.png',
                 number: 0,
                 cols:   2,
                 rows:   1

@@ -8,7 +8,7 @@ module.exports = function () {
                         images: [
                             {
                                 type:   'trim',
-                                path:   'entity/' + inserterName + '/' + inserterName + '-platform.png',
+                                path:   'base/graphics/entity/' + inserterName + '/' + inserterName + '-platform.png',
                                 number: 3,
                                 cols:   4,
                                 rows:   1,
@@ -17,7 +17,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'entity/' + inserterName + '/' + inserterName + '-hand-open.png',
+                                path:     'base/graphics/entity/' + inserterName + '/' + inserterName + '-hand-open.png',
                                 scale:    {x: 1, y: 0.5},
                                 rotation: 0.65,
                                 x:        45,
@@ -26,7 +26,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'entity/' + inserterName + '/' + inserterName + '-hand-base.png',
+                                path:     'base/graphics/entity/' + inserterName + '/' + inserterName + '-hand-base.png',
                                 scale:    {x: 1, y: 0.8},
                                 rotation: 0.3,
                                 x:        27,
@@ -35,7 +35,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/indication-arrow-gui-ascending.png',
+                                path:     'core/graphics/arrows/indication-arrow-gui-ascending.png',
                                 scale:    {x: 0.25, y: 0.25},
                                 rotation: 1.5,
                                 x:        8,
@@ -51,7 +51,7 @@ module.exports = function () {
                         images: [
                             {
                                 type:   'trim',
-                                path:   'entity/' + inserterName + '/' + inserterName + '-platform.png',
+                                path:   'base/graphics/entity/' + inserterName + '/' + inserterName + '-platform.png',
                                 number: 0,
                                 cols:   4,
                                 rows:   1,
@@ -60,7 +60,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'entity/' + inserterName + '/' + inserterName + '-hand-base.png',
+                                path:     'base/graphics/entity/' + inserterName + '/' + inserterName + '-hand-base.png',
                                 scale:    {x: 1, y: 0.3},
                                 rotation: 1,
                                 x:        21,
@@ -69,7 +69,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'entity/' + inserterName + '/' + inserterName + '-hand-open.png',
+                                path:     'base/graphics/entity/' + inserterName + '/' + inserterName + '-hand-open.png',
                                 scale:    {x: 1, y: 0.7},
                                 rotation: 1,
                                 x:        21,
@@ -78,7 +78,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/indication-arrow-gui-ascending.png',
+                                path:     'core/graphics/arrows/indication-arrow-gui-ascending.png',
                                 scale:    {x: 0.25, y: 0.25},
                                 rotation: 0,
                                 x:        15,
@@ -94,7 +94,7 @@ module.exports = function () {
                         images: [
                             {
                                 type:   'trim',
-                                path:   'entity/' + inserterName + '/' + inserterName + '-platform.png',
+                                path:   'base/graphics/entity/' + inserterName + '/' + inserterName + '-platform.png',
                                 number: 1,
                                 cols:   4,
                                 rows:   1,
@@ -103,7 +103,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'entity/' + inserterName + '/' + inserterName + '-hand-open.png',
+                                path:     'base/graphics/entity/' + inserterName + '/' + inserterName + '-hand-open.png',
                                 scale:    {x: 1, y: 0.5},
                                 rotation: 1.35,
                                 x:        -4,
@@ -112,7 +112,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'entity/' + inserterName + '/' + inserterName + '-hand-base.png',
+                                path:     'base/graphics/entity/' + inserterName + '/' + inserterName + '-hand-base.png',
                                 scale:    {x: 1, y: 0.8},
                                 rotation: 1.7,
                                 x:        13,
@@ -121,7 +121,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/indication-arrow-gui-ascending.png',
+                                path:     'core/graphics/arrows/indication-arrow-gui-ascending.png',
                                 scale:    {x: 0.25, y: 0.25},
                                 rotation: 0.5,
                                 x:        33,
@@ -137,7 +137,7 @@ module.exports = function () {
                 images: [
                     {
                         type:   'trim',
-                        path:   'entity/' + inserterName + '/' + inserterName + '-platform.png',
+                        path:   'base/graphics/entity/' + inserterName + '/' + inserterName + '-platform.png',
                         number: 2,
                         cols:   4,
                         rows:   1,
@@ -146,7 +146,7 @@ module.exports = function () {
                     },
                     {
                         type:     'sprite',
-                        path:     'entity/' + inserterName + '/' + inserterName + '-hand-open.png',
+                        path:     'base/graphics/entity/' + inserterName + '/' + inserterName + '-hand-open.png',
                         scale:    {x: 1, y: 0.3},
                         rotation: 1,
                         x:        19,
@@ -155,7 +155,7 @@ module.exports = function () {
                     },
                     {
                         type:     'sprite',
-                        path:     'entity/' + inserterName + '/' + inserterName + '-hand-base.png',
+                        path:     'base/graphics/entity/' + inserterName + '/' + inserterName + '-hand-base.png',
                         scale:    {x: 1, y: 1},
                         rotation: 0,
                         x:        15,
@@ -164,7 +164,7 @@ module.exports = function () {
                     },
                     {
                         type:     'sprite',
-                        path:     'core/indication-arrow-gui-ascending.png',
+                        path:     'core/graphics/arrows/indication-arrow-gui-ascending.png',
                         scale:    {x: 0.25, y: 0.25},
                         rotation: 1,
                         x:        20,

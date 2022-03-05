@@ -11,7 +11,7 @@ module.exports = function () {
             images: [
                 {
                     type:   'trim',
-                    path:   'entity/straight-rail/straight-rail-' + directionName + '-stone-path-background.png',
+                    path:   'base/graphics/entity/straight-rail/straight-rail-' + directionName + '-stone-path-background.png',
                     x:      0,
                     y:      0,
                     cols:   3,
@@ -21,7 +21,7 @@ module.exports = function () {
                 },
                 {
                     type:   'trim',
-                    path:   'entity/straight-rail/straight-rail-' + directionName + '-stone-path.png',
+                    path:   'base/graphics/entity/straight-rail/straight-rail-' + directionName + '-stone-path.png',
                     x:      0,
                     y:      0,
                     cols:   3,
@@ -31,7 +31,7 @@ module.exports = function () {
                 },
                 {
                     type:   'trim',
-                    path:   'entity/straight-rail/straight-rail-' + directionName + '-ties.png',
+                    path:   'base/graphics/entity/straight-rail/straight-rail-' + directionName + '-ties.png',
                     x:      0,
                     y:      0,
                     cols:   3,
@@ -41,7 +41,7 @@ module.exports = function () {
                 },
                 {
                     type:   'trim',
-                    path:   'entity/straight-rail/straight-rail-' + directionName + '-backplates.png',
+                    path:   'base/graphics/entity/straight-rail/straight-rail-' + directionName + '-backplates.png',
                     x:      0,
                     y:      0,
                     cols:   3,
@@ -59,28 +59,28 @@ module.exports = function () {
             images: [
                 {
                     type: 'sprite',
-                    path: 'entity/curved-rail/curved-rail-' + directionName + '-stone-path-background.png',
+                    path: 'base/graphics/entity/curved-rail/curved-rail-' + directionName + '-stone-path-background.png',
                     x:    0,
                     y:    0,
                     layer:  LAYER_BG
                 },
                 {
                     type: 'sprite',
-                    path: 'entity/curved-rail/curved-rail-' + directionName + '-stone-path.png',
+                    path: 'base/graphics/entity/curved-rail/curved-rail-' + directionName + '-stone-path.png',
                     x:    0,
                     y:    0,
                     layer:  LAYER_PATH
                 },
                 {
                     type: 'sprite',
-                    path: 'entity/curved-rail/curved-rail-' + directionName + '-ties.png',
+                    path: 'base/graphics/entity/curved-rail/curved-rail-' + directionName + '-ties.png',
                     x:    0,
                     y:    0,
                     layer:  LAYER_TIES
                 },
                 {
                     type: 'sprite',
-                    path: 'entity/curved-rail/curved-rail-' + directionName + '-backplates.png',
+                    path: 'base/graphics/entity/curved-rail/curved-rail-' + directionName + '-backplates.png',
                     x:    0,
                     y:    0,
                     layer:  LAYER_BACKPLATES
@@ -95,7 +95,7 @@ module.exports = function () {
             images: [
                 {
                     type:   'trim',
-                    path:   'entity/train-stop/train-stop-ground.png',
+                    path:   'base/graphics/entity/train-stop/train-stop-ground.png',
                     x:      -10,
                     y:      0,
                     cols:   4,
@@ -104,7 +104,7 @@ module.exports = function () {
                 },
                 {
                     type:   'trim',
-                    path:   'entity/train-stop/train-stop-bottom.png',
+                    path:   'base/graphics/entity/train-stop/train-stop-bottom.png',
                     x:      50,
                     y:      0,
                     cols:   4,
@@ -113,7 +113,7 @@ module.exports = function () {
                 },
                 {
                     type:   'trim',
-                    path:   'entity/train-stop/train-stop-top.png',
+                    path:   'base/graphics/entity/train-stop/train-stop-top.png',
                     x:      10,
                     y:      -30,
                     cols:   4,
@@ -122,7 +122,7 @@ module.exports = function () {
                 },
                 {
                     type:   'trim',
-                    path:   'entity/train-stop/train-stop-top-mask.png',
+                    path:   'base/graphics/entity/train-stop/train-stop-top-mask.png',
                     x:      11,
                     y:      -26,
                     cols:   4,
@@ -137,7 +137,7 @@ module.exports = function () {
     function createRailChainSignalImage(number) {
         return {
             type:   'trim',
-            path:   'entity/rail-chain-signal/rail-chain-signal.png',
+            path:   'base/graphics/entity/rail-chain-signal/rail-chain-signal.png',
             rows:   8,
             cols:   5,
             number: number * 5 + 3
@@ -147,7 +147,7 @@ module.exports = function () {
     function createRailSignalImage(number) {
         return {
             type:   'trim',
-            path:   'entity/rail-signal/rail-signal.png',
+            path:   'base/graphics/entity/rail-signal/rail-signal.png',
             rows:   8,
             cols:   3,
             number: number * 3

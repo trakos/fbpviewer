@@ -8,25 +8,25 @@ module.exports = function () {
                         images: [
                             {
                                 type: 'sprite',
-                                path: 'entity/pipe/pipe-ending-down.png',
+                                path: 'base/graphics/entity/pipe/pipe-ending-down.png',
                                 x:    -11,
                                 y:    -31
                             },
                             {
                                 type: 'sprite',
-                                path: 'entity/pipe/pipe-ending-up.png',
+                                path: 'base/graphics/entity/pipe/pipe-ending-up.png',
                                 x:    -12,
                                 y:    21
                             },
                             {
                                 type: 'sprite',
-                                path: 'entity/flamethrower-turret/flamethrower-turret-base-east.png',
+                                path: 'base/graphics/entity/flamethrower-turret/flamethrower-turret-base-east.png',
                                 x:    0,
                                 y:    0
                             },
                             {
                                 type:   'trim',
-                                path:   'entity/flamethrower-turret/flamethrower-turret-gun-extension.png',
+                                path:   'base/graphics/entity/flamethrower-turret/flamethrower-turret-gun-extension.png',
                                 cols:   5,
                                 rows:   12,
                                 number: 45,
@@ -35,7 +35,7 @@ module.exports = function () {
                             },
                             {
                                 type:           'animated',
-                                path:           'entity/flamethrower-turret/flamethrower-turret-muzzle-fire.png',
+                                path:           'base/graphics/entity/flamethrower-turret/flamethrower-turret-muzzle-fire.png',
                                 cols:           8,
                                 rows:           4,
                                 from:           0,
@@ -57,25 +57,25 @@ module.exports = function () {
                         images: [
                             {
                                 type: 'sprite',
-                                path: 'entity/pipe/pipe-ending-left.png',
+                                path: 'base/graphics/entity/pipe/pipe-ending-left.png',
                                 x:    25,
                                 y:    -14
                             },
                             {
                                 type: 'sprite',
-                                path: 'entity/pipe/pipe-ending-right.png',
+                                path: 'base/graphics/entity/pipe/pipe-ending-right.png',
                                 x:    -18,
                                 y:    -14
                             },
                             {
                                 type: 'sprite',
-                                path: 'entity/flamethrower-turret/flamethrower-turret-base-south.png',
+                                path: 'base/graphics/entity/flamethrower-turret/flamethrower-turret-base-south.png',
                                 x:    0,
                                 y:    0
                             },
                             {
                                 type:   'trim',
-                                path:   'entity/flamethrower-turret/flamethrower-turret-gun-extension.png',
+                                path:   'base/graphics/entity/flamethrower-turret/flamethrower-turret-gun-extension.png',
                                 cols:   5,
                                 rows:   12,
                                 number: 30,
@@ -84,7 +84,7 @@ module.exports = function () {
                             },
                             {
                                 type:           'animated',
-                                path:           'entity/flamethrower-turret/flamethrower-turret-muzzle-fire.png',
+                                path:           'base/graphics/entity/flamethrower-turret/flamethrower-turret-muzzle-fire.png',
                                 cols:           8,
                                 rows:           4,
                                 from:           0,
@@ -106,25 +106,25 @@ module.exports = function () {
                         images: [
                             {
                                 type: 'sprite',
-                                path: 'entity/pipe/pipe-ending-down.png',
+                                path: 'base/graphics/entity/pipe/pipe-ending-down.png',
                                 x:    42,
                                 y:    -31
                             },
                             {
                                 type: 'sprite',
-                                path: 'entity/pipe/pipe-ending-up.png',
+                                path: 'base/graphics/entity/pipe/pipe-ending-up.png',
                                 x:    42,
                                 y:    18
                             },
                             {
                                 type: 'sprite',
-                                path: 'entity/flamethrower-turret/flamethrower-turret-base-west.png',
+                                path: 'base/graphics/entity/flamethrower-turret/flamethrower-turret-base-west.png',
                                 x:    0,
                                 y:    0
                             },
                             {
                                 type:   'trim',
-                                path:   'entity/flamethrower-turret/flamethrower-turret-gun-extension.png',
+                                path:   'base/graphics/entity/flamethrower-turret/flamethrower-turret-gun-extension.png',
                                 cols:   5,
                                 rows:   12,
                                 number: 15,
@@ -133,7 +133,7 @@ module.exports = function () {
                             },
                             {
                                 type:           'animated',
-                                path:           'entity/flamethrower-turret/flamethrower-turret-muzzle-fire.png',
+                                path:           'base/graphics/entity/flamethrower-turret/flamethrower-turret-muzzle-fire.png',
                                 cols:           8,
                                 rows:           4,
                                 from:           0,
@@ -155,25 +155,25 @@ module.exports = function () {
                 images: [
                     {
                         type: 'sprite',
-                        path: 'entity/pipe/pipe-ending-left.png',
+                        path: 'base/graphics/entity/pipe/pipe-ending-left.png',
                         x:    25,
                         y:    33
                     },
                     {
                         type: 'sprite',
-                        path: 'entity/pipe/pipe-ending-right.png',
+                        path: 'base/graphics/entity/pipe/pipe-ending-right.png',
                         x:    -18,
                         y:    33
                     },
                     {
                         type: 'sprite',
-                        path: 'entity/flamethrower-turret/flamethrower-turret-base-north.png',
+                        path: 'base/graphics/entity/flamethrower-turret/flamethrower-turret-base-north.png',
                         x:    0,
                         y:    0
                     },
                     {
                         type:   'trim',
-                        path:   'entity/flamethrower-turret/flamethrower-turret-gun-extension.png',
+                        path:   'base/graphics/entity/flamethrower-turret/flamethrower-turret-gun-extension.png',
                         cols:   5,
                         rows:   12,
                         number: 0,
@@ -182,7 +182,7 @@ module.exports = function () {
                     },
                     {
                         type:           'animated',
-                        path:           'entity/flamethrower-turret/flamethrower-turret-muzzle-fire.png',
+                        path:           'base/graphics/entity/flamethrower-turret/flamethrower-turret-muzzle-fire.png',
                         cols:           8,
                         rows:           4,
                         from:           0,
@@ -206,13 +206,13 @@ module.exports = function () {
                         images: [
                             {
                                 type: 'sprite',
-                                path: 'entity/gun-turret/gun-turret-base.png',
+                                path: 'base/graphics/entity/gun-turret/gun-turret-base.png',
                                 x:    0,
                                 y:    0
                             },
                             {
                                 type:   'trim',
-                                path:   'entity/gun-turret/gun-turret-gun-extension.png',
+                                path:   'base/graphics/entity/gun-turret/gun-turret-gun-extension.png',
                                 number: 5,
                                 cols:   5,
                                 rows:   4,
@@ -228,13 +228,13 @@ module.exports = function () {
                         images: [
                             {
                                 type: 'sprite',
-                                path: 'entity/gun-turret/gun-turret-base.png',
+                                path: 'base/graphics/entity/gun-turret/gun-turret-base.png',
                                 x:    0,
                                 y:    0
                             },
                             {
                                 type:   'trim',
-                                path:   'entity/gun-turret/gun-turret-gun-extension.png',
+                                path:   'base/graphics/entity/gun-turret/gun-turret-gun-extension.png',
                                 number: 10,
                                 cols:   5,
                                 rows:   4,
@@ -250,13 +250,13 @@ module.exports = function () {
                         images: [
                             {
                                 type: 'sprite',
-                                path: 'entity/gun-turret/gun-turret-base.png',
+                                path: 'base/graphics/entity/gun-turret/gun-turret-base.png',
                                 x:    0,
                                 y:    0
                             },
                             {
                                 type:   'trim',
-                                path:   'entity/gun-turret/gun-turret-gun-extension.png',
+                                path:   'base/graphics/entity/gun-turret/gun-turret-gun-extension.png',
                                 number: 15,
                                 cols:   5,
                                 rows:   4,
@@ -272,13 +272,13 @@ module.exports = function () {
                 images: [
                     {
                         type: 'sprite',
-                        path: 'entity/gun-turret/gun-turret-base.png',
+                        path: 'base/graphics/entity/gun-turret/gun-turret-base.png',
                         x:    0,
                         y:    0
                     },
                     {
                         type:   'trim',
-                        path:   'entity/gun-turret/gun-turret-gun-extension.png',
+                        path:   'base/graphics/entity/gun-turret/gun-turret-gun-extension.png',
                         number: 0,
                         cols:   5,
                         rows:   4,
@@ -298,13 +298,13 @@ module.exports = function () {
                         images: [
                             {
                                 type: 'sprite',
-                                path: 'entity/laser-turret/laser-turret-base.png',
+                                path: 'base/graphics/entity/laser-turret/laser-turret-base.png',
                                 x:    0,
                                 y:    0
                             },
                             {
                                 type:   'trim',
-                                path:   'entity/laser-turret/laser-turret-gun-start.png',
+                                path:   'base/graphics/entity/laser-turret/laser-turret-gun-start.png',
                                 number: 16,
                                 cols:   16,
                                 rows:   4,
@@ -320,13 +320,13 @@ module.exports = function () {
                         images: [
                             {
                                 type: 'sprite',
-                                path: 'entity/laser-turret/laser-turret-base.png',
+                                path: 'base/graphics/entity/laser-turret/laser-turret-base.png',
                                 x:    0,
                                 y:    0
                             },
                             {
                                 type:   'trim',
-                                path:   'entity/laser-turret/laser-turret-gun-start.png',
+                                path:   'base/graphics/entity/laser-turret/laser-turret-gun-start.png',
                                 number: 32,
                                 cols:   16,
                                 rows:   4,
@@ -342,13 +342,13 @@ module.exports = function () {
                         images: [
                             {
                                 type: 'sprite',
-                                path: 'entity/laser-turret/laser-turret-base.png',
+                                path: 'base/graphics/entity/laser-turret/laser-turret-base.png',
                                 x:    0,
                                 y:    0
                             },
                             {
                                 type:   'trim',
-                                path:   'entity/laser-turret/laser-turret-gun-start.png',
+                                path:   'base/graphics/entity/laser-turret/laser-turret-gun-start.png',
                                 number: 48,
                                 cols:   16,
                                 rows:   4,
@@ -364,13 +364,13 @@ module.exports = function () {
                 images: [
                     {
                         type: 'sprite',
-                        path: 'entity/laser-turret/laser-turret-base.png',
+                        path: 'base/graphics/entity/laser-turret/laser-turret-base.png',
                         x:    0,
                         y:    0
                     },
                     {
                         type:   'trim',
-                        path:   'entity/laser-turret/laser-turret-gun-start.png',
+                        path:   'base/graphics/entity/laser-turret/laser-turret-gun-start.png',
                         number: 0,
                         cols:   16,
                         rows:   4,

@@ -11,7 +11,7 @@ module.exports = function () {
                                 images: [
                                     {
                                         type:           'animated',
-                                        path:           'entity/' + beltPrefix + 'transport-belt/' + beltPrefix + 'transport-belt.png',
+                                        path:           'base/graphics/entity/' + beltPrefix + 'transport-belt/' + beltPrefix + 'transport-belt.png',
                                         cols:           beltImageColumns,
                                         rows:           11,
                                         from:           0,
@@ -22,7 +22,7 @@ module.exports = function () {
                                     },
                                     {
                                         type:   'trim',
-                                        path:   'entity/' + beltPrefix + 'underground-belt/' + beltPrefix + 'underground-belt-structure.png',
+                                        path:   'base/graphics/entity/' + beltPrefix + 'underground-belt/' + beltPrefix + 'underground-belt-structure.png',
                                         cols:   4,
                                         rows:   2,
                                         number: 3,
@@ -38,7 +38,7 @@ module.exports = function () {
                                 images: [
                                     {
                                         type:           'animated',
-                                        path:           'entity/' + beltPrefix + 'transport-belt/' + beltPrefix + 'transport-belt.png',
+                                        path:           'base/graphics/entity/' + beltPrefix + 'transport-belt/' + beltPrefix + 'transport-belt.png',
                                         cols:           beltImageColumns,
                                         rows:           11,
                                         from:           beltImageColumns,
@@ -50,7 +50,7 @@ module.exports = function () {
                                     },
                                     {
                                         type:   'trim',
-                                        path:   'entity/' + beltPrefix + 'underground-belt/' + beltPrefix + 'underground-belt-structure.png',
+                                        path:   'base/graphics/entity/' + beltPrefix + 'underground-belt/' + beltPrefix + 'underground-belt-structure.png',
                                         cols:   4,
                                         rows:   2,
                                         number: 0,
@@ -66,7 +66,7 @@ module.exports = function () {
                                 images: [
                                     {
                                         type:           'animated',
-                                        path:           'entity/' + beltPrefix + 'transport-belt/' + beltPrefix + 'transport-belt.png',
+                                        path:           'base/graphics/entity/' + beltPrefix + 'transport-belt/' + beltPrefix + 'transport-belt.png',
                                         cols:           beltImageColumns,
                                         rows:           11,
                                         from:           0,
@@ -78,7 +78,7 @@ module.exports = function () {
                                     },
                                     {
                                         type:   'trim',
-                                        path:   'entity/' + beltPrefix + 'underground-belt/' + beltPrefix + 'underground-belt-structure.png',
+                                        path:   'base/graphics/entity/' + beltPrefix + 'underground-belt/' + beltPrefix + 'underground-belt-structure.png',
                                         cols:   4,
                                         rows:   2,
                                         number: 1,
@@ -94,7 +94,7 @@ module.exports = function () {
                         images: [
                             {
                                 type:           'animated',
-                                path:           'entity/' + beltPrefix + 'transport-belt/' + beltPrefix + 'transport-belt.png',
+                                path:           'base/graphics/entity/' + beltPrefix + 'transport-belt/' + beltPrefix + 'transport-belt.png',
                                 cols:           beltImageColumns,
                                 rows:           11,
                                 from:           beltImageColumns,
@@ -105,7 +105,7 @@ module.exports = function () {
                             },
                             {
                                 type:   'trim',
-                                path:   'entity/' + beltPrefix + 'underground-belt/' + beltPrefix + 'underground-belt-structure.png',
+                                path:   'base/graphics/entity/' + beltPrefix + 'underground-belt/' + beltPrefix + 'underground-belt-structure.png',
                                 cols:   4,
                                 rows:   2,
                                 number: 2,
@@ -123,7 +123,7 @@ module.exports = function () {
                                 images: [
                                     {
                                         type:           'animated',
-                                        path:           'entity/' + beltPrefix + 'transport-belt/' + beltPrefix + 'transport-belt.png',
+                                        path:           'base/graphics/entity/' + beltPrefix + 'transport-belt/' + beltPrefix + 'transport-belt.png',
                                         cols:           beltImageColumns,
                                         rows:           11,
                                         from:           0,
@@ -134,7 +134,7 @@ module.exports = function () {
                                     },
                                     {
                                         type:   'trim',
-                                        path:   'entity/' + beltPrefix + 'underground-belt/' + beltPrefix + 'underground-belt-structure.png',
+                                        path:   'base/graphics/entity/' + beltPrefix + 'underground-belt/' + beltPrefix + 'underground-belt-structure.png',
                                         cols:   4,
                                         rows:   2,
                                         number: 5,
@@ -150,7 +150,7 @@ module.exports = function () {
                                 images: [
                                     {
                                         type:           'animated',
-                                        path:           'entity/' + beltPrefix + 'transport-belt/' + beltPrefix + 'transport-belt.png',
+                                        path:           'base/graphics/entity/' + beltPrefix + 'transport-belt/' + beltPrefix + 'transport-belt.png',
                                         cols:           beltImageColumns,
                                         rows:           11,
                                         from:           beltImageColumns,
@@ -162,7 +162,7 @@ module.exports = function () {
                                     },
                                     {
                                         type:   'trim',
-                                        path:   'entity/' + beltPrefix + 'underground-belt/' + beltPrefix + 'underground-belt-structure.png',
+                                        path:   'base/graphics/entity/' + beltPrefix + 'underground-belt/' + beltPrefix + 'underground-belt-structure.png',
                                         cols:   4,
                                         rows:   2,
                                         number: 6,
@@ -178,7 +178,7 @@ module.exports = function () {
                                 images: [
                                     {
                                         type:           'animated',
-                                        path:           'entity/' + beltPrefix + 'transport-belt/' + beltPrefix + 'transport-belt.png',
+                                        path:           'base/graphics/entity/' + beltPrefix + 'transport-belt/' + beltPrefix + 'transport-belt.png',
                                         cols:           beltImageColumns,
                                         rows:           11,
                                         from:           0,
@@ -190,7 +190,7 @@ module.exports = function () {
                                     },
                                     {
                                         type:   'trim',
-                                        path:   'entity/' + beltPrefix + 'underground-belt/' + beltPrefix + 'underground-belt-structure.png',
+                                        path:   'base/graphics/entity/' + beltPrefix + 'underground-belt/' + beltPrefix + 'underground-belt-structure.png',
                                         cols:   4,
                                         rows:   2,
                                         number: 7,
@@ -206,7 +206,7 @@ module.exports = function () {
                         images: [
                             {
                                 type:           'animated',
-                                path:           'entity/' + beltPrefix + 'transport-belt/' + beltPrefix + 'transport-belt.png',
+                                path:           'base/graphics/entity/' + beltPrefix + 'transport-belt/' + beltPrefix + 'transport-belt.png',
                                 cols:           beltImageColumns,
                                 rows:           11,
                                 from:           beltImageColumns,
@@ -217,7 +217,7 @@ module.exports = function () {
                             },
                             {
                                 type:   'trim',
-                                path:   'entity/' + beltPrefix + 'underground-belt/' + beltPrefix + 'underground-belt-structure.png',
+                                path:   'base/graphics/entity/' + beltPrefix + 'underground-belt/' + beltPrefix + 'underground-belt-structure.png',
                                 cols:   4,
                                 rows:   2,
                                 number: 4,
