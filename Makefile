@@ -46,16 +46,16 @@ stop: clean
 
 build-docker-factorio-data:
 	cd ${FACTORIO_DIR}
-	docker build -f ${CURRENT_DIR}/docker/factorio_data/Dockerfile . -t fbpviewer_factorio_data
+	docker build -f ${CURRENT_DIR}/deployment/docker/factorio_data/Dockerfile . -t fbpviewer_factorio_data
 
 build-docker-prod-images:
     # Make sure that you've built image fbpviewer_factorio_data first.
     # You can use factorio-data for that.
-	docker build docker/php -t fbpviewer_php
-	docker build docker/node -t fbpviewer_node
-	docker build docker/nginx -t fbpviewer_nginx
-	docker build --target php -f docker/prod/Dockerfile . -t fbpviewer_prod_php
-	docker build --target nginx -f docker/prod/Dockerfile . -t fbpviewer_prod_nginx
+	docker build deployment/docker/php -t fbpviewer_php
+	docker build deployment/docker/node -t fbpviewer_node
+	docker build deployment/docker/nginx -t fbpviewer_nginx
+	docker build --target php -f deployment/docker/prod/Dockerfile . -t fbpviewer_prod_php
+	docker build --target nginx -f deployment/docker/prod/Dockerfile . -t fbpviewer_prod_nginx
 
 # This allows testing production images in docker-compose.
 start-prod:

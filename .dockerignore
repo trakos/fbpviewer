@@ -1,6 +1,7 @@
 /.*
 /assets/node_modules
 /atlasgen/node_modules
+/deployment
 /docker
 /docker-compose.yml
 /node_modules

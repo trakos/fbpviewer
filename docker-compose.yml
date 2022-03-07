@@ -9,7 +9,7 @@ services:
       MYSQL_ALLOW_EMPTY_PASSWORD: 1
 
   web:
-    build: docker/nginx
+    build: deployment/docker/nginx
     ports:
       - "80:80"
     volumes:
@@ -21,7 +21,7 @@ services:
       NGINX_PORT: ${NGINX_PORT}
 
   php:
-    build: docker/php
+    build: deployment/docker/php
     user: "${COMPOSE_USER_ID-1000}:${COMPOSE_GROUP_ID-1000}"
     working_dir: /var/www/web
     links:
@@ -33,7 +33,7 @@ services:
       - "host.docker.internal:host-gateway"
 
   node:
-    build: docker/node
+    build: deployment/docker/node
     user: "${COMPOSE_USER_ID-1000}:${COMPOSE_GROUP_ID-1000}"
     command: "bash -c 'cd assets && yarn install && yarn watch'"
     working_dir: /var/www

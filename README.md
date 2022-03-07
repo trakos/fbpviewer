@@ -51,7 +51,7 @@ To execute migrations, run `make migrate` after deployment.
   You have to set those to mysql or oracle database credentials.
 - `ORACLE_CWALLET_SSO`: You can set this to base64-encoded oracle DB's cwallet.so.
   It will be un-encoded during runtime and stored in /var/www/var/cwallet.sso.
-- `NGINX_HOST`: You have to set this to domain that your application uses. 
+- `NGINX_HOST`: You have to set this to domain that your instance uses. 
 
 ## License
 
