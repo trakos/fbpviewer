@@ -34,24 +34,61 @@ make build-docker-factorio-data
 make build-docker-prod-images
 ```
 
-The first command requires `FACTORIO_DIR` to be set and creates fbpviewer_factorio_data image.
-I'd recommend pushing it somewhere and reusing it.
+The first command requires `FACTORIO_DIR` to be set in .env and creates fbpviewer_factorio_data image.
 
 Second command creates `fbpviewer_prod_php` and `fbpviewer_prod_nginx` images that have all
 source files and assets already built and initialized.
 
-You can test them locally using `make start-prod` that will use `docker-compose-prod.yml` file.
+You can test them locally using `make start-prod` that will use `docker-compose-prod.yml`.
 It's similar to `make start`, but uses prebuilt images instead of mounting local directory.
 
-To execute migrations, run `make migrate` after deployment.
+To execute migrations, run `make migrate` in php container after deployment.
 
-### Environment variables
+To push docker images you need to set `DOCKER_REGISTRY_PREFIX` in your .env file or environment:
 
-- `DATABASE_URL`, `DATABASE_USER` and `DATABASE_PASSWORD`:
-  You have to set those to mysql or oracle database credentials.
-- `ORACLE_CWALLET_SSO`: You can set this to base64-encoded oracle DB's cwallet.so.
-  It will be un-encoded during runtime and stored in /var/www/var/cwallet.sso.
-- `NGINX_HOST`: You have to set this to domain that your instance uses. 
+```shell
+make build-docker-prod-push
+```
+
+### Helm
+
+There's a simple helm chart included in this repo that uses docker images built using commands above .
+
+To use it, you need to create and fill `deployment/.values.yaml`:
+
+```yaml
+dockerRegistryCredentials:
+  server: docker.example.com
+  username: user
+  password: password
+  email: email@example.com
+imagePullPolicy: Always
+dockerRegistryPrefix: docker.example.com/fbpviewer/ # has to end with /
+nginxHost: fbpviewer.example.com
+publicIp: "1.2.3.4" # optional
+serviceType: "LoadBalancer"
+servicePort: 80
+doctrine:
+  url: 'mysql://example'
+  user: dbuser
+  password: dbpassword
+  walletSso: # can be set to base64 encoded cwallet.sso for Oracle DB 
+replicas: 2
+serviceAnnotations:
+  service.beta.kubernetes.io/example: "example"
+```
+
+Then you can use helm, there are some shortcuts in makefile:
+- `make helm-upgrade`
+- `make helm-uninstall`
+
+Assuming you have everything configured, subsequent deploys should involve 3 commands:
+
+```shell
+make build-docker-prod-images
+make build-docker-prod-push
+make helm-upgrade
+```
 
 ## License
 

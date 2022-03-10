@@ -1,0 +1,105 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "$ref": "#/definitions/fbpviewer",
+  "definitions": {
+    "fbpviewer": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "dockerRegistryCredentials": {
+          "$ref": "#/definitions/DockerRegistryCredentials"
+        },
+        "imagePullPolicy": {
+          "type": "string"
+        },
+        "dockerRegistryPrefix": {
+          "type": "string"
+        },
+        "nginxHost": {
+          "type": "string"
+        },
+        "publicIp": {
+          "type": "string",
+          "format": "integer"
+        },
+        "serviceType": {
+          "type": "string"
+        },
+        "servicePort": {
+          "type": "integer"
+        },
+        "doctrine": {
+          "$ref": "#/definitions/Doctrine"
+        },
+        "replicas": {
+          "type": "integer"
+        },
+        "serviceAnnotations": {
+          "type": "object"
+        }
+      },
+      "required": [
+        "dockerRegistryCredentials",
+        "dockerRegistryPrefix",
+        "doctrine",
+        "imagePullPolicy",
+        "nginxHost",
+        "replicas",
+        "serviceType",
+        "servicePort",
+        "serviceAnnotations"
+      ],
+      "title": "fbpviewer"
+    },
+    "DockerRegistryCredentials": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "server": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "email",
+        "password",
+        "server",
+        "username"
+      ],
+      "title": "DockerRegistryCredentials"
+    },
+    "Doctrine": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "url": {
+          "type": "string"
+        },
+        "user": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "walletSso": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "password",
+        "url",
+        "user",
+        "walletSso"
+      ],
+      "title": "Doctrine"
+    }
+  }
+}

@@ -1,0 +1,153 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-php
+  labels:
+    app: deployment-php
+spec:
+  selector:
+    matchLabels:
+      app: deployment-php
+  replicas: {{ .Values.replicas }}
+  template:
+    metadata:
+      labels:
+        app: deployment-php
+      annotations:
+        forceRoll: {{ randAlphaNum 5 | quote }}
+    spec:
+      imagePullSecrets:
+        - name: ocirsecret
+      containers:
+        - name: deployment-php
+          image: "{{ .Values.dockerRegistryPrefix }}fbpviewer_prod_php"
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          ports:
+            - containerPort: 9000
+          env:
+            - name: ORACLE_CWALLET_SSO
+              valueFrom:
+                secretKeyRef:
+                  name: oracle-db
+                  key: wallet_sso
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: oracle-db
+                  key: url
+            - name: DATABASE_USER
+              valueFrom:
+                secretKeyRef:
+                  name: oracle-db
+                  key: user
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: oracle-db
+                  key: password
+            - name: APP_ENV
+              value: "prod"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: php
+spec:
+  selector:
+    app: deployment-php
+  ports:
+    - port: 9000
+      targetPort: 9000
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-nginx
+  labels:
+    app: deployment-nginx
+spec:
+  selector:
+    matchLabels:
+      app: deployment-nginx
+  replicas: {{ .Values.replicas }}
+  template:
+    metadata:
+      labels:
+        app: deployment-nginx
+    spec:
+      imagePullSecrets:
+        - name: ocirsecret
+      containers:
+        - name: deployment-nginx
+          image: "{{ .Values.dockerRegistryPrefix }}fbpviewer_prod_nginx"
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          ports:
+            - containerPort: 8080
+          env:
+            - name: NGINX_HOST
+              value: {{ .Values.nginxHost }}
+            - name: NGINX_PORT
+              value: "8080"
+
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: job-migration
+  annotations:
+    "helm.sh/hook": post-install,post-upgrade
+spec:
+  template:
+    spec:
+      imagePullSecrets:
+        - name: ocirsecret
+      restartPolicy: Never
+      containers:
+        - name: migration
+          image: "{{ .Values.dockerRegistryPrefix }}fbpviewer_prod_php"
+          imagePullPolicy: {{ .Values.imagePullPolicy }}
+          command: ["make", "migrate"]
+          env:
+            - name: ORACLE_CWALLET_SSO
+              valueFrom:
+                secretKeyRef:
+                  name: oracle-db
+                  key: wallet_sso
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: oracle-db
+                  key: url
+            - name: DATABASE_USER
+              valueFrom:
+                secretKeyRef:
+                  name: oracle-db
+                  key: user
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: oracle-db
+                  key: password
+            - name: APP_ENV
+              value: "prod"
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: lb
+  labels:
+    app: lb
+  annotations:
+{{ toYaml .Values.serviceAnnotations | indent 4 }}
+spec:
+  type: {{ .Values.serviceType }}
+  selector:
+    app: deployment-nginx
+  ports:
+    - name: http
+      port: {{ .Values.servicePort }}
+      targetPort: 8080
+{{ if .Values.publicIp }}
+  loadBalancerIP: {{ .Values.publicIp }}
+{{ end }}

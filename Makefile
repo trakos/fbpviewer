@@ -50,12 +50,18 @@ build-docker-factorio-data:
 
 build-docker-prod-images:
     # Make sure that you've built image fbpviewer_factorio_data first.
-    # You can use factorio-data for that.
+    # You can use make factorio-data for that.
 	docker build deployment/docker/php -t fbpviewer_php
 	docker build deployment/docker/node -t fbpviewer_node
 	docker build deployment/docker/nginx -t fbpviewer_nginx
 	docker build --target php -f deployment/docker/prod/Dockerfile . -t fbpviewer_prod_php
 	docker build --target nginx -f deployment/docker/prod/Dockerfile . -t fbpviewer_prod_nginx
+
+build-docker-prod-push:
+	docker tag fbpviewer_prod_php "${DOCKER_REGISTRY_PREFIX}fbpviewer_prod_php"
+	docker tag fbpviewer_prod_nginx "${DOCKER_REGISTRY_PREFIX}fbpviewer_prod_nginx"
+	docker push "${DOCKER_REGISTRY_PREFIX}fbpviewer_prod_php"
+	docker push "${DOCKER_REGISTRY_PREFIX}fbpviewer_prod_nginx"
 
 # This allows testing production images in docker-compose.
 start-prod:
@@ -65,3 +71,9 @@ start-prod:
 
 stop-prod:
 	docker-compose -f docker-compose-prod.yml down
+
+helm-upgrade:
+	helm upgrade --install  fbpviewer ./deployment/helm -f ./deployment/.values.yaml
+
+helm-uninstall:
+	helm uninstall fbpviewer

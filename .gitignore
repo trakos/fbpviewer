@@ -10,3 +10,4 @@
 /web/bundles/
 /web/images/
 node_modules
+.values.yaml
