@@ -12,6 +12,9 @@
         "imagePullPolicy": {
           "type": "string"
         },
+        "migrationEnabled": {
+          "type": ["integer", "boolean", "null"]
+        },
         "dockerRegistryPrefix": {
           "type": "string"
         },
@@ -36,6 +39,12 @@
         },
         "serviceAnnotations": {
           "type": "object"
+        },
+        "mysql": {
+          "$ref": "#/definitions/Mysql"
+        },
+        "s3_backups": {
+          "$ref": "#/definitions/S3Backups"
         }
       },
       "required": [
@@ -90,7 +99,7 @@
           "type": "string"
         },
         "walletSso": {
-          "type": "string"
+          "type": ["string", "null"]
         }
       },
       "required": [
@@ -100,6 +109,48 @@
         "walletSso"
       ],
       "title": "Doctrine"
+    },
+    "Mysql": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "enabled"
+      ],
+      "title": "Mysql"
+    },
+    "S3Backups": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "endpointUrl": {
+          "type": "string",
+          "format": "uri",
+          "qt-uri-protocols": [
+            "http",
+            "https"
+          ]
+        },
+        "accessKeyId": {
+          "type": "string"
+        },
+        "secretAccessKey": {
+          "type": "string"
+        },
+        "cronSchedule": {
+          "type": ["string", "null"]
+        }
+      },
+      "required": [
+        "accessKeyId",
+        "endpointUrl",
+        "secretAccessKey"
+      ],
+      "title": "S3Backups"
     }
   }
 }

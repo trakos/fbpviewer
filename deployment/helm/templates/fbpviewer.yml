@@ -17,7 +17,7 @@ spec:
         forceRoll: {{ randAlphaNum 5 | quote }}
     spec:
       imagePullSecrets:
-        - name: ocirsecret
+        - name: docker-registry-secret
       containers:
         - name: deployment-php
           image: "{{ .Values.dockerRegistryPrefix }}fbpviewer_prod_php"
@@ -25,25 +25,27 @@ spec:
           ports:
             - containerPort: 9000
           env:
+            {{ if .Values.doctrine.walletSso }}
             - name: ORACLE_CWALLET_SSO
               valueFrom:
                 secretKeyRef:
-                  name: oracle-db
+                  name: database-credentials
                   key: wallet_sso
+            {{ end }}
             - name: DATABASE_URL
               valueFrom:
                 secretKeyRef:
-                  name: oracle-db
+                  name: database-credentials
                   key: url
             - name: DATABASE_USER
               valueFrom:
                 secretKeyRef:
-                  name: oracle-db
+                  name: database-credentials
                   key: user
             - name: DATABASE_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: oracle-db
+                  name: database-credentials
                   key: password
             - name: APP_ENV
               value: "prod"
@@ -77,7 +79,7 @@ spec:
         app: deployment-nginx
     spec:
       imagePullSecrets:
-        - name: ocirsecret
+        - name: docker-registry-secret
       containers:
         - name: deployment-nginx
           image: "{{ .Values.dockerRegistryPrefix }}fbpviewer_prod_nginx"
@@ -90,47 +92,6 @@ spec:
             - name: NGINX_PORT
               value: "8080"
 
----
-apiVersion: batch/v1
-kind: Job
-metadata:
-  name: job-migration
-  annotations:
-    "helm.sh/hook": post-install,post-upgrade
-spec:
-  template:
-    spec:
-      imagePullSecrets:
-        - name: ocirsecret
-      restartPolicy: Never
-      containers:
-        - name: migration
-          image: "{{ .Values.dockerRegistryPrefix }}fbpviewer_prod_php"
-          imagePullPolicy: {{ .Values.imagePullPolicy }}
-          command: ["make", "migrate"]
-          env:
-            - name: ORACLE_CWALLET_SSO
-              valueFrom:
-                secretKeyRef:
-                  name: oracle-db
-                  key: wallet_sso
-            - name: DATABASE_URL
-              valueFrom:
-                secretKeyRef:
-                  name: oracle-db
-                  key: url
-            - name: DATABASE_USER
-              valueFrom:
-                secretKeyRef:
-                  name: oracle-db
-                  key: user
-            - name: DATABASE_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: oracle-db
-                  key: password
-            - name: APP_ENV
-              value: "prod"
 ---
 kind: Service
 apiVersion: v1

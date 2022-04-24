@@ -8,7 +8,7 @@ use Doctrine\DBAL\Platforms\OraclePlatform;
 
 class DatabaseSessionInit extends OracleSessionInit
 {
-    public function postConnect(ConnectionEventArgs $args)
+    public function postConnect(ConnectionEventArgs $args): void
     {
         if (!$args->getConnection()->getDatabasePlatform() instanceof OraclePlatform) {
             return;

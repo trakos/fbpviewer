@@ -1,6 +1,6 @@
 parameters:
     locale: en
-    env(DATABASE_URL): 'mysql://root:@mysql:3306/symfony?serverVersion=5.7&charset=utf8mb4'
+    env(DATABASE_URL): 'mysql://root:@mysql:3306/symfony?serverVersion=8.0&charset=utf8mb4'
     env(DATABASE_USER): 'root'
     env(DATABASE_PASSWORD): ~
     env(SECRET): 'secret'

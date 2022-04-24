@@ -63,19 +63,38 @@ dockerRegistryCredentials:
   password: password
   email: email@example.com
 imagePullPolicy: Always
-dockerRegistryPrefix: docker.example.com/fbpviewer/ # has to end with /
+migrationEnabled: 1
+dockerRegistryPrefix: docker.example.com/fbpviewer/ # It has to end with a slash character ("/").
 nginxHost: fbpviewer.example.com
 publicIp: "1.2.3.4" # optional
 serviceType: "LoadBalancer"
 servicePort: 80
 doctrine:
-  url: 'mysql://example'
+  url: 'mysql://mysql:3306/dbname?serverVersion=8.0&charset=utf8mb4'
   user: dbuser
   password: dbpassword
-  walletSso: # can be set to base64 encoded cwallet.sso for Oracle DB 
+  walletSso: ~ # Can be set to base64 encoded cwallet.sso for Oracle DB. 
 replicas: 2
 serviceAnnotations:
   service.beta.kubernetes.io/example: "example"
+s3_backups:
+  endpointUrl: 'https://s3-compatible-endpoint.example.com/'
+  accessKeyId: 'accesskey'
+  secretAccessKey: 'secretkey'
+  cronSchedule: '0 * * * *'
+mysql:
+  enabled: true # You can disable it and use external database instead.
+  volumePermissions:
+    enabled: true
+  fullnameOverride: mysql
+  auth:
+    rootPassword: 'rootpassword'
+    username: 'dbuser'
+    password: 'dbpassword'
+    database: dbname
+  primary:
+    persistence:
+      size: 1Gi
 ```
 
 Then you can use helm, there are some shortcuts in makefile:
@@ -89,6 +108,26 @@ make build-docker-prod-images
 make build-docker-prod-push
 make helm-upgrade
 ```
+
+### Backups
+
+When using MySQL, DB backups can be stored in any s3-compatible storage provider.
+They are performed automatically according to `cronSchedule` set in `deployment/.values.yaml`.
+To disable backups, set `cronSchedule` to something that never happens, like "0 0 30 2 0" (30th February).
+
+To manually perform DB backup when using helm deployment, you can use:
+
+```shell
+make kubectl-backup
+```
+
+To restore DB from the most recent backup, use:
+
+```shell
+make kubectl-restore
+```
+
+This will remove any existing data, and replace it with date from last backup.
 
 ## License
 

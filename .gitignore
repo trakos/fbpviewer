@@ -11,3 +11,4 @@
 /web/images/
 node_modules
 .values.yaml
+/deployment/helm/charts/

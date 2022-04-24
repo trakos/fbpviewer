@@ -54,14 +54,17 @@ build-docker-prod-images:
 	docker build deployment/docker/php -t fbpviewer_php
 	docker build deployment/docker/node -t fbpviewer_node
 	docker build deployment/docker/nginx -t fbpviewer_nginx
+	docker build deployment/docker/mysql_shell -t fbpviewer_mysql_shell
 	docker build --target php -f deployment/docker/prod/Dockerfile . -t fbpviewer_prod_php
 	docker build --target nginx -f deployment/docker/prod/Dockerfile . -t fbpviewer_prod_nginx
 
 build-docker-prod-push:
 	docker tag fbpviewer_prod_php "${DOCKER_REGISTRY_PREFIX}fbpviewer_prod_php"
 	docker tag fbpviewer_prod_nginx "${DOCKER_REGISTRY_PREFIX}fbpviewer_prod_nginx"
+	docker tag fbpviewer_mysql_shell "${DOCKER_REGISTRY_PREFIX}fbpviewer_mysql_shell"
 	docker push "${DOCKER_REGISTRY_PREFIX}fbpviewer_prod_php"
 	docker push "${DOCKER_REGISTRY_PREFIX}fbpviewer_prod_nginx"
+	docker push "${DOCKER_REGISTRY_PREFIX}fbpviewer_mysql_shell"
 
 # This allows testing production images in docker-compose.
 start-prod:
@@ -77,3 +80,11 @@ helm-upgrade:
 
 helm-uninstall:
 	helm uninstall fbpviewer
+
+kubectl-backup:
+	kubectl delete job/job-mysql-backup || true
+	kubectl create job --from=cronjobs/job-mysql-backup job-mysql-backup
+
+kubectl-restore:
+	kubectl delete job/job-mysql-restore || true
+	kubectl create job --from=cronjobs/job-mysql-restore job-mysql-restore
