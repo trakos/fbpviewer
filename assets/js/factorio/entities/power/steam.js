@@ -1,6 +1,6 @@
 module.exports = function () {
     return {
-        'boiler': {
+        'boiler':       {
             directions: {
                 2: {
                     image:    {
@@ -34,7 +34,7 @@ module.exports = function () {
             gridSize:   {w: 3, h: 2},
             offset:     {x: -20, y: -24}
         },
-        'steam-engine':          {
+        'steam-engine': {
             directions: {
                 2: {
                     image:    {
@@ -56,7 +56,7 @@ module.exports = function () {
                 number: 0
             },
             gridSize:   {w: 3, h: 5},
-            offset:     {x: 0, y:-24}
+            offset:     {x: 0, y: -24}
         }
     };
 }

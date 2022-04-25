@@ -1,6 +1,6 @@
 module.exports = function () {
     return {
-        'radar':                  {
+        'radar': {
             image:    {
                 type: 'animated',
                 path: 'base/graphics/entity/radar/radar.png',

@@ -1,57 +1,69 @@
 module.exports = function () {
     return {
-        'wooden-chest': {
+        'wooden-chest':                    {
             image:    {
-                type:           'sprite',
-                path:           'base/graphics/entity/wooden-chest/wooden-chest.png'
+                type: 'sprite',
+                path: 'base/graphics/entity/wooden-chest/wooden-chest.png'
             },
             gridSize: {w: 1, h: 1},
             offset:   {x: 0, y: 0}
         },
-        'iron-chest': {
+        'iron-chest':                      {
             image:    {
-                type:           'sprite',
-                path:           'base/graphics/entity/iron-chest/iron-chest.png'
+                type: 'sprite',
+                path: 'base/graphics/entity/iron-chest/iron-chest.png'
             },
             gridSize: {w: 1, h: 1},
             offset:   {x: 0, y: 0}
         },
-        'steel-chest': {
+        'steel-chest':                     {
             image:    {
-                type:           'sprite',
-                path:           'base/graphics/entity/steel-chest/steel-chest.png'
+                type: 'sprite',
+                path: 'base/graphics/entity/steel-chest/steel-chest.png'
             },
             gridSize: {w: 1, h: 1},
             offset:   {x: 0, y: 0}
         },
-        'logistic-chest-active-provider': {
+        'logistic-chest-active-provider':  {
             image:    {
-                type:           'sprite',
-                path:           'base/graphics/entity/logistic-chest/logistic-chest-active-provider.png'
+                type:   'trim',
+                path:   'base/graphics/entity/logistic-chest/logistic-chest-active-provider.png',
+                number: 0,
+                cols:   7,
+                rows:   1,
             },
             gridSize: {w: 1, h: 1},
             offset:   {x: 0, y: 0}
         },
         'logistic-chest-passive-provider': {
             image:    {
-                type:           'sprite',
-                path:           'base/graphics/entity/logistic-chest/logistic-chest-passive-provider.png'
+                type:   'trim',
+                path:   'base/graphics/entity/logistic-chest/logistic-chest-passive-provider.png',
+                number: 0,
+                cols:   7,
+                rows:   1,
             },
             gridSize: {w: 1, h: 1},
             offset:   {x: 0, y: 0}
         },
-        'logistic-chest-requester': {
+        'logistic-chest-requester':        {
             image:    {
-                type:           'sprite',
-                path:           'base/graphics/entity/logistic-chest/logistic-chest-requester.png'
+                type:   'trim',
+                path:   'base/graphics/entity/logistic-chest/logistic-chest-requester.png',
+                number: 0,
+                cols:   7,
+                rows:   1,
             },
             gridSize: {w: 1, h: 1},
             offset:   {x: 0, y: 0}
         },
-        'logistic-chest-storage': {
+        'logistic-chest-storage':          {
             image:    {
-                type:           'sprite',
-                path:           'base/graphics/entity/logistic-chest/logistic-chest-storage.png'
+                type:   'trim',
+                path:   'base/graphics/entity/logistic-chest/logistic-chest-storage.png',
+                number: 0,
+                cols:   7,
+                rows:   1,
             },
             gridSize: {w: 1, h: 1},
             offset:   {x: 0, y: 0}

@@ -12,7 +12,7 @@ To run fbpviewer locally, you'll need docker and docker-compose.
 First, create `.env` files with following 3 variables set:
 
 ```.dotenv
-# Path to extracted https://factorio.com/get-download/0.15.40/alpha/linux64
+# Path to extracted Factorio 1.1.57 (https://factorio.com/get-download/1.1.57/alpha/linux64)
 FACTORIO_DIR=~/Downloads/factorio
 # This will be used as web host in docker. 
 NGINX_HOST=php-docker.local

@@ -35,7 +35,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/graphics/arrows/indication-arrow-gui-ascending.png',
+                                path:     'core/graphics/arrows/indication-arrow.png',
                                 scale:    {x: 0.25, y: 0.25},
                                 rotation: 1.5,
                                 x:        8,
@@ -78,7 +78,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/graphics/arrows/indication-arrow-gui-ascending.png',
+                                path:     'core/graphics/arrows/indication-arrow.png',
                                 scale:    {x: 0.25, y: 0.25},
                                 rotation: 0,
                                 x:        15,
@@ -121,7 +121,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/graphics/arrows/indication-arrow-gui-ascending.png',
+                                path:     'core/graphics/arrows/indication-arrow.png',
                                 scale:    {x: 0.25, y: 0.25},
                                 rotation: 0.5,
                                 x:        33,
@@ -164,7 +164,7 @@ module.exports = function () {
                     },
                     {
                         type:     'sprite',
-                        path:     'core/graphics/arrows/indication-arrow-gui-ascending.png',
+                        path:     'core/graphics/arrows/indication-arrow.png',
                         scale:    {x: 0.25, y: 0.25},
                         rotation: 1,
                         x:        20,

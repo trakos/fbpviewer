@@ -9,7 +9,7 @@ module.exports = function () {
                 rows:   3
             },
             gridSize: {w: 2, h: 2},
-            offset:   {x: -10, y: 0}
+            offset:   {x: -15, y: 0}
         },
         'programmable-speaker': {
             image:    {

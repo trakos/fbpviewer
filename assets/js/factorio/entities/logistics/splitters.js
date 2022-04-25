@@ -11,32 +11,41 @@ module.exports = function () {
                                 type:           'animated',
                                 path:           'base/graphics/entity/' + beltPrefix + 'transport-belt/' + beltPrefix + 'transport-belt.png',
                                 cols:           beltImageColumns,
-                                rows:           11,
+                                rows:           20,
                                 from:           0,
                                 to:             beltImageColumns - 1,
                                 animationSpeed: beltAnimationSpeed,
-                                x:              -5,
-                                y:              -3
+                                x:              -16,
+                                y:              -20
                             },
                             {
                                 type:           'animated',
                                 path:           'base/graphics/entity/' + beltPrefix + 'transport-belt/' + beltPrefix + 'transport-belt.png',
                                 cols:           beltImageColumns,
-                                rows:           11,
+                                rows:           20,
                                 from:           0,
                                 to:             beltImageColumns - 1,
                                 animationSpeed: beltAnimationSpeed,
-                                x:              -5,
-                                y:              29
+                                x:              -16,
+                                y:              12
+                            },
+                            {
+                                type:   'trim',
+                                path:   'base/graphics/entity/' + beltPrefix + 'splitter/' + beltPrefix + 'splitter-east-top_patch.png',
+                                cols:   8,
+                                rows:   4,
+                                number: 0,
+                                x:      -5,
+                                y:      -12
                             },
                             {
                                 type:   'trim',
                                 path:   'base/graphics/entity/' + beltPrefix + 'splitter/' + beltPrefix + 'splitter-east.png',
-                                cols:   16,
-                                rows:   2,
+                                cols:   8,
+                                rows:   4,
                                 number: 0,
                                 x:      -5,
-                                y:      -12
+                                y:      20
                             }
                         ]
                     },
@@ -50,31 +59,29 @@ module.exports = function () {
                                 type:           'animated',
                                 path:           'base/graphics/entity/' + beltPrefix + 'transport-belt/' + beltPrefix + 'transport-belt.png',
                                 cols:           beltImageColumns,
-                                rows:           11,
-                                from:           beltImageColumns,
-                                to:             beltImageColumns * 2 - 1,
-                                rotation:       1,
+                                rows:           20,
+                                from:           beltImageColumns * 3,
+                                to:             beltImageColumns * 4 - 1,
                                 animationSpeed: beltAnimationSpeed,
-                                x:              15,
-                                y:              11
+                                x:              -16,
+                                y:              -16
                             },
                             {
                                 type:           'animated',
                                 path:           'base/graphics/entity/' + beltPrefix + 'transport-belt/' + beltPrefix + 'transport-belt.png',
                                 cols:           beltImageColumns,
-                                rows:           11,
-                                from:           beltImageColumns,
-                                to:             beltImageColumns * 2 - 1,
-                                rotation:       1,
+                                rows:           20,
+                                from:           beltImageColumns * 3,
+                                to:             beltImageColumns * 4 - 1,
                                 animationSpeed: beltAnimationSpeed,
-                                x:              48,
-                                y:              11
+                                x:              15,
+                                y:              -16
                             },
                             {
                                 type:   'trim',
                                 path:   'base/graphics/entity/' + beltPrefix + 'splitter/' + beltPrefix + 'splitter-south.png',
-                                cols:   16,
-                                rows:   2,
+                                cols:   8,
+                                rows:   4,
                                 number: 0,
                                 x:      -5,
                                 y:      -5
@@ -91,34 +98,41 @@ module.exports = function () {
                                 type:           'animated',
                                 path:           'base/graphics/entity/' + beltPrefix + 'transport-belt/' + beltPrefix + 'transport-belt.png',
                                 cols:           beltImageColumns,
-                                rows:           11,
-                                from:           0,
-                                to:             beltImageColumns - 1,
-                                rotation:       1,
+                                rows:           20,
+                                from:           beltImageColumns,
+                                to:             beltImageColumns * 2 - 1,
                                 animationSpeed: beltAnimationSpeed,
-                                x:              15,
-                                y:              15
+                                x:              -16,
+                                y:              -20
                             },
                             {
                                 type:           'animated',
                                 path:           'base/graphics/entity/' + beltPrefix + 'transport-belt/' + beltPrefix + 'transport-belt.png',
                                 cols:           beltImageColumns,
-                                rows:           11,
-                                from:           0,
-                                to:             beltImageColumns - 1,
-                                rotation:       1,
+                                rows:           20,
+                                from:           beltImageColumns,
+                                to:             beltImageColumns * 2 - 1,
                                 animationSpeed: beltAnimationSpeed,
-                                x:              15,
-                                y:              48
+                                x:              -16,
+                                y:              12
+                            },
+                            {
+                                type:   'trim',
+                                path:   'base/graphics/entity/' + beltPrefix + 'splitter/' + beltPrefix + 'splitter-west-top_patch.png',
+                                cols:   8,
+                                rows:   4,
+                                number: 0,
+                                x:      -2,
+                                y:      -8
                             },
                             {
                                 type:   'trim',
                                 path:   'base/graphics/entity/' + beltPrefix + 'splitter/' + beltPrefix + 'splitter-west.png',
-                                cols:   16,
-                                rows:   2,
+                                cols:   8,
+                                rows:   4,
                                 number: 0,
                                 x:      -2,
-                                y:      -8
+                                y:      24
                             }
                         ]
                     },
@@ -132,31 +146,31 @@ module.exports = function () {
                         type:           'animated',
                         path:           'base/graphics/entity/' + beltPrefix + 'transport-belt/' + beltPrefix + 'transport-belt.png',
                         cols:           beltImageColumns,
-                        rows:           11,
-                        from:           beltImageColumns,
-                        to:             beltImageColumns * 2 - 1,
+                        rows:           20,
+                        from:           beltImageColumns * 2,
+                        to:             beltImageColumns * 3 - 1,
                         animationSpeed: beltAnimationSpeed,
-                        x: -4,
-                        y: -1
+                        x:              -16,
+                        y:              -16
                     },
                     {
                         type:           'animated',
                         path:           'base/graphics/entity/' + beltPrefix + 'transport-belt/' + beltPrefix + 'transport-belt.png',
                         cols:           beltImageColumns,
-                        rows:           11,
-                        from:           beltImageColumns,
-                        to:             beltImageColumns * 2 - 1,
+                        rows:           20,
+                        from:           beltImageColumns * 2,
+                        to:             beltImageColumns * 3 - 1,
                         animationSpeed: beltAnimationSpeed,
-                        x: 28,
-                        y: -1
+                        x:              15,
+                        y:              -16
                     },
                     {
                         type:   'trim',
                         path:   'base/graphics/entity/' + beltPrefix + 'splitter/' + beltPrefix + 'splitter-north.png',
-                        cols:   16,
-                        rows:   2,
+                        cols:   8,
+                        rows:   4,
                         number: 0,
-                        x:      0,
+                        x:      -5,
                         y:      0
                     }
                 ]

@@ -3,10 +3,10 @@ module.exports = function () {
         'pipe':           {
             image:    {
                 type: 'sprite',
-                path: 'base/graphics/entity/pipe/pipe-straight-horizontal-single.png'
+                path: 'base/graphics/entity/pipe/pipe-straight-horizontal.png'
             },
             gridSize: {w: 1, h: 1},
-            offset:   {x: -25, y: -22}
+            offset:   {x: -16, y: -16}
         },
         'pipe-to-ground': {
             directions: {
@@ -39,42 +39,109 @@ module.exports = function () {
         'offshore-pump':  {
             directions: {
                 2: {
-                    image: {
-                        type:   'trim',
-                        path:   'base/graphics/entity/offshore-pump/offshore-pump.png',
-                        number: 1,
-                        cols:   4,
-                        rows:   1
-                    }
+                    image:    {
+                        type:   'container',
+                        images: [
+                            {
+                                type:   'trim',
+                                path:   'base/graphics/entity/offshore-pump/offshore-pump_East.png',
+                                number: 0,
+                                cols:   8,
+                                rows:   4,
+                                x:      0,
+                                y:      0
+                            },
+                            {
+                                type:     'sprite',
+                                path:     'core/graphics/arrows/fluid-indication-arrow.png',
+                                scale:    {x: 0.5, y: 0.5},
+                                rotation: 1.5,
+                                x:        12,
+                                y:        24,
+                                layer:    200,
+                            }
+                        ]
+                    },
+                    gridSize: {w: 2, h: 1},
+                    offset:   {x: 30, y: -10}
                 },
                 4: {
-                    image: {
-                        type:   'trim',
-                        path:   'base/graphics/entity/offshore-pump/offshore-pump.png',
-                        number: 2,
-                        cols:   4,
-                        rows:   1
-                    }
+                    image:    {
+                        type:   'container',
+                        images: [
+                            {
+                                type:   'trim',
+                                path:   'base/graphics/entity/offshore-pump/offshore-pump_South.png',
+                                number: 0,
+                                cols:   8,
+                                rows:   4,
+                                x:      0,
+                                y:      0
+                            },
+                            {
+                                type:     'sprite',
+                                path:     'core/graphics/arrows/fluid-indication-arrow.png',
+                                scale:    {x: 0.5, y: 0.5},
+                                rotation: 0,
+                                x:        14,
+                                y:        24,
+                            }
+                        ]
+                    },
+                    gridSize: {w: 1, h: 2},
+                    offset:   {x: -10, y: 0}
                 },
                 6: {
-                    image: {
-                        type:   'trim',
-                        path:   'base/graphics/entity/offshore-pump/offshore-pump.png',
-                        number: 3,
-                        cols:   4,
-                        rows:   1
-                    }
+                    image:    {
+                        type:   'container',
+                        images: [
+                            {
+                                type:   'trim',
+                                path:   'base/graphics/entity/offshore-pump/offshore-pump_West.png',
+                                number: 0,
+                                cols:   8,
+                                rows:   4,
+                                x:      0,
+                                y:      0
+                            },
+                            {
+                                type:     'sprite',
+                                path:     'core/graphics/arrows/fluid-indication-arrow.png',
+                                scale:    {x: 0.5, y: 0.5},
+                                rotation: 0.5,
+                                x:        56,
+                                y:        24
+                            }
+                        ]
+                    },
+                    gridSize: {w: 2, h: 1},
+                    offset:   {x: 0, y: -10}
                 }
             },
             image:      {
-                type:   'trim',
-                path:   'base/graphics/entity/offshore-pump/offshore-pump.png',
-                number: 0,
-                cols:   4,
-                rows:   1
+                type:   'container',
+                images: [
+                    {
+                        type:   'trim',
+                        path:   'base/graphics/entity/offshore-pump/offshore-pump_North.png',
+                        number: 0,
+                        cols:   8,
+                        rows:   4,
+                        x:      0,
+                        y:      0
+                    },
+                    {
+                        type:     'sprite',
+                        path:     'core/graphics/arrows/fluid-indication-arrow.png',
+                        scale:    {x: 0.5, y: 0.5},
+                        rotation: 1,
+                        x:        26,
+                        y:        70
+                    }
+                ]
             },
-            gridSize:   {w: 3, h: 3},
-            offset:     {x: 0, y: 0}
+            gridSize:   {w: 1, h: 2},
+            offset:     {x: -10, y: -10}
 
         },
         'pump':           {
@@ -106,7 +173,7 @@ module.exports = function () {
                     offset:   {x: -2, y: -8}
                 },
                 4: {
-                    image:    {
+                    image:  {
                         type:   'container',
                         images: [
                             {
@@ -157,7 +224,7 @@ module.exports = function () {
                     offset:   {x: -2, y: -8}
                 }
             },
-            image:    {
+            image:      {
                 type:   'container',
                 images: [
                     {
@@ -211,8 +278,7 @@ module.exports = function () {
                 rows:   1
             },
             gridSize:   {w: 3, h: 3},
-            offset:     {x: 0, y: -6}
-
+            offset:     {x: -7, y: -2}
         }
     };
 }

@@ -12,6 +12,7 @@ exports.icons = (function () {
         "assembling-machine-2",
         "assembling-machine-3",
         "atomic-bomb",
+        "automation-science-pack",
         "battery",
         "battery-equipment",
         "battery-mk2-equipment",
@@ -27,6 +28,7 @@ exports.icons = (function () {
         "cargo-wagon",
         "centrifuge",
         "chemical-plant",
+        "chemical-science-pack",
         "cluster-grenade",
         //"coal", but we use coal-dark-background instead
         "combat-shotgun",
@@ -38,9 +40,9 @@ exports.icons = (function () {
         "copper-plate",
         "decider-combinator",
         "deconstruction-planner",
-        "defender-capsule",
-        "destroyer-capsule",
-        "distractor-capsule",
+        "defender",
+        "destroyer",
+        "distractor",
         "effectivity-module",
         "effectivity-module-2",
         "effectivity-module-3",
@@ -75,9 +77,7 @@ exports.icons = (function () {
         "grenade",
         "gun-turret",
         "heat-pipe",
-        "high-tech-science-pack",
         "inserter",
-        "iron-axe",
         "iron-chest",
         "iron-gear-wheel",
         "iron-ore",
@@ -88,12 +88,15 @@ exports.icons = (function () {
         "land-mine",
         "laser-turret",
         "light-armor",
+        "locomotive",
         "logistic-chest-active-provider",
         "logistic-chest-passive-provider",
         "logistic-chest-requester",
         "logistic-chest-storage",
         "logistic-robot",
+        "logistic-science-pack",
         "long-handed-inserter",
+        "low-density-structure",
         "medium-electric-pole",
         "military-science-pack",
         "modular-armor",
@@ -126,7 +129,6 @@ exports.icons = (function () {
         "rail",
         "rail-chain-signal",
         "rail-signal",
-        "raw-wood",
         "red-wire",
         "repair-pack",
         "roboport",
@@ -137,9 +139,6 @@ exports.icons = (function () {
         "rocket-part",
         "rocket-silo",
         "satellite",
-        "science-pack-1",
-        "science-pack-2",
-        "science-pack-3",
         "shotgun",
         "shotgun-shell",
         "slowdown-capsule",
@@ -152,6 +151,8 @@ exports.icons = (function () {
         "speed-module",
         "speed-module-2",
         "speed-module-3",
+        "spidertron-remote",
+        "spidertron",
         "splitter",
         "stack-filter-inserter",
         "stack-inserter",
@@ -164,7 +165,6 @@ exports.icons = (function () {
         "stone",
         "stone-brick",
         "stone-furnace",
-        "stone-wall",
         "storage-tank",
         "submachine-gun",
         "substation",
@@ -181,6 +181,8 @@ exports.icons = (function () {
         "uranium-processing",
         "uranium-rounds-magazine",
         "used-up-uranium-fuel-cell",
+        "utility-science-pack",
+        "wall",
         "wood",
         "wooden-chest"
     ];
@@ -190,9 +192,7 @@ exports.icons = (function () {
         "empty-barrel":             "base/graphics/icons/fluid/barreling/empty-barrel.png",
         "heat-exchanger":           "base/graphics/icons/heat-boiler.png",
         "raw-fish":                 "base/graphics/icons/fish.png",
-        "discharge-defense-remote": "base/graphics/equipment/discharge-defense-equipment-ability.png",
-        "locomotive":               "base/graphics/icons/diesel-locomotive.png",
-        "low-density-structure":    "base/graphics/icons/rocket-structure.png"
+        "discharge-defense-remote": "base/graphics/equipment/discharge-defense-equipment.png",
     };
 
     var recipes = {
@@ -233,10 +233,14 @@ exports.icons = (function () {
     forEach(items, function (itemName) {
         allIcons[itemName] = {
             image: {
-                type:   'sprite',
+                type:   'trim',
                 path:   'base/graphics/icons/' + itemName + '.png',
                 anchor: {x: 0.5, y: 0.5},
+                scale:  {x: 0.5, y: 0.5},
                 layer:  OVERLAY_LAYER,
+                cols:   2,
+                rows:   1,
+                number: 0,
                 x:      0,
                 y:      0
             }
@@ -246,10 +250,14 @@ exports.icons = (function () {
     forEach(itemsWithSpecialNames, function (imageName, itemName) {
         allIcons[itemName] = {
             image: {
-                type:   'sprite',
+                type:   'trim',
                 path:   imageName,
                 anchor: {x: 0.5, y: 0.5},
+                scale:  {x: 0.5, y: 0.5},
                 layer:  OVERLAY_LAYER,
+                cols:   2,
+                rows:   1,
+                number: 0,
                 x:      0,
                 y:      0
             }
@@ -259,10 +267,14 @@ exports.icons = (function () {
     forEach(recipes, function (iconName, recipeName) {
         allIcons[recipeName] = {
             image: {
-                type:   'sprite',
+                type:   'trim',
                 path:   'base/graphics/icons/' + iconName,
                 anchor: {x: 0.5, y: 0.5},
+                scale:  {x: 0.5, y: 0.5},
                 layer:  OVERLAY_LAYER,
+                cols:   2,
+                rows:   1,
+                number: 0,
                 x:      0,
                 y:      0
             }
@@ -272,20 +284,28 @@ exports.icons = (function () {
     forEach(fluids, function (fluidDetails, fluidName) {
         allIcons[fluidName] = {
             image: {
-                type:   'sprite',
+                type:   'trim',
                 path:   'base/graphics/icons/fluid/' + fluidName + '.png',
                 anchor: {x: 0.5, y: 0.5},
+                scale:  {x: 0.5, y: 0.5},
                 layer:  OVERLAY_LAYER,
+                cols:   2,
+                rows:   1,
+                number: 0,
                 x:      0,
                 y:      0
             }
         };
         allIcons[fluidName + '-barrel'] = {
             image: {
-                type:   'sprite',
+                type:   'trim',
                 path:   'base/graphics/icons/fluid/' + fluidName + '.png',
                 anchor: {x: 0.5, y: 0.5},
+                scale:  {x: 0.5, y: 0.5},
                 layer:  OVERLAY_LAYER,
+                cols:   2,
+                rows:   1,
+                number: 0,
                 x:      0,
                 y:      0
             }
@@ -295,19 +315,26 @@ exports.icons = (function () {
                 type:   'container',
                 images: [
                     {
-                        type:   'sprite',
+                        type:   'trim',
                         path:   'base/graphics/icons/fluid/barreling/barrel-empty.png',
                         anchor: {x: 0.5, y: 0.5},
+                        scale:  {x: 0.5, y: 0.5},
                         layer:  OVERLAY_LAYER,
+                        cols:   2,
+                        rows:   1,
+                        number: 0,
                         x:      0,
                         y:      0
                     },
                     {
-                        type:   'sprite',
+                        type:   'trim',
                         path:   'base/graphics/icons/fluid/' + fluidName + '.png',
                         anchor: {x: 0.5, y: 0.5},
-                        scale:  {x: 0.5, y: 0.5},
+                        scale:  {x: 0.25, y: 0.25},
                         layer:  OVERLAY_LAYER,
+                        cols:   2,
+                        rows:   1,
+                        number: 0,
                         x:      6,
                         y:      8
                     }
@@ -319,19 +346,26 @@ exports.icons = (function () {
                 type:   'container',
                 images: [
                     {
-                        type:   'sprite',
+                        type:   'trim',
                         path:   'base/graphics/icons/fluid/barreling/barrel-fill.png',
                         anchor: {x: 0.5, y: 0.5},
+                        scale:  {x: 0.5, y: 0.5},
                         layer:  OVERLAY_LAYER,
+                        cols:   2,
+                        rows:   1,
+                        number: 0,
                         x:      0,
                         y:      0
                     },
                     {
-                        type:   'sprite',
+                        type:   'trim',
                         path:   'base/graphics/icons/fluid/' + fluidName + '.png',
                         anchor: {x: 0.5, y: 0.5},
-                        scale:  {x: 0.5, y: 0.5},
+                        scale:  {x: 0.25, y: 0.25},
                         layer:  OVERLAY_LAYER,
+                        cols:   2,
+                        rows:   1,
+                        number: 0,
                         x:      2,
                         y:      -2
                     }
@@ -341,10 +375,14 @@ exports.icons = (function () {
         for (var k = 0; k < 10; k++) {
             allIcons['signal-' + k] = {
                 image: {
-                    type:   'sprite',
+                    type:   'trim',
                     path:   'base/graphics/icons/signal/signal_' + k + '.png',
                     anchor: {x: 0.5, y: 0.5},
+                    scale:  {x: 0.5, y: 0.5},
                     layer:  OVERLAY_LAYER,
+                    cols:   2,
+                    rows:   1,
+                    number: 0,
                     x:      0,
                     y:      0
                 }
@@ -354,10 +392,14 @@ exports.icons = (function () {
             var letter = String.fromCharCode(letterCode);
             allIcons['signal-' + letter] = {
                 image: {
-                    type:   'sprite',
+                    type:   'trim',
                     path:   'base/graphics/icons/signal/signal_' + letter + '.png',
                     anchor: {x: 0.5, y: 0.5},
+                    scale:  {x: 0.5, y: 0.5},
                     layer:  OVERLAY_LAYER,
+                    cols:   2,
+                    rows:   1,
+                    number: 0,
                     x:      0,
                     y:      0
                 }
@@ -366,10 +408,14 @@ exports.icons = (function () {
         forEach(signalColors, function (color) {
             allIcons['signal-' + color] = {
                 image: {
-                    type:   'sprite',
+                    type:   'trim',
                     path:   'base/graphics/icons/signal/signal_' + color + '.png',
                     anchor: {x: 0.5, y: 0.5},
+                    scale:  {x: 0.5, y: 0.5},
                     layer:  OVERLAY_LAYER,
+                    cols:   2,
+                    rows:   1,
+                    number: 0,
                     x:      0,
                     y:      0
                 }

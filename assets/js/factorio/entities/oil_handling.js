@@ -12,15 +12,15 @@ module.exports = function () {
                     number: number,
                     cols:   4,
                     rows:   1,
-                    x:      -12,
-                    y:      -12
+                    x:      -20,
+                    y:      -24
                 },
                 {
                     type:   'trim',
-                    path:   'base/graphics/entity/pumpjack/pumpjack-animation.png',
+                    path:   'base/graphics/entity/pumpjack/pumpjack-horsehead.png',
                     number: 0,
-                    cols:   10,
-                    rows:   4,
+                    cols:   8,
+                    rows:   5,
                     x:      -12,
                     y:      -32
                 },
@@ -104,11 +104,11 @@ module.exports = function () {
                             {
                                 type:   'trim',
                                 path:   'base/graphics/entity/chemical-plant/chemical-plant.png',
-                                number: 1,
-                                cols:   4,
-                                rows:   1,
-                                x:      -20,
-                                y:      -25
+                                number: 24,
+                                cols:   12,
+                                rows:   8,
+                                x:      -6,
+                                y:      -35
                             },
                             {
                                 type:     'sprite',
@@ -152,11 +152,11 @@ module.exports = function () {
                             {
                                 type:   'trim',
                                 path:   'base/graphics/entity/chemical-plant/chemical-plant.png',
-                                number: 2,
-                                cols:   4,
-                                rows:   1,
-                                x:      -20,
-                                y:      -25
+                                number: 48,
+                                cols:   12,
+                                rows:   8,
+                                x:      -6,
+                                y:      -35
                             },
                             {
                                 type:     'sprite',
@@ -200,11 +200,11 @@ module.exports = function () {
                             {
                                 type:   'trim',
                                 path:   'base/graphics/entity/chemical-plant/chemical-plant.png',
-                                number: 3,
-                                cols:   4,
-                                rows:   1,
-                                x:      -20,
-                                y:      -25
+                                number: 72,
+                                cols:   12,
+                                rows:   8,
+                                x:      -6,
+                                y:      -35
                             },
                             {
                                 type:     'sprite',
@@ -250,10 +250,10 @@ module.exports = function () {
                         type:   'trim',
                         path:   'base/graphics/entity/chemical-plant/chemical-plant.png',
                         number: 0,
-                        cols:   4,
-                        rows:   1,
-                        x:      -20,
-                        y:      -25
+                        cols:   12,
+                        rows:   8,
+                        x:      -6,
+                        y:      -35
                     },
                     {
                         type:     'sprite',
@@ -335,13 +335,13 @@ module.exports = function () {
         'pumpjack':       {
             directions: {
                 2: {
-                    image: createPumpjackImage(1, 0.5, 96, 20)
+                    image: createPumpjackImage(1, 0.5, 96, 16)
                 },
                 4: {
                     image: createPumpjackImage(2, 1, 16, 96)
                 },
                 6: {
-                    image: createPumpjackImage(3, 1.5, 0, 64)
+                    image: createPumpjackImage(3, 1.5, 0, 80)
                 }
             },
             image:      createPumpjackImage(0, 0, 66, -16),

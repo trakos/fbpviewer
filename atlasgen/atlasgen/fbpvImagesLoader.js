@@ -155,6 +155,7 @@ module.exports = {
 
         function callback(err) {
             if (err) {
+                console.log(this);
                 throw new Error(err);
             }
             tasksDone++;
@@ -176,11 +177,11 @@ module.exports = {
                 _.each(entityData.directions, function (directionSpecificEntityData) {
                     var combinedEntityData = _.extend({}, entityData, directionSpecificEntityData);
                     tasksAdded++;
-                    that._prepareTrimmedTexturesFromEntityData(combinedEntityData, callback);
+                    that._prepareTrimmedTexturesFromEntityData(combinedEntityData, callback.bind(combinedEntityData));
                 })
             }
             tasksAdded++;
-            that._prepareTrimmedTexturesFromEntityData(entityData, callback);
+            that._prepareTrimmedTexturesFromEntityData(entityData, callback.bind(entityData));
         };
 
         mkdirp(outputDir, function(err) {
@@ -193,19 +194,19 @@ module.exports = {
 
             _.each(FactorioBlueprintReader.tiles, function (entityData) {
                 tasksAdded++;
-                that._prepareTrimmedTexturesFromEntityData(entityData, callback);
+                that._prepareTrimmedTexturesFromEntityData(entityData, callback.bind(entityData));
             });
             console.log('Tiles tasks added');
 
             _.each(FactorioBlueprintReader.ImagesUI, function (imageUiPath) {
                 tasksAdded++;
-                that._prepareSpriteTexture(imageUiPath, callback);
+                that._prepareSpriteTexture(imageUiPath, callback.bind(imageUiPath));
             });
             console.log('UI tasks added');
 
             _.each(FactorioBlueprintReader.icons, function (iconData) {
                 tasksAdded++;
-                that._prepareTrimmedTexturesFromEntityData(iconData, callback);
+                that._prepareTrimmedTexturesFromEntityData(iconData, callback.bind(iconData));
             });
             console.log('Icon tasks added');
             isFinishedAddingTasks = true;

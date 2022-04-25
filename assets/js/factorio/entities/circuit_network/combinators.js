@@ -8,16 +8,16 @@ module.exports = function () {
                         images: [
                             {
                                 type:   'trim',
-                                path:   'base/graphics/entity/combinator/combinator-entities.png',
-                                number: 0,
+                                path:   'base/graphics/entity/combinator/arithmetic-combinator.png',
+                                number: 1,
                                 cols:   4,
-                                rows:   3,
+                                rows:   1,
                                 x:      -5,
                                 y:      -10
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/graphics/arrows/indication-arrow-gui-ascending.png',
+                                path:     'core/graphics/arrows/indication-arrow.png',
                                 scale:    {x: 0.25, y: 0.25},
                                 rotation: 0.5,
                                 x:        10,
@@ -25,7 +25,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/graphics/arrows/indication-arrow-gui-ascending.png',
+                                path:     'core/graphics/arrows/indication-arrow.png',
                                 scale:    {x: 0.25, y: 0.25},
                                 rotation: 0.5,
                                 x:        55,
@@ -45,16 +45,16 @@ module.exports = function () {
                         images: [
                             {
                                 type:   'trim',
-                                path:   'base/graphics/entity/combinator/combinator-entities.png',
-                                number: 3,
+                                path:   'base/graphics/entity/combinator/arithmetic-combinator.png',
+                                number: 2,
                                 cols:   4,
-                                rows:   3,
+                                rows:   1,
                                 x:      -20,
                                 y:      0
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/graphics/arrows/indication-arrow-gui-ascending.png',
+                                path:     'core/graphics/arrows/indication-arrow.png',
                                 scale:    {x: 0.25, y: 0.25},
                                 rotation: 1,
                                 x:        15,
@@ -62,7 +62,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/graphics/arrows/indication-arrow-gui-ascending.png',
+                                path:     'core/graphics/arrows/indication-arrow.png',
                                 scale:    {x: 0.25, y: 0.25},
                                 rotation: 1,
                                 x:        15,
@@ -82,16 +82,16 @@ module.exports = function () {
                         images: [
                             {
                                 type:   'trim',
-                                path:   'base/graphics/entity/combinator/combinator-entities.png',
-                                number: 1,
+                                path:   'base/graphics/entity/combinator/arithmetic-combinator.png',
+                                number: 3,
                                 cols:   4,
-                                rows:   3,
+                                rows:   1,
                                 x:      -5,
                                 y:      -10
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/graphics/arrows/indication-arrow-gui-ascending.png',
+                                path:     'core/graphics/arrows/indication-arrow.png',
                                 scale:    {x: 0.25, y: 0.25},
                                 rotation: 1.5,
                                 x:        10,
@@ -99,7 +99,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/graphics/arrows/indication-arrow-gui-ascending.png',
+                                path:     'core/graphics/arrows/indication-arrow.png',
                                 scale:    {x: 0.25, y: 0.25},
                                 rotation: 1.5,
                                 x:        55,
@@ -119,16 +119,16 @@ module.exports = function () {
                 images: [
                     {
                         type:   'trim',
-                        path:   'base/graphics/entity/combinator/combinator-entities.png',
-                        number: 2,
+                        path:   'base/graphics/entity/combinator/arithmetic-combinator.png',
+                        number: 0,
                         cols:   4,
-                        rows:   3,
+                        rows:   1,
                         x:      -20,
                         y:      0
                     },
                     {
                         type:     'sprite',
-                        path:     'core/graphics/arrows/indication-arrow-gui-ascending.png',
+                        path:     'core/graphics/arrows/indication-arrow.png',
                         scale:    {x: 0.25, y: 0.25},
                         rotation: 0,
                         x:        10,
@@ -136,7 +136,7 @@ module.exports = function () {
                     },
                     {
                         type:     'sprite',
-                        path:     'core/graphics/arrows/indication-arrow-gui-ascending.png',
+                        path:     'core/graphics/arrows/indication-arrow.png',
                         scale:    {x: 0.25, y: 0.25},
                         rotation: 0,
                         x:        10,
@@ -156,40 +156,40 @@ module.exports = function () {
                 2: {
                     image:            {
                         type:   'trim',
-                        path:   'base/graphics/entity/combinator/combinator-entities.png',
-                        number: 8,
+                        path:   'base/graphics/entity/combinator/constant-combinator.png',
+                        number: 1,
                         cols:   4,
-                        rows:   3
+                        rows:   1
                     }
                 },
                 4: {
                     image: {
                         type:   'trim',
-                        path:   'base/graphics/entity/combinator/combinator-entities.png',
-                        number: 11,
+                        path:   'base/graphics/entity/combinator/constant-combinator.png',
+                        number: 2,
                         cols:   4,
-                        rows:   3
+                        rows:   1
                     }
                 },
                 6: {
                     image: {
                         type:   'trim',
-                        path:   'base/graphics/entity/combinator/combinator-entities.png',
-                        number: 9,
+                        path:   'base/graphics/entity/combinator/constant-combinator.png',
+                        number: 3,
                         cols:   4,
-                        rows:   3
+                        rows:   1
                     }
                 }
             },
             image:      {
                 type:   'trim',
-                path:   'base/graphics/entity/combinator/combinator-entities.png',
-                number: 10,
+                path:   'base/graphics/entity/combinator/constant-combinator.png',
+                number: 0,
                 cols:   4,
-                rows:   3
+                rows:   1
             },
             gridSize:   {w: 1, h: 1},
-            offset:     {x: -20, y: -10}
+            offset:     {x: -12, y: -10}
         },
         'decider-combinator':    {
             directions:       {
@@ -199,16 +199,16 @@ module.exports = function () {
                         images: [
                             {
                                 type:   'trim',
-                                path:   'base/graphics/entity/combinator/combinator-entities.png',
-                                number: 4,
+                                path:   'base/graphics/entity/combinator/decider-combinator.png',
+                                number: 1,
                                 cols:   4,
-                                rows:   3,
+                                rows:   1,
                                 x:      -5,
                                 y:      -10
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/graphics/arrows/indication-arrow-gui-ascending.png',
+                                path:     'core/graphics/arrows/indication-arrow.png',
                                 scale:    {x: 0.25, y: 0.25},
                                 rotation: 0.5,
                                 x:        10,
@@ -216,7 +216,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/graphics/arrows/indication-arrow-gui-ascending.png',
+                                path:     'core/graphics/arrows/indication-arrow.png',
                                 scale:    {x: 0.25, y: 0.25},
                                 rotation: 0.5,
                                 x:        55,
@@ -236,16 +236,16 @@ module.exports = function () {
                         images: [
                             {
                                 type:   'trim',
-                                path:   'base/graphics/entity/combinator/combinator-entities.png',
-                                number: 7,
+                                path:   'base/graphics/entity/combinator/decider-combinator.png',
+                                number: 2,
                                 cols:   4,
-                                rows:   3,
-                                x:      -20,
+                                rows:   1,
+                                x:      -23,
                                 y:      0
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/graphics/arrows/indication-arrow-gui-ascending.png',
+                                path:     'core/graphics/arrows/indication-arrow.png',
                                 scale:    {x: 0.25, y: 0.25},
                                 rotation: 1,
                                 x:        15,
@@ -253,7 +253,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/graphics/arrows/indication-arrow-gui-ascending.png',
+                                path:     'core/graphics/arrows/indication-arrow.png',
                                 scale:    {x: 0.25, y: 0.25},
                                 rotation: 1,
                                 x:        15,
@@ -273,16 +273,16 @@ module.exports = function () {
                         images: [
                             {
                                 type:   'trim',
-                                path:   'base/graphics/entity/combinator/combinator-entities.png',
-                                number: 5,
+                                path:   'base/graphics/entity/combinator/decider-combinator.png',
+                                number: 3,
                                 cols:   4,
-                                rows:   3,
-                                x:      -5,
+                                rows:   1,
+                                x:      -10,
                                 y:      -10
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/graphics/arrows/indication-arrow-gui-ascending.png',
+                                path:     'core/graphics/arrows/indication-arrow.png',
                                 scale:    {x: 0.25, y: 0.25},
                                 rotation: 1.5,
                                 x:        10,
@@ -290,7 +290,7 @@ module.exports = function () {
                             },
                             {
                                 type:     'sprite',
-                                path:     'core/graphics/arrows/indication-arrow-gui-ascending.png',
+                                path:     'core/graphics/arrows/indication-arrow.png',
                                 scale:    {x: 0.25, y: 0.25},
                                 rotation: 1.5,
                                 x:        55,
@@ -310,27 +310,27 @@ module.exports = function () {
                 images: [
                     {
                         type:   'trim',
-                        path:   'base/graphics/entity/combinator/combinator-entities.png',
-                        number: 6,
+                        path:   'base/graphics/entity/combinator/decider-combinator.png',
+                        number: 0,
                         cols:   4,
-                        rows:   3,
-                        x:      -20,
+                        rows:   1,
+                        x:      -23,
                         y:      0
                     },
                     {
                         type:     'sprite',
-                        path:     'core/graphics/arrows/indication-arrow-gui-ascending.png',
+                        path:     'core/graphics/arrows/indication-arrow.png',
                         scale:    {x: 0.25, y: 0.25},
                         rotation: 0,
-                        x:        10,
+                        x:        7,
                         y:        0
                     },
                     {
                         type:     'sprite',
-                        path:     'core/graphics/arrows/indication-arrow-gui-ascending.png',
+                        path:     'core/graphics/arrows/indication-arrow.png',
                         scale:    {x: 0.25, y: 0.25},
                         rotation: 0,
-                        x:        10,
+                        x:        7,
                         y:        50
                     }
                 ]

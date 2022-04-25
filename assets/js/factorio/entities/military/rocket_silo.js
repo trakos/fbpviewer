@@ -1,31 +1,31 @@
 module.exports = function () {
     return {
-        'rocket-silo':            {
+        'rocket-silo': {
             image:    {
                 type:   'container',
                 images: [
                     {
                         type: 'sprite',
-                        path: 'base/graphics/entity/rocket-silo/04-05-doors/04-door-back.png',
-                        x:    70,
-                        y:    190
+                        path: 'base/graphics/entity/rocket-silo/04-door-back.png',
+                        x:    90,
+                        y:    90
                     },
                     {
                         type: 'sprite',
-                        path: 'base/graphics/entity/rocket-silo/04-05-doors/05-door-front.png',
-                        x:    70,
-                        y:    190
+                        path: 'base/graphics/entity/rocket-silo/05-door-front.png',
+                        x:    35,
+                        y:    100
                     },
                     {
                         type: 'sprite',
-                        path: 'base/graphics/entity/rocket-silo/06-silo-base/06-silo-base-day.png',
+                        path: 'base/graphics/entity/rocket-silo/06-rocket-silo.png',
                         x:    0,
                         y:    0
                     }
                 ]
             },
-            gridSize: {w: 9, h: 10},
-            offset:   {x: -32, y: -32}
+            gridSize: {w: 9, h: 9},
+            offset:   {x: -4, y: -10}
         },
     };
 }

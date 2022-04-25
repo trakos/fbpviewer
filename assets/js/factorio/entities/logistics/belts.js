@@ -8,51 +8,49 @@ module.exports = function () {
                         type:           'animated',
                         path:           'base/graphics/entity/' + beltName + '/' + beltName + '.png',
                         cols:           imageColumns,
-                        rows:           11,
+                        rows:           20,
                         from:           0,
                         to:             imageColumns - 1,
                         animationSpeed: animationSpeed
                     },
-                    offset: {x: -5, y: -3}
+                    offset: {x: -16, y: -20}
                 },
                 4: {
                     image:  {
                         type:           'animated',
                         path:           'base/graphics/entity/' + beltName + '/' + beltName + '.png',
                         cols:           imageColumns,
-                        rows:           11,
-                        from:           imageColumns,
-                        to:             imageColumns * 2 - 1,
-                        rotation:       1,
+                        rows:           20,
+                        from:           imageColumns * 3,
+                        to:             imageColumns * 4 - 1,
                         animationSpeed: animationSpeed
                     },
-                    offset: {x: 15, y: 12}
+                    offset: {x: -16, y: -16}
                 },
                 6: {
                     image:  {
                         type:           'animated',
                         path:           'base/graphics/entity/' + beltName + '/' + beltName + '.png',
                         cols:           imageColumns,
-                        rows:           11,
-                        from:           0,
-                        to:             imageColumns - 1,
-                        rotation:       1,
+                        rows:           20,
+                        from:           imageColumns,
+                        to:             imageColumns * 2 - 1,
                         animationSpeed: animationSpeed
                     },
-                    offset: {x: 15, y: 15}
+                    offset: {x: -16, y: -20}
                 }
             },
             image:      {
                 type:           'animated',
                 path:           'base/graphics/entity/' + beltName + '/' + beltName + '.png',
                 cols:           imageColumns,
-                rows:           11,
-                from:           imageColumns,
-                to:             imageColumns * 2 - 1,
+                rows:           20,
+                from:           imageColumns * 2,
+                to:             imageColumns * 3 - 1,
                 animationSpeed: animationSpeed
             },
             gridSize:   {w: 1, h: 1},
-            offset:     {x: -5, y: 0}
+            offset:     {x: -16, y: -16}
         };
     }
 

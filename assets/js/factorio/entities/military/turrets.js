@@ -14,15 +14,15 @@ module.exports = function () {
                             },
                             {
                                 type: 'sprite',
-                                path: 'base/graphics/entity/pipe/pipe-ending-up.png',
-                                x:    -12,
-                                y:    21
+                                path: 'base/graphics/entity/flamethrower-turret/flamethrower-turret-base-east.png',
+                                x:    -6,
+                                y:    -3
                             },
                             {
                                 type: 'sprite',
-                                path: 'base/graphics/entity/flamethrower-turret/flamethrower-turret-base-east.png',
-                                x:    0,
-                                y:    0
+                                path: 'base/graphics/entity/pipe/pipe-ending-up.png',
+                                x:    -12,
+                                y:    31
                             },
                             {
                                 type:   'trim',
@@ -43,7 +43,7 @@ module.exports = function () {
                                 animationSpeed: 0.9,
                                 alpha:          0.8,
                                 scale:          {x: 0.5, y: 0.5},
-                                x:              102,
+                                x:              106,
                                 y:              -5
                             }
                         ]
@@ -156,14 +156,14 @@ module.exports = function () {
                     {
                         type: 'sprite',
                         path: 'base/graphics/entity/pipe/pipe-ending-left.png',
-                        x:    25,
-                        y:    33
+                        x:    32,
+                        y:    34
                     },
                     {
                         type: 'sprite',
                         path: 'base/graphics/entity/pipe/pipe-ending-right.png',
-                        x:    -18,
-                        y:    33
+                        x:    -14,
+                        y:    34
                     },
                     {
                         type: 'sprite',
@@ -190,13 +190,13 @@ module.exports = function () {
                         animationSpeed: 0.9,
                         scale:          {x: 0.5, y: 0.5},
                         alpha:          0.8,
-                        x:              32,
+                        x:              35,
                         y:              -54
                     }
                 ]
             },
             gridSize:   {w: 2, h: 3},
-            offset:     {x: -3, y: 13}
+            offset:     {x: -10, y: 13}
         },
         'gun-turret':          {
             directions: {
@@ -212,12 +212,12 @@ module.exports = function () {
                             },
                             {
                                 type:   'trim',
-                                path:   'base/graphics/entity/gun-turret/gun-turret-gun-extension.png',
+                                path:   'base/graphics/entity/gun-turret/gun-turret-raising.png',
                                 number: 5,
                                 cols:   5,
                                 rows:   4,
-                                x:      15,
-                                y:      -30
+                                x:      4,
+                                y:      -26
                             }
                         ]
                     }
@@ -234,12 +234,12 @@ module.exports = function () {
                             },
                             {
                                 type:   'trim',
-                                path:   'base/graphics/entity/gun-turret/gun-turret-gun-extension.png',
+                                path:   'base/graphics/entity/gun-turret/gun-turret-raising.png',
                                 number: 10,
                                 cols:   5,
                                 rows:   4,
-                                x:      15,
-                                y:      -30
+                                x:      4,
+                                y:      -26
                             }
                         ]
                     }
@@ -256,12 +256,12 @@ module.exports = function () {
                             },
                             {
                                 type:   'trim',
-                                path:   'base/graphics/entity/gun-turret/gun-turret-gun-extension.png',
+                                path:   'base/graphics/entity/gun-turret/gun-turret-raising.png',
                                 number: 15,
                                 cols:   5,
                                 rows:   4,
-                                x:      15,
-                                y:      -30
+                                x:      4,
+                                y:      -26
                             }
                         ]
                     }
@@ -278,17 +278,17 @@ module.exports = function () {
                     },
                     {
                         type:   'trim',
-                        path:   'base/graphics/entity/gun-turret/gun-turret-gun-extension.png',
+                        path:   'base/graphics/entity/gun-turret/gun-turret-raising.png',
                         number: 0,
                         cols:   5,
                         rows:   4,
-                        x:      15,
-                        y:      -30
+                        x:      4,
+                        y:      -26
                     }
                 ]
             },
             gridSize:   {w: 2, h: 2},
-            offset:     {x: -17, y: 0}
+            offset:     {x: -4, y: 4}
         },
         'laser-turret':        {
             directions: {
@@ -299,38 +299,38 @@ module.exports = function () {
                             {
                                 type: 'sprite',
                                 path: 'base/graphics/entity/laser-turret/laser-turret-base.png',
-                                x:    0,
-                                y:    0
+                                x:    -2,
+                                y:    6
                             },
                             {
                                 type:   'trim',
-                                path:   'base/graphics/entity/laser-turret/laser-turret-gun-start.png',
+                                path:   'base/graphics/entity/laser-turret/laser-turret-raising.png',
                                 number: 16,
                                 cols:   16,
                                 rows:   4,
-                                x:      15,
+                                x:      0,
                                 y:      -30
                             }
                         ]
                     }
                 },
                 4: {
-                    image:      {
+                    image: {
                         type:   'container',
                         images: [
                             {
                                 type: 'sprite',
                                 path: 'base/graphics/entity/laser-turret/laser-turret-base.png',
-                                x:    0,
-                                y:    0
+                                x:    -2,
+                                y:    6
                             },
                             {
                                 type:   'trim',
-                                path:   'base/graphics/entity/laser-turret/laser-turret-gun-start.png',
+                                path:   'base/graphics/entity/laser-turret/laser-turret-raising.png',
                                 number: 32,
                                 cols:   16,
                                 rows:   4,
-                                x:      15,
+                                x:      0,
                                 y:      -30
                             }
                         ]
@@ -343,44 +343,44 @@ module.exports = function () {
                             {
                                 type: 'sprite',
                                 path: 'base/graphics/entity/laser-turret/laser-turret-base.png',
-                                x:    0,
-                                y:    0
+                                x:    -2,
+                                y:    6
                             },
                             {
                                 type:   'trim',
-                                path:   'base/graphics/entity/laser-turret/laser-turret-gun-start.png',
+                                path:   'base/graphics/entity/laser-turret/laser-turret-raising.png',
                                 number: 48,
                                 cols:   16,
                                 rows:   4,
-                                x:      15,
+                                x:      0,
                                 y:      -30
                             }
                         ]
                     }
                 },
             },
-            image: {
+            image:      {
                 type:   'container',
                 images: [
                     {
                         type: 'sprite',
                         path: 'base/graphics/entity/laser-turret/laser-turret-base.png',
-                        x:    0,
-                        y:    0
+                        x:    -2,
+                        y:    6
                     },
                     {
                         type:   'trim',
-                        path:   'base/graphics/entity/laser-turret/laser-turret-gun-start.png',
+                        path:   'base/graphics/entity/laser-turret/laser-turret-raising.png',
                         number: 0,
                         cols:   16,
                         rows:   4,
-                        x:      15,
+                        x:      0,
                         y:      -30
                     }
                 ]
             },
             gridSize:   {w: 2, h: 2},
-            offset:     {x: -17, y: 0}
+            offset:     {x: 0, y: 0}
         }
     };
 }

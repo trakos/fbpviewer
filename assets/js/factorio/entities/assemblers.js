@@ -1,6 +1,6 @@
 module.exports = function () {
     return {
-        'assembling-machine-1':   {
+        'assembling-machine-1': {
             image:    {
                 type:   'trim',
                 path:   'base/graphics/entity/assembling-machine-1/assembling-machine-1.png',
@@ -11,7 +11,7 @@ module.exports = function () {
             gridSize: {w: 3, h: 3},
             offset:   {x: -5, y: -12}
         },
-        'assembling-machine-2':   {
+        'assembling-machine-2': {
             directions: {
                 2: {
                     image: {
@@ -142,7 +142,7 @@ module.exports = function () {
             gridSize:   {w: 3, h: 3},
             offset:     {x: -5, y: -8}
         },
-        'assembling-machine-3':   {
+        'assembling-machine-3': {
             directions: {
                 2: {
                     image: {

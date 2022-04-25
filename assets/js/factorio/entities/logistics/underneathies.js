@@ -13,104 +13,102 @@ module.exports = function () {
                                         type:           'animated',
                                         path:           'base/graphics/entity/' + beltPrefix + 'transport-belt/' + beltPrefix + 'transport-belt.png',
                                         cols:           beltImageColumns,
-                                        rows:           11,
+                                        rows:           20,
                                         from:           0,
                                         to:             beltImageColumns - 1,
                                         animationSpeed: beltAnimationSpeed,
-                                        x: -5,
-                                        y: -3
+                                        x:              -16,
+                                        y:              -20
                                     },
                                     {
                                         type:   'trim',
                                         path:   'base/graphics/entity/' + beltPrefix + 'underground-belt/' + beltPrefix + 'underground-belt-structure.png',
                                         cols:   4,
-                                        rows:   2,
+                                        rows:   4,
                                         number: 3,
-                                        x:      -6,
-                                        y:      -7
+                                        x:      -32,
+                                        y:      -36
                                     }
                                 ]
                             }
                         },
                         4: {
-                            image:  {
+                            image: {
                                 type:   'container',
                                 images: [
                                     {
                                         type:           'animated',
                                         path:           'base/graphics/entity/' + beltPrefix + 'transport-belt/' + beltPrefix + 'transport-belt.png',
                                         cols:           beltImageColumns,
-                                        rows:           11,
-                                        from:           beltImageColumns,
-                                        to:             beltImageColumns * 2 - 1,
-                                        rotation:       1,
+                                        rows:           20,
+                                        from:           beltImageColumns * 3,
+                                        to:             beltImageColumns * 4 - 1,
                                         animationSpeed: beltAnimationSpeed,
-                                        x: 15,
-                                        y: 11
+                                        x:              -16,
+                                        y:              -16
                                     },
                                     {
                                         type:   'trim',
                                         path:   'base/graphics/entity/' + beltPrefix + 'underground-belt/' + beltPrefix + 'underground-belt-structure.png',
                                         cols:   4,
-                                        rows:   2,
+                                        rows:   4,
                                         number: 0,
-                                        x: -5,
-                                        y: -12
+                                        x:      -32,
+                                        y:      -34
                                     }
                                 ]
                             }
                         },
                         6: {
-                            image:  {
+                            image: {
                                 type:   'container',
                                 images: [
                                     {
                                         type:           'animated',
                                         path:           'base/graphics/entity/' + beltPrefix + 'transport-belt/' + beltPrefix + 'transport-belt.png',
                                         cols:           beltImageColumns,
-                                        rows:           11,
-                                        from:           0,
-                                        to:             beltImageColumns - 1,
-                                        rotation:       1,
+                                        rows:           20,
+                                        from:           beltImageColumns,
+                                        to:             beltImageColumns * 2 - 1,
                                         animationSpeed: beltAnimationSpeed,
-                                        x: 15,
-                                        y: 15
+                                        x:              -16,
+                                        y:              -20
                                     },
                                     {
                                         type:   'trim',
                                         path:   'base/graphics/entity/' + beltPrefix + 'underground-belt/' + beltPrefix + 'underground-belt-structure.png',
                                         cols:   4,
-                                        rows:   2,
+                                        rows:   4,
                                         number: 1,
-                                        x: -3,
-                                        y: -8
+                                        x:      -32,
+                                        y:      -36
                                     }
                                 ]
                             }
                         }
                     },
-                    image:  {
+                    image:      {
                         type:   'container',
                         images: [
                             {
                                 type:           'animated',
                                 path:           'base/graphics/entity/' + beltPrefix + 'transport-belt/' + beltPrefix + 'transport-belt.png',
                                 cols:           beltImageColumns,
-                                rows:           11,
-                                from:           beltImageColumns,
-                                to:             beltImageColumns * 2 - 1,
+                                rows:           20,
+                                from:           beltImageColumns * 2,
+                                to:             beltImageColumns * 3 - 1,
                                 animationSpeed: beltAnimationSpeed,
-                                x: -5,
-                                y: -4
+                                x:              -16,
+                                y:              -16
                             },
                             {
                                 type:   'trim',
                                 path:   'base/graphics/entity/' + beltPrefix + 'underground-belt/' + beltPrefix + 'underground-belt-structure.png',
                                 cols:   4,
-                                rows:   2,
+                                rows:   4,
                                 number: 2,
-                                x: -5,
-                                y: -10
+                                x:      -32,
+                                y:      -34
                             }
                         ]
                     }
@@ -125,104 +123,102 @@ module.exports = function () {
                                         type:           'animated',
                                         path:           'base/graphics/entity/' + beltPrefix + 'transport-belt/' + beltPrefix + 'transport-belt.png',
                                         cols:           beltImageColumns,
-                                        rows:           11,
+                                        rows:           20,
                                         from:           0,
                                         to:             beltImageColumns - 1,
                                         animationSpeed: beltAnimationSpeed,
-                                        x: -5,
-                                        y: -3
+                                        x:              -16,
+                                        y:              -20
                                     },
                                     {
                                         type:   'trim',
                                         path:   'base/graphics/entity/' + beltPrefix + 'underground-belt/' + beltPrefix + 'underground-belt-structure.png',
                                         cols:   4,
-                                        rows:   2,
+                                        rows:   4,
                                         number: 5,
-                                        x:      -3,
-                                        y:      -8
+                                        x:      -32,
+                                        y:      -36
                                     }
                                 ]
                             }
                         },
                         4: {
-                            image:  {
+                            image: {
                                 type:   'container',
                                 images: [
                                     {
                                         type:           'animated',
                                         path:           'base/graphics/entity/' + beltPrefix + 'transport-belt/' + beltPrefix + 'transport-belt.png',
                                         cols:           beltImageColumns,
-                                        rows:           11,
-                                        from:           beltImageColumns,
-                                        to:             beltImageColumns * 2 - 1,
-                                        rotation:       1,
+                                        rows:           20,
+                                        from:           beltImageColumns * 3,
+                                        to:             beltImageColumns * 4 - 1,
                                         animationSpeed: beltAnimationSpeed,
-                                        x: 15,
-                                        y: 5
+                                        x:              -16,
+                                        y:              -16
                                     },
                                     {
                                         type:   'trim',
                                         path:   'base/graphics/entity/' + beltPrefix + 'underground-belt/' + beltPrefix + 'underground-belt-structure.png',
                                         cols:   4,
-                                        rows:   2,
+                                        rows:   4,
                                         number: 6,
-                                        x: -5,
-                                        y: -10
+                                        x:      -32,
+                                        y:      -34
                                     }
                                 ]
                             }
                         },
                         6: {
-                            image:  {
+                            image: {
                                 type:   'container',
                                 images: [
                                     {
                                         type:           'animated',
                                         path:           'base/graphics/entity/' + beltPrefix + 'transport-belt/' + beltPrefix + 'transport-belt.png',
                                         cols:           beltImageColumns,
-                                        rows:           11,
-                                        from:           0,
-                                        to:             beltImageColumns - 1,
-                                        rotation:       1,
+                                        rows:           20,
+                                        from:           beltImageColumns,
+                                        to:             beltImageColumns * 2 - 1,
                                         animationSpeed: beltAnimationSpeed,
-                                        x: 15,
-                                        y: 15
+                                        x:              -16,
+                                        y:              -20
                                     },
                                     {
                                         type:   'trim',
                                         path:   'base/graphics/entity/' + beltPrefix + 'underground-belt/' + beltPrefix + 'underground-belt-structure.png',
                                         cols:   4,
-                                        rows:   2,
+                                        rows:   4,
                                         number: 7,
-                                        x: -5,
-                                        y: -8
+                                        x:      -32,
+                                        y:      -36
                                     }
                                 ]
                             }
                         }
                     },
-                    image:  {
+                    image:      {
                         type:   'container',
                         images: [
                             {
                                 type:           'animated',
                                 path:           'base/graphics/entity/' + beltPrefix + 'transport-belt/' + beltPrefix + 'transport-belt.png',
                                 cols:           beltImageColumns,
-                                rows:           11,
-                                from:           beltImageColumns,
-                                to:             beltImageColumns * 2 - 1,
+                                rows:           20,
+                                from:           beltImageColumns * 2,
+                                to:             beltImageColumns * 3 - 1,
                                 animationSpeed: beltAnimationSpeed,
-                                x: -5,
-                                y: 0
+                                x:              -16,
+                                y:              -16
                             },
                             {
                                 type:   'trim',
                                 path:   'base/graphics/entity/' + beltPrefix + 'underground-belt/' + beltPrefix + 'underground-belt-structure.png',
                                 cols:   4,
-                                rows:   2,
+                                rows:   4,
                                 number: 4,
-                                x: -5,
-                                y: -12
+                                x:      -32,
+                                y:      -34
                             }
                         ]
                     }
