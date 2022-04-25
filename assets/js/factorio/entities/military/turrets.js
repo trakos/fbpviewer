@@ -381,6 +381,30 @@ module.exports = function () {
             },
             gridSize:   {w: 2, h: 2},
             offset:     {x: 0, y: 0}
+        },
+        'artillery-turret':        {
+            image:      {
+                type:   'container',
+                images: [
+                    {
+                        type: 'sprite',
+                        path: 'base/graphics/entity/artillery-turret/artillery-turret-base.png',
+                        x:    0,
+                        y:    0
+                    },
+                    {
+                        type:   'trim',
+                        path:   'base/graphics/entity/artillery-wagon/artillery-wagon-cannon-base-1.png',
+                        number: 0,
+                        cols:   4,
+                        rows:   4,
+                        x:      -40,
+                        y:      -80
+                    }
+                ]
+            },
+            gridSize:   {w: 3, h: 3},
+            offset:     {x: -3, y: -5}
         }
     };
 }
