@@ -126,9 +126,14 @@ $(function () {
                 }
                 return str.replaceAll(/\[[^\]]*\]/g, '');
             }
+
             function findFirstBlueprint(data) {
                 if (data.blueprint) {
                     return data.blueprint;
+                } else if (data.deconstruction_planner) {
+                    return null;
+                } else if (data.upgrade_planner) {
+                    return;
                 }
 
                 for (const key in data.blueprint_book.blueprints) {
@@ -141,11 +146,12 @@ $(function () {
 
                 return null;
             }
+
             function renderBlueprintMenuItem(blueprint, prefix) {
                 var icons = '';
                 for (var k = 0; k < 4; k++) {
-                    var icon = blueprint.icons[k];
-                    if (icon) {
+                    if (blueprint.icons && blueprint.icons[k]) {
+                        var icon = blueprint.icons[k];
                         var signalName = icon.signal.name;
                         if (factorioBlueprintReader.icons[signalName]) {
                             var imageSpec = factorioBlueprintReader.icons[signalName].image;
@@ -169,12 +175,18 @@ $(function () {
                 }
                 $('#blueprint-recipe-selector ul').append(option);
             }
+
             function renderBlueprintMenu(data, prefix) {
                 if (data.blueprint) {
                     renderBlueprintMenuItem(data.blueprint, prefix);
 
                     return;
+                } else if (data.deconstruction_planner) {
+                    return;
+                } else if (data.upgrade_planner) {
+                    return;
                 }
+
                 let prefixClone = prefix.slice();
                 prefixClone.push(removeSquaredBracketFormatting(data.blueprint_book.label));
                 forEach(data.blueprint_book.blueprints, function (value, key) {
@@ -184,8 +196,8 @@ $(function () {
 
             var blueprintContainer = null;
             var currentBlueprintString = FBR_INITIAL_BLUEPRINT;
-            var currentBlueprint = null;
             var blueprintData = factorioBlueprintReader.parse(currentBlueprintString);
+            var currentBlueprint = findFirstBlueprint(blueprintData.data);
             blueprintContainer = new PIXI.Container();
             zoomAndPanHandler.setContainer(blueprintContainer);
             gameContainer.addChild(blueprintContainer);
@@ -199,9 +211,6 @@ $(function () {
                 }, 0);
 
                 factorioBlueprintReader.loadEntities();
-                if (!currentBlueprint) {
-                    currentBlueprint = findFirstBlueprint(blueprintData.data);
-                }
                 blueprintContainer = blueprintRenderer.renderBlueprint(renderer, stage, currentBlueprint);
                 $('#blueprint-recipe-selector ul').find('li').remove();
                 renderBlueprintMenu(blueprintData.data, []);
@@ -245,13 +254,14 @@ $(function () {
                                 alert("Failed parsing the blueprint!");
                                 return;
                             }
-                            if (blueprintData.data.blueprint_book && blueprintData.data.blueprint_book.length == 0) {
-                                alert("You can't import an empty book!");
+                            let firstBlueprint = findFirstBlueprint(parsed.data);
+                            if (!firstBlueprint) {
+                                alert("You can't import empty books, upgrade planners and deconstruction plans.");
                                 return;
                             }
+                            currentBlueprint = firstBlueprint;
                             dialogRef.close();
                             blueprintData = parsed;
-                            currentBlueprint = null;
                             currentBlueprintString = blueprintString;
                             redraw();
                         }
