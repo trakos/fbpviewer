@@ -35,6 +35,17 @@ module.exports = function () {
             gridSize: {w: 1, h: 1},
             offset:   {x: 0, y: 0}
         },
+        'logistic-chest-buffer':        {
+            image:    {
+                type:   'trim',
+                path:   'base/graphics/entity/logistic-chest/logistic-chest-buffer.png',
+                number: 0,
+                cols:   7,
+                rows:   1,
+            },
+            gridSize: {w: 1, h: 1},
+            offset:   {x: 0, y: 0}
+        },
         'logistic-chest-passive-provider': {
             image:    {
                 type:   'trim',
