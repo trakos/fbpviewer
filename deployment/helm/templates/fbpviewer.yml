@@ -77,6 +77,8 @@ spec:
     metadata:
       labels:
         app: deployment-nginx
+      annotations:
+        forceRoll: {{ randAlphaNum 5 | quote }}
     spec:
       imagePullSecrets:
         - name: docker-registry-secret
