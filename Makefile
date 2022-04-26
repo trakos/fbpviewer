@@ -78,6 +78,9 @@ stop-prod:
 helm-upgrade:
 	helm upgrade --install  fbpviewer ./deployment/helm -f ./deployment/.values.yaml
 
+helm-debug:
+	helm upgrade --install  --dry-run --debug fbpviewer ./deployment/helm -f ./deployment/.values.yaml
+
 helm-uninstall:
 	helm uninstall fbpviewer
 
