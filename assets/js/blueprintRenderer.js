@@ -249,9 +249,9 @@ class BlueprintRenderer {
     }
 
 
-    renderBlueprint(pixiRenderer, stage, blueprintData) {
-        var entities = blueprintData.blueprint.entities || [];
-        var tiles = blueprintData.blueprint.tiles || [];
+    renderBlueprint(pixiRenderer, stage, blueprint) {
+        var entities = blueprint.entities || [];
+        var tiles = blueprint.tiles || [];
 
         var minXY = 0;
         var maxXY = 0;

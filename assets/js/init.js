@@ -120,9 +120,71 @@ $(function () {
 
             gameLoop();
 
+            function removeSquaredBracketFormatting(str) {
+                if (!str) {
+                    return str;
+                }
+                return str.replaceAll(/\[[^\]]*\]/g, '');
+            }
+            function findFirstBlueprint(data) {
+                if (data.blueprint) {
+                    return data.blueprint;
+                }
+
+                for (const key in data.blueprint_book.blueprints) {
+                    const value = data.blueprint_book.blueprints[key]
+                    let firstBlueprint = findFirstBlueprint(value);
+                    if (firstBlueprint) {
+                        return firstBlueprint;
+                    }
+                }
+
+                return null;
+            }
+            function renderBlueprintMenuItem(blueprint, prefix) {
+                var icons = '';
+                for (var k = 0; k < 4; k++) {
+                    var icon = blueprint.icons[k];
+                    if (icon) {
+                        var signalName = icon.signal.name;
+                        if (factorioBlueprintReader.icons[signalName]) {
+                            var imageSpec = factorioBlueprintReader.icons[signalName].image;
+                            var iconSprites = blueprintRenderer.createEntityLayers(imageSpec, {});
+                            var iconSrc = iconCropper.createIconURL(iconSprites);
+                            icons += '<img src="' + iconSrc + '" />';
+                        } else {
+                            console.log('Icon not found', signalName);
+                        }
+                    } else {
+                        icons += '<span style="margin-right: 32px;"></span>';
+                    }
+                }
+                var option = $('<li><a href="#">' + icons + ' ' + prefix.join(' / ') + ' / ' + removeSquaredBracketFormatting(blueprint.label) + '</a></li>');
+                option.click(function () {
+                    currentBlueprint = blueprint;
+                    redraw();
+                });
+                if (currentBlueprint === blueprint) {
+                    option.addClass('active');
+                }
+                $('#blueprint-recipe-selector ul').append(option);
+            }
+            function renderBlueprintMenu(data, prefix) {
+                if (data.blueprint) {
+                    renderBlueprintMenuItem(data.blueprint, prefix);
+
+                    return;
+                }
+                let prefixClone = prefix.slice();
+                prefixClone.push(removeSquaredBracketFormatting(data.blueprint_book.label));
+                forEach(data.blueprint_book.blueprints, function (value, key) {
+                    renderBlueprintMenu(value, prefixClone);
+                });
+            }
+
             var blueprintContainer = null;
             var currentBlueprintString = FBR_INITIAL_BLUEPRINT;
-            var currentBlueprintIndex = 0;
+            var currentBlueprint = null;
             var blueprintData = factorioBlueprintReader.parse(currentBlueprintString);
             blueprintContainer = new PIXI.Container();
             zoomAndPanHandler.setContainer(blueprintContainer);
@@ -137,50 +199,12 @@ $(function () {
                 }, 0);
 
                 factorioBlueprintReader.loadEntities();
-                if (blueprintData.data.blueprint) {
-                    $("#blueprint-recipe-selector").hide();
-                    blueprintContainer = blueprintRenderer.renderBlueprint(renderer, stage, blueprintData.data);
-                } else if (blueprintData.data.blueprint_book) {
-                    $("#blueprint-recipe-selector").show();
-                    blueprintContainer = blueprintRenderer.renderBlueprint(renderer, stage, blueprintData.data.blueprint_book.blueprints[currentBlueprintIndex]);
-                    $('#blueprint-recipe-selector ul').find('li').remove();
-                    forEach(blueprintData.data.blueprint_book.blueprints, function (value, key) {
-                        var icons = '';
-                        for (var k = 0; k < 4; k++) {
-                            var icon = value.blueprint.icons[k];
-                            if (icon) {
-                                var signalName = icon.signal.name;
-                                if (factorioBlueprintReader.icons[signalName]) {
-                                    var imageSpec = factorioBlueprintReader.icons[signalName].image;
-                                    var iconSprites = blueprintRenderer.createEntityLayers(imageSpec, {});
-                                    var iconSrc = iconCropper.createIconURL(iconSprites);
-                                    icons += '<img src="' + iconSrc + '" />';
-                                    continue;
-
-                                    /*if (imageSpec.type == 'sprite') {
-                                     icons += '<img src="' + FBR_IMAGES_PREFIX + imageSpec.path + '" />';
-                                     continue;
-                                     } else {
-                                     console.log('Icon complex', signalName);
-                                     }*/
-                                } else {
-                                    console.log('Icon not found', signalName);
-                                }
-                            } else {
-                                icons += '<span style="margin-right: 32px;"></span>';
-                            }
-                        }
-                        var option = $('<li><a href="#">' + icons + ' ' + value.blueprint.label + '</a></li>');
-                        option.click(function () {
-                            currentBlueprintIndex = key;
-                            redraw();
-                        });
-                        if (key == currentBlueprintIndex) {
-                            option.addClass('active');
-                        }
-                        $('#blueprint-recipe-selector ul').append(option);
-                    });
+                if (!currentBlueprint) {
+                    currentBlueprint = findFirstBlueprint(blueprintData.data);
                 }
+                blueprintContainer = blueprintRenderer.renderBlueprint(renderer, stage, currentBlueprint);
+                $('#blueprint-recipe-selector ul').find('li').remove();
+                renderBlueprintMenu(blueprintData.data, []);
                 zoomAndPanHandler.setContainer(blueprintContainer);
 
                 gameContainer.addChild(blueprintContainer);
@@ -227,7 +251,7 @@ $(function () {
                             }
                             dialogRef.close();
                             blueprintData = parsed;
-                            currentBlueprintIndex = 0;
+                            currentBlueprint = null;
                             currentBlueprintString = blueprintString;
                             redraw();
                         }
