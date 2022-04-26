@@ -2,6 +2,7 @@ const forEach = require("lodash.foreach");
 const merge = require("lodash.merge");
 const BootstrapDialog = require("bootstrap3-dialog");
 const hljs = require("highlight.js");
+const {iconSize} = require("./factorio/icons");
 
 class BlueprintRenderer {
     constructor(FactorioBlueprintReader, animationHandler, zoomAndPanHandler, keyboardHandler) {
@@ -204,7 +205,7 @@ class BlueprintRenderer {
                     } else {
                         var iconLayers = this.createIconSprite(this.factorioBlueprintReader.icons[itemName].image);
                         forEach(iconLayers, (layerContainer, layerNumber) => {
-                            layerContainer.scale.x = layerContainer.scale.y = 0.5;
+                            layerContainer.scale.x = layerContainer.scale.y = 0.25;
                         });
                         xOffset = startX + this.factorioBlueprintReader.iconSize / 2 * itemNumber;
                         yOffset = (sizeH * FBR_PIXELS_PER_TILE) / 2 + this.factorioBlueprintReader.iconSize;
@@ -228,7 +229,7 @@ class BlueprintRenderer {
             } else {
                 var iconLayers = this.createIconSprite(this.factorioBlueprintReader.icons[filterItem.name].image);
                 forEach(iconLayers, (layerContainer, layerNumber) => {
-                    layerContainer.scale.x = layerContainer.scale.y = 0.4;
+                    layerContainer.scale.x = layerContainer.scale.y = 0.2;
                 });
                 xOffset = (filterItemNumber % 2 == 0 ? 0 : 16) + (this.factorioBlueprintReader.iconSize * 0.2);
                 yOffset = (Math.floor(filterItemNumber % 4 / 2) * 16) + (this.factorioBlueprintReader.iconSize * 0.2);
