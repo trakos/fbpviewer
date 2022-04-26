@@ -5,12 +5,12 @@ const hljs = require("highlight.js");
 
 class BlueprintRenderer {
     constructor(FactorioBlueprintReader, animationHandler, zoomAndPanHandler, keyboardHandler) {
-        this.DEFAULT_LAYER =                100;
-        this.OVERLAY_LAYER =                200;
-        this.factorioBlueprintReader =      FactorioBlueprintReader;
-        this.animationHandler =             animationHandler;
-        this.zoomAndPanHandler =            zoomAndPanHandler;
-        this.keyboardHandler =              keyboardHandler;
+        this.DEFAULT_LAYER = 100;
+        this.OVERLAY_LAYER = 200;
+        this.factorioBlueprintReader = FactorioBlueprintReader;
+        this.animationHandler = animationHandler;
+        this.zoomAndPanHandler = zoomAndPanHandler;
+        this.keyboardHandler = keyboardHandler;
     }
 
     getRandomInt(min, max) {
@@ -137,7 +137,7 @@ class BlueprintRenderer {
         return iconLayers;
     }
 
-    renderEntityToLayers(layers, minXY, entity) {
+    renderEntityToLayers(layers, minX, minY, entity) {
         var spriteLayers = {};
         var sizeW = 0;
         var sizeH = 0;
@@ -163,8 +163,8 @@ class BlueprintRenderer {
             yOffset = entityDrawingSpec.offset.y;
         }
 
-        var gridX = Math.floor(entity.position.x - minXY - sizeW / 2);
-        var gridY = Math.floor(entity.position.y - minXY - sizeH / 2);
+        var gridX = Math.floor(entity.position.x - minX - sizeW / 2);
+        var gridY = Math.floor(entity.position.y - minY - sizeH / 2);
         this.drawLayers(layers, spriteLayers, gridX, gridY, xOffset, yOffset);
 
 
@@ -253,14 +253,18 @@ class BlueprintRenderer {
         var entities = blueprint.entities || [];
         var tiles = blueprint.tiles || [];
 
-        var minXY = 0;
-        var maxXY = 0;
+        var minX = Number.POSITIVE_INFINITY;
+        var minY = Number.POSITIVE_INFINITY;
+        var maxX = Number.NEGATIVE_INFINITY;
+        var maxY = Number.NEGATIVE_INFINITY;
 
         forEach(tiles, (entity) => {
             var x = entity.position.x;
             var y = entity.position.y;
-            minXY = Math.min(minXY, x, y);
-            maxXY = Math.max(maxXY, x, y);
+            minX = Math.min(minX, x);
+            minY = Math.min(minY, y);
+            maxX = Math.max(maxX, x);
+            maxY = Math.max(maxY, y);
         });
 
         var entitiesByYX = {};
@@ -277,17 +281,33 @@ class BlueprintRenderer {
                 allYCoordinates.push(y);
             }
 
-            minXY = Math.min(minXY, x, y);
-            maxXY = Math.max(maxXY, x, y);
+            minX = Math.min(minX, x);
+            minY = Math.min(minY, y);
+            maxX = Math.max(maxX, x);
+            maxY = Math.max(maxY, y);
         });
         allYCoordinates.sort((a, b) => {
             return a - b;
         });
 
-        minXY -= 5;
-        maxXY += 5;
+        if (
+            minX === Number.POSITIVE_INFINITY
+            || minY === Number.POSITIVE_INFINITY
+            || maxX === Number.NEGATIVE_INFINITY
+            || maxY === Number.NEGATIVE_INFINITY
+        ) {
+            minX = 0;
+            minY = 0;
+            maxX = 0;
+            maxY = 0;
+        }
 
-        var sizeXY = maxXY - minXY;
+        minX -= 5;
+        minY -= 5;
+        maxX += 5;
+        maxY += 5;
+
+        var sizeXY = Math.max(maxX - minX, maxY - minY);
         var minScale = Math.min(1, FBR_CANVAS_WIDTH / (sizeXY * FBR_PIXELS_PER_TILE), FBR_CANVAS_HEIGHT / (sizeXY * FBR_PIXELS_PER_TILE));
 
         var blueprintContainer = new PIXI.Container();
@@ -330,8 +350,8 @@ class BlueprintRenderer {
                 spriteLayers.lineStyle(1, 0x333333);
                 spriteLayers.drawRect(0, 0, FBR_PIXELS_PER_TILE, FBR_PIXELS_PER_TILE);
             }
-            var gridX = Math.floor(entity.position.x - minXY - (isX0InHalfGrid ? 1 : 0));
-            var gridY = Math.floor(entity.position.y - minXY - (isY0InHalfGrid ? 1 : 0));
+            var gridX = Math.floor(entity.position.x - minX - (isX0InHalfGrid ? 1 : 0));
+            var gridY = Math.floor(entity.position.y - minY - (isY0InHalfGrid ? 1 : 0));
             forEach(spriteLayers, (sprite, layerNumber) => {
                 sprite.x = gridX * FBR_PIXELS_PER_TILE;
                 sprite.y = gridY * FBR_PIXELS_PER_TILE;
@@ -344,7 +364,7 @@ class BlueprintRenderer {
         forEach(allYCoordinates, (y) => {
             forEach(entitiesByYX[y], (entitiesForYX) => {
                 forEach(entitiesForYX, (entityKey) => {
-                    this.renderEntityToLayers(layers, minXY, entities[entityKey]);
+                    this.renderEntityToLayers(layers, minX, minY, entities[entityKey]);
                 })
             })
         });
@@ -366,8 +386,8 @@ class BlueprintRenderer {
                 sizeW = entityDrawingSpec.gridSize.w;
                 sizeH = entityDrawingSpec.gridSize.h;
             }
-            var gridX = Math.floor(entity.position.x - minXY - sizeW / 2);
-            var gridY = Math.floor(entity.position.y - minXY - sizeH / 2);
+            var gridX = Math.floor(entity.position.x - minX - sizeW / 2);
+            var gridY = Math.floor(entity.position.y - minY - sizeH / 2);
             var x = gridX * FBR_PIXELS_PER_TILE;
             var y = gridY * FBR_PIXELS_PER_TILE;
 
@@ -426,14 +446,6 @@ class BlueprintRenderer {
         this.zoomAndPanHandler.setOnMouseClickListener((x, y) => {
             x = Math.floor(x / FBR_PIXELS_PER_TILE);
             y = Math.floor(y / FBR_PIXELS_PER_TILE);
-            /*$.each(tiles, function (key, entity) {
-             var gridX = Math.floor(entity.position.x - minXY - 0.5);
-             var gridY = Math.floor(entity.position.y - minXY - 0.5);
-             if (gridX == x && gridY == y) {
-             console.log('tile', entity.name, '(' + x + ', ' + y + ')', entity);
-             }
-             });*/
-
 
             forEach(entities, (entity) => {
                 var sizeW = 1;
@@ -443,8 +455,8 @@ class BlueprintRenderer {
                     sizeW = entityDrawingSpec.gridSize.w;
                     sizeH = entityDrawingSpec.gridSize.h;
                 }
-                var gridX = Math.floor(entity.position.x - minXY - sizeW / 2);
-                var gridY = Math.floor(entity.position.y - minXY - sizeH / 2);
+                var gridX = Math.floor(entity.position.x - minX - sizeW / 2);
+                var gridY = Math.floor(entity.position.y - minY - sizeH / 2);
                 if (x >= gridX && x < gridX + sizeW && y >= gridY && y < gridY + sizeH) {
                     BootstrapDialog.show({
                         title:   entity.name,
