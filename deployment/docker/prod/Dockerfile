@@ -11,7 +11,6 @@ COPY Makefile /var/www/Makefile
 WORKDIR /var/www
 RUN touch .env
 RUN make build-assets-prod
-RUN make build-atlas
 
 FROM fbpviewer_php AS php
 

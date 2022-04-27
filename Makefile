@@ -15,30 +15,29 @@ build-php:
 migrate:
 	bin/console doctrine:migrations:migrate --no-interaction
 
-build-atlas:
+build-assets:
+	cd /var/www/assets
+	yarn install
 	cd /var/www/atlasgen
 	yarn install --no-bin-links
 	patch -p1 -N < spritesheet.patch
 	yarn run atlasgen
-
-build-assets:
 	cd /var/www/assets
-	yarn install
 	yarn build
 
 build-assets-prod:
 	cd /var/www/assets
 	yarn install
+	cd /var/www/atlasgen
+	yarn install --no-bin-links
+	patch -p1 -N < spritesheet.patch
+	yarn run atlasgen
+	cd /var/www/assets
 	env NODE_ENV=production yarn build
-	# Remove source assets that are loaded from spritesheet.png/spritesheet.json on production.
-	rm -fr /var/www/web/images/base
-	rm -fr /var/www/web/images/core
-	rm -fr /var/www/web/images/background.png
 
 start:
 	docker-compose up -d
 	docker-compose exec -w /var/www node make build-assets
-	docker-compose exec -w /var/www node make build-atlas
 	docker-compose exec -w /var/www php make build-php
 	docker-compose exec -w /var/www php make migrate
 

@@ -86,9 +86,19 @@ $(function () {
 
     var gameContainer = new PIXI.Container();
 
-    PIXI.loader
-        .add(FBR_DEV ? loader.getImagesToLoad() : '/images/spritesheet.json')
-        .on("progress", function (loader, resource) {
+    if (FBR_DEV) {
+        PIXI.loader.add(loader.getImagesToLoad())
+    } else {
+        PIXI.loader.add('image', require('../spritesheet.png'))
+            .load((loader, resources) => {
+                const sheet = new PIXI.Spritesheet(resources.image.texture.baseTexture, require('../spritesheet.json'));
+                sheet.parse(() => {
+                });
+            });
+    }
+
+
+    PIXI.loader.on("progress", function (loader, resource) {
 
             var url = resource.url;
             var name = resource.name;

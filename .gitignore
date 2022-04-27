@@ -12,3 +12,5 @@
 node_modules
 .values.yaml
 /deployment/helm/charts/
+/assets/spritesheet.json
+/assets/spritesheet.png

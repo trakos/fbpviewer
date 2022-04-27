@@ -22,7 +22,8 @@ rimraf(OUTPUT_DIR, {}, function (err) {
         spritesheet('**/*.png*', {format: 'pixi.js', fullpath: true, trim: false}, function (err) {
             if (err) throw err;
 
-            fs.cpSync(OUTPUT_DIR, "/var/www/web/images", {recursive: true});
+            fs.cpSync(OUTPUT_DIR + '/spritesheet.json', "/var/www/assets/spritesheet.json");
+            fs.cpSync(OUTPUT_DIR + '/spritesheet.png', "/var/www/assets/spritesheet.png");
         });
 
         console.log('done');
