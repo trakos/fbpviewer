@@ -27,6 +27,13 @@ class BlueprintRenderer {
         return a < 0 && b < 0 || a >= 0 && b >= 0 ? C : -C - 1;
     }
 
+    approximateDirectionFromOrientation(orientation) {
+        // Locomotive and train wagons have float orientations, but I'm only supporting integer directions.
+        let direction = Math.round(8 * orientation);
+        direction += 1;
+        return direction % 8;
+    }
+
     getEntityDrawingSpecForEntity(entity) {
         var entityDrawingSpec = this.factorioBlueprintReader.entities[entity.name];
         if (!entityDrawingSpec) {
@@ -37,6 +44,11 @@ class BlueprintRenderer {
         }
         if (entity.direction && entityDrawingSpec.directions && entityDrawingSpec.directions[entity.direction]) {
             entityDrawingSpec = merge({}, entityDrawingSpec, entityDrawingSpec.directions[entity.direction]);
+        } else if (entity.orientation !== undefined) {
+            let direction = this.approximateDirectionFromOrientation(entity.orientation);
+            if (entityDrawingSpec.directions && entityDrawingSpec.directions[direction]) {
+                entityDrawingSpec = merge({}, entityDrawingSpec, entityDrawingSpec.directions[direction]);
+            }
         }
 
         return entityDrawingSpec;

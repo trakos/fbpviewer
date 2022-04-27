@@ -8,6 +8,7 @@ exports.icons = (function () {
         "accumulator",
         "advanced-circuit",
         "arithmetic-combinator",
+        "artillery-wagon",
         "assembling-machine-1",
         "assembling-machine-2",
         "assembling-machine-3",

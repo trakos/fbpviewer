@@ -22,4 +22,5 @@ exports.createEntitiesFunctions = [
     require("./oil_handling"),
     require("./other_entities"),
     require("./tracks"),
+    require('./trains'),
 ]
