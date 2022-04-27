@@ -18,6 +18,7 @@ migrate:
 build-atlas:
 	cd /var/www/atlasgen
 	yarn install --no-bin-links
+	patch -p1 -N < spritesheet.patch
 	yarn run atlasgen
 
 build-assets:

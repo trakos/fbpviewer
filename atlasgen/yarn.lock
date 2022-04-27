@@ -706,10 +706,9 @@ source-map@~0.6.1:
   resolved "https://registry.yarnpkg.com/source-map/-/source-map-0.6.1.tgz#74722af32e9614e9c287a8d0bbde48b5e2f1a263"
   integrity sha512-UjgapumWlbMhkBgzT7Ykc5YXUT46F0iKu8SGXq0bcwP5dz/h0Plj6enJqjz1Zbq2l5WaqYnrVbwWOWMyF3F47g==
 
-spritesheet-js@^1.2.6:
-  version "1.2.6"
-  resolved "https://registry.yarnpkg.com/spritesheet-js/-/spritesheet-js-1.2.6.tgz#0709cdd32204d5b8f503cef108e15b36e31b0818"
-  integrity sha1-BwnN0yIE1bj1A87xCOFbNuMbCBg=
+"spritesheet-js@https://github.com/krzysztof-o/spritesheet.js.git#master":
+  version "1.2.7"
+  resolved "https://github.com/krzysztof-o/spritesheet.js.git#84501a166afa7562289c3887bb42a82fc0edd120"
   dependencies:
     async "~0.2.9"
     binpacking "~0.0.1"
@@ -717,7 +716,7 @@ spritesheet-js@^1.2.6:
     mustache "~0.7.2"
     optimist "~0.6.0"
     platform-command "git+https://gitlab.com/gitlabdev/platform-command.git"
-    underscore "~1.5.2"
+    underscore "1.9.2"
 
 sshpk@^1.7.0:
   version "1.17.0"
@@ -778,15 +777,15 @@ type-check@~0.3.2:
   dependencies:
     prelude-ls "~1.1.2"
 
+underscore@1.9.2:
+  version "1.9.2"
+  resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.9.2.tgz#0c8d6f536d6f378a5af264a72f7bec50feb7cf2f"
+  integrity sha512-D39qtimx0c1fI3ya1Lnhk3E9nONswSKhnffBI0gME9C99fYOkNi04xs8K6pePLhvl1frbDemkaBQ5ikWllR2HQ==
+
 underscore@^1.8.3:
   version "1.13.2"
   resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.13.2.tgz#276cea1e8b9722a8dbed0100a407dda572125881"
   integrity sha512-ekY1NhRzq0B08g4bGuX4wd2jZx5GnKz6mKSqFL4nqBlfyMGiG10gDFhDTMEfYmDL6Jy0FUIZp7wiRB+0BP7J2g==
-
-underscore@~1.5.2:
-  version "1.5.2"
-  resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.5.2.tgz#1335c5e4f5e6d33bbb4b006ba8c86a00f556de08"
-  integrity sha1-EzXF5PXm0zu7SwBrqMhqAPVW3gg=
 
 uri-js@^4.2.2:
   version "4.4.1"

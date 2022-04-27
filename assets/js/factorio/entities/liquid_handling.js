@@ -3,7 +3,7 @@ module.exports = function () {
         'pipe':           {
             image:    {
                 type: 'sprite',
-                path: 'base/graphics/entity/pipe/pipe-straight-horizontal.png'
+                path: 'base/graphics/entity/pipe/pipe-cross.png'
             },
             gridSize: {w: 1, h: 1},
             offset:   {x: -16, y: -16}

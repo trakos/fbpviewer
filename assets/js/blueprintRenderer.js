@@ -42,7 +42,10 @@ class BlueprintRenderer {
         if (entity.type && entityDrawingSpec.types) {
             entityDrawingSpec = merge({}, entityDrawingSpec, entityDrawingSpec.types[entity.type]);
         }
-        if (entity.direction && entityDrawingSpec.directions && entityDrawingSpec.directions[entity.direction]) {
+        if (entity.from_direction !== undefined) {
+            const direction = entity.direction ? entity.direction : '0';
+            entityDrawingSpec = merge({}, entityDrawingSpec, entityDrawingSpec.directions[entity.from_direction + '_' + direction]);
+        } else if (entity.direction && entityDrawingSpec.directions && entityDrawingSpec.directions[entity.direction]) {
             entityDrawingSpec = merge({}, entityDrawingSpec, entityDrawingSpec.directions[entity.direction]);
         } else if (entity.orientation !== undefined) {
             let direction = this.approximateDirectionFromOrientation(entity.orientation);
@@ -261,6 +264,164 @@ class BlueprintRenderer {
 
     }
 
+    getEntityWithNameMatchingRegex(entities, entitiesByYX, y, x, regex) {
+        if (!entitiesByYX[y] || !entitiesByYX[y][x]) {
+            return null;
+        }
+
+        for (const entityIndex of entitiesByYX[y][x]) {
+            const entity = entities[entityIndex];
+            if (entity.name.match(regex)) {
+                return entity;
+            }
+        }
+
+        return null;
+    }
+
+    oppositeDirection(direction) {
+        if (!direction) {
+            direction = 0;
+        }
+
+        switch (direction) {
+            case 0:
+                return 4;
+            case 2:
+                return 6;
+            case 4:
+                return 0;
+            case 6:
+                return 2;
+        }
+    }
+
+    directionTransformation(direction) {
+        if (!direction) {
+            direction = 0;
+        }
+
+        switch (direction) {
+            case 0:
+                return {x: 0, y: -1}
+            case 2:
+                return {x: 1, y: 0};
+            case 4:
+                return {x: 0, y: 1};
+            case 6:
+                return {x: -1, y: 0};
+        }
+    }
+
+    entityHasDirection(entity, direction) {
+        return entity.direction === direction || (!entity.direction && !direction);
+    }
+
+    hasBeltTargetingItFromDirection(entities, entitiesByYX, directedToY, directedToX, direction) {
+        const isX0InHalfGrid = this.isX0OnHalfGrid(entities);
+        const isY0InHalfGrid = this.isY0OnHalfGrid(entities);
+        const targetDirection = this.oppositeDirection(direction);
+        const transformation = this.directionTransformation(direction);
+        const fromY = parseInt(directedToY) + transformation.y;
+        const fromX = parseInt(directedToX) + transformation.x;
+        const belt = this.getEntityWithNameMatchingRegex(entities, entitiesByYX, fromY, fromX, /transport-belt$/i);
+        if (belt !== null) {
+            return this.entityHasDirection(belt, targetDirection);
+        }
+        const underneathie = this.getEntityWithNameMatchingRegex(entities, entitiesByYX, fromY, fromX, /underground-belt$/i);
+        if (underneathie !== null && underneathie.type === 'output' && this.entityHasDirection(underneathie, targetDirection)) {
+            return true;
+        }
+        const splitter = this.getEntityWithNameMatchingRegex(entities, entitiesByYX, fromY, fromX, /splitter$/i);
+        if (splitter !== null && this.entityHasDirection(splitter, targetDirection)) {
+            return true;
+        }
+        // Splitter is 2-high
+        if (targetDirection === 2 || targetDirection === 6) {
+            const diffY = isY0InHalfGrid ? 1 : -1;
+            const splitter2 = this.getEntityWithNameMatchingRegex(entities, entitiesByYX, fromY + diffY, fromX, /splitter$/i);
+            if (splitter2 !== null && this.entityHasDirection(splitter2, targetDirection)) {
+                return true;
+            }
+        }
+        // Splitter is 2-wide
+        if (targetDirection === 0 || targetDirection === 4) {
+            const diffX = isX0InHalfGrid ? -1 : 1;
+            const splitter2 = this.getEntityWithNameMatchingRegex(entities, entitiesByYX, fromY, fromX + diffX, /splitter$/i);
+            if (splitter2 !== null && this.entityHasDirection(splitter2, targetDirection)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    clockwiseDirection(direction, by) {
+        if (!direction) {
+            direction = 0;
+        }
+        direction += by;
+        return direction > 7 ? direction - 8 : direction;
+    }
+
+    counterClockwiseDirection(direction, by) {
+        if (!direction) {
+            direction = 0;
+        }
+        direction -= by;
+        return direction < 0 ? direction + 8 : direction;
+    }
+
+    connectEntities(entities, entitiesByYX) {
+        for (const y in entitiesByYX) {
+            for (const x in entitiesByYX[y]) {
+                for (const entityIndex of entitiesByYX[y][x]) {
+                    const entity = entities[entityIndex];
+                    if (entity.name.match(/transport-belt$/i)) {
+                        if (this.hasBeltTargetingItFromDirection(entities, entitiesByYX, y, x, this.oppositeDirection(entity.direction))) {
+                            continue;
+                        }
+
+                        if (this.hasBeltTargetingItFromDirection(entities, entitiesByYX, y, x, this.counterClockwiseDirection(entity.direction, 2))
+                            && this.hasBeltTargetingItFromDirection(entities, entitiesByYX, y, x, this.clockwiseDirection(entity.direction, 2))) {
+                            continue;
+                        }
+
+                        if (this.hasBeltTargetingItFromDirection(entities, entitiesByYX, y, x, this.counterClockwiseDirection(entity.direction, 2))) {
+                            entity.from_direction = this.counterClockwiseDirection(entity.direction, 2);
+                        }
+
+                        if (this.hasBeltTargetingItFromDirection(entities, entitiesByYX, y, x, this.clockwiseDirection(entity.direction, 2))) {
+                            entity.from_direction = this.clockwiseDirection(entity.direction, 2);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    isX0OnHalfGrid(entities) {
+        if (entities[0]) {
+            var entity = entities[0];
+            var xEndsInHalf = entity.position.x - Math.floor(entity.position.x) > 0.4;
+            var entityDrawingSpec = this.getEntityDrawingSpecForEntity(entity);
+            if (entityDrawingSpec) {
+                var sizeW = entityDrawingSpec.gridSize.w;
+                return (sizeW % 2 == 0) == xEndsInHalf;
+            }
+        }
+    }
+
+    isY0OnHalfGrid(entities) {
+        if (entities[0]) {
+            var entity = entities[0];
+            var yEndsInHalf = entity.position.y - Math.floor(entity.position.y) > 0.4;
+            var entityDrawingSpec = this.getEntityDrawingSpecForEntity(entity);
+            if (entityDrawingSpec) {
+                var sizeH = entityDrawingSpec.gridSize.h;
+                return (sizeH % 2 == 0) == yEndsInHalf;
+            }
+        }
+    }
 
     renderBlueprint(pixiRenderer, stage, blueprint) {
         var entities = blueprint.entities || [];
@@ -283,8 +444,8 @@ class BlueprintRenderer {
         var entitiesByYX = {};
         var allYCoordinates = [];
         forEach(entities, (entity, key) => {
-            var x = parseInt(entity.position.x);
-            var y = parseInt(entity.position.y);
+            var x = parseInt(Math.floor(entity.position.x));
+            var y = parseInt(Math.ceil(entity.position.y));
 
             entitiesByYX[y] = entitiesByYX[y] || {};
             entitiesByYX[y][x] = entitiesByYX[y][x] || [];
@@ -320,6 +481,8 @@ class BlueprintRenderer {
         maxX += 5;
         maxY += 5;
 
+        this.connectEntities(entities, entitiesByYX);
+
         var sizeXY = Math.max(maxX - minX, maxY - minY);
         var minScale = Math.min(1, FBR_CANVAS_WIDTH / (sizeXY * FBR_PIXELS_PER_TILE), FBR_CANVAS_HEIGHT / (sizeXY * FBR_PIXELS_PER_TILE));
 
@@ -329,20 +492,8 @@ class BlueprintRenderer {
         var background = new PIXI.extras.TilingSprite(PIXI.Texture.fromFrame(FBR_IMAGES_PREFIX + this.factorioBlueprintReader.ImagesUI.BACKGROUND), FBR_CANVAS_WIDTH / minScale, FBR_CANVAS_HEIGHT / minScale);
         blueprintContainer.addChild(background);
 
-        var isX0InHalfGrid = false;
-        var isY0InHalfGrid = false;
-        if (entities[0]) {
-            var entity = entities[0];
-            var xEndsInHalf = entity.position.x - Math.floor(entity.position.x) > 0.4;
-            var yEndsInHalf = entity.position.y - Math.floor(entity.position.y) > 0.4;
-            var entityDrawingSpec = this.getEntityDrawingSpecForEntity(entity);
-            if (entityDrawingSpec) {
-                var sizeW = entityDrawingSpec.gridSize.w;
-                var sizeH = entityDrawingSpec.gridSize.h;
-                isX0InHalfGrid = (sizeW % 2 == 0) == xEndsInHalf;
-                isY0InHalfGrid = (sizeH % 2 == 0) == yEndsInHalf;
-            }
-        }
+        var isX0InHalfGrid = this.isX0OnHalfGrid(entities);
+        var isY0InHalfGrid = this.isY0OnHalfGrid(entities);
 
         forEach(tiles, (entity, key) => {
             var spriteLayers;

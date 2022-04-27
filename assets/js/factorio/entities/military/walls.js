@@ -26,7 +26,7 @@ module.exports = function () {
         'stone-wall': {
             image:    {
                 type:   'trim',
-                path:   'base/graphics/entity/wall/wall-single.png',
+                path:   'base/graphics/entity/wall/wall-t.png',
                 number: 0,
                 cols:   2,
                 rows:   1

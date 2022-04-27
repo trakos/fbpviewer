@@ -1,0 +1,116 @@
+Batch is very slow with only 10 images generated at once,
+so speed it up by increasing BATCH_SIZE to 100.
+Also fix image identification not using batch and throwing E2BIG error.
+--- atlasgen/node_modules/spritesheet-js/lib/generator.js	2020-07-20 06:57:00.000000000 +0000
++++ atlasgen/node_modules/spritesheet-js/lib/generator2.js	2022-04-27 06:28:45.849000000 +0000
+@@ -11,7 +11,7 @@
+ var packing = require('./packing/packing.js');
+ var sorter = require('./sorter/sorter.js');
+ 
+-var BATCH_SIZE = 10;
++var BATCH_SIZE = 500;
+ 
+ /**
+  * Generate temporary trimmed image files
+@@ -22,7 +22,7 @@
+  */
+ exports.trimImages = function (files, options, callback) {
+ 	if (!options.trim) return callback(null);
+-	
++
+ 	var uuid = crypto.randomBytes(16).toString("hex");
+ 	var i = 0;
+ 	async.eachSeries(files, function (file, next) {
+@@ -44,46 +44,49 @@
+  * @param {boolean} options.trim is trimming enabled
+  * @param {function} callback
+  */
+-exports.getImagesSizes = function (files, options, callback) {
++exports.getImagesSizes = async function (files, options, callback) {
+ 	var filePaths = files.map(function (file) {
+ 		return '"' + file.path + '"';
+ 	});
+-	exec('identify ' + filePaths.join(' '), function (err, stdout) {
+-		if (err) return callback(new Error('Execution of identify command failed. Ensure that ImageMagick Legacy Tools are installed and added to your PATH.'));
++	var fileBatches = _.chunk(filePaths, BATCH_SIZE);
++	var execPromise = util.promisify(exec);
++	var results = await Promise.all(
++		fileBatches.map(async (fileList, index) => await execPromise('identify ' + fileList.join(' ')))
++	);
++	stdout = results.reduce(((previousValue, currentValue) => previousValue.concat(currentValue)));
+ 
+-		var sizes = stdout.split('\n');
+-		sizes = sizes.splice(0, sizes.length - 1);
+-		sizes.forEach(function (item, i) {
+-			var size = item.match(/ ([0-9]+)x([0-9]+) /);
+-			files[i].width = parseInt(size[1], 10) + options.padding * 2;
+-			files[i].height = parseInt(size[2], 10) + options.padding * 2;
+-			var forceTrimmed = false;
+-			if (options.divisibleByTwo) {
+-				if (files[i].width & 1) {
+-					files[i].width += 1;
+-					forceTrimmed = true;
+-				}
+-				if (files[i].height & 1) {
+-					files[i].height += 1;
+-					forceTrimmed = true;
+-				}
++	var sizes = stdout.split('\n');
++	sizes = sizes.splice(0, sizes.length - 1);
++	sizes.forEach(function (item, i) {
++		var size = item.match(/ ([0-9]+)x([0-9]+) /);
++		files[i].width = parseInt(size[1], 10) + options.padding * 2;
++		files[i].height = parseInt(size[2], 10) + options.padding * 2;
++		var forceTrimmed = false;
++		if (options.divisibleByTwo) {
++			if (files[i].width & 1) {
++				files[i].width += 1;
++				forceTrimmed = true;
++			}
++			if (files[i].height & 1) {
++				files[i].height += 1;
++				forceTrimmed = true;
+ 			}
+-			files[i].area = files[i].width * files[i].height;
+-			files[i].trimmed = false;
++		}
++		files[i].area = files[i].width * files[i].height;
++		files[i].trimmed = false;
+ 
+-			if (options.trim) {
+-				var rect = item.match(/ ([0-9]+)x([0-9]+)[\+\-]([0-9]+)[\+\-]([0-9]+) /);
+-				files[i].trim = {};
+-				files[i].trim.x = parseInt(rect[3], 10) - 1;
+-				files[i].trim.y = parseInt(rect[4], 10) - 1;
+-				files[i].trim.width = parseInt(rect[1], 10) - 2;
+-				files[i].trim.height = parseInt(rect[2], 10) - 2;
++		if (options.trim) {
++			var rect = item.match(/ ([0-9]+)x([0-9]+)[\+\-]([0-9]+)[\+\-]([0-9]+) /);
++			files[i].trim = {};
++			files[i].trim.x = parseInt(rect[3], 10) - 1;
++			files[i].trim.y = parseInt(rect[4], 10) - 1;
++			files[i].trim.width = parseInt(rect[1], 10) - 2;
++			files[i].trim.height = parseInt(rect[2], 10) - 2;
+ 
+-				files[i].trimmed = forceTrimmed || (files[i].trim.width !== files[i].width - options.padding * 2 || files[i].trim.height !== files[i].height - options.padding * 2);
+-			}
+-		});
+-		callback(null, files);
++			files[i].trimmed = forceTrimmed || (files[i].trim.width !== files[i].width - options.padding * 2 || files[i].trim.height !== files[i].height - options.padding * 2);
++		}
+ 	});
++	callback(null, files);
+ };
+ 
+ /**
+@@ -150,8 +153,10 @@
+ 
+ 	var execPromise = util.promisify(exec);
+ 
++	let x = 0;
+ 	var runAllCommands = async () => {
+ 		for (command of commands) {
++			console.log(x++, commands.length);
+ 			await execPromise(command);
+ 		}
+ 	}
